@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/04 19:56:48 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:23:27 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		printc(char c)
 
 void		ft_putnbr(int nb)
 {
-	if (nb == INT32_MAX)
+	if (nb == INT_MAX)
 		prints("-2147483648");
 	else
 	{
