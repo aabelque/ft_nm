@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 16:20:12 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:08:37 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		printc(char c)
 
 void		ft_putnbr(int nb)
 {
-	if (nb == INT_MAX)
+	if (nb < -2147483647)
 		prints("-2147483648");
 	else
 	{
@@ -38,7 +38,7 @@ void		ft_putnbr(int nb)
 			printc('-');
 			nb = -nb;
 		}
-		if (nb <= 9)
+		if (nb < 10)
 			printc(nb + '0');
 		else
 		{
@@ -48,9 +48,9 @@ void		ft_putnbr(int nb)
 	}
 }
 
-int			ft_strlen(char *s)
+size_t			ft_strlen(const char *s)
 {
-	char	*i;
+	const char	*i;
 
 	i = s;
 	while (*i)
@@ -58,7 +58,7 @@ int			ft_strlen(char *s)
 	return (i - s);
 }
 
-void		prints(char *s)
+void		prints(char const *s)
 {
 	write(1, s, ft_strlen(s));
 }

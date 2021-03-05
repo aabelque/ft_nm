@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 16:59:29 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:19:32 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			close_binary(t_env **e);
 int			open_binary(t_env **e, char *bin);
 int			ft_perror(char *s, t_env *e);
 
-int			ft_strlen(char *s);
-void		prints(char *s);
+size_t		ft_strlen(const char *s);
+void		prints(char const *s);
 void		printc(char c);
 void		ft_putnbr(int nb);
 void		hexdump(long n);
