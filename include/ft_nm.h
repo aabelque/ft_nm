@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:29:20 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:30:37 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 	#include </usr/include/linux/elf.h>
 	#include </usr/include/bsd/nlist.h>
 #else
-	ERROR("I only work on MAC OS or LINUX system\n")
+	ERROR("I only work on MAC OS and LINUX system\n")
 #endif
 
 typedef struct	s_env
