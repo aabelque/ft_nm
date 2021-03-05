@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:30:37 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:54:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <limits.h>
 
 #define ERROR(s) prints(s) 
+#define RD PROT_READ
+#define PRIV MAP_PRIVATE
 
 #if __APPLE__
 	#include <mach-o/loader.h>
@@ -38,6 +40,8 @@ typedef struct	s_env
 }				t_env;
 
 
+int			open_binary(t_env **e, char *bin);
+int			ft_perror(char *s, t_env *e);
 int			ft_strlen(char *s);
 void		prints(char *s);
 void		printc(char c);

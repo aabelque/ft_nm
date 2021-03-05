@@ -6,51 +6,31 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:23:27 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:54:46 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-void		printc(char c)
+int			open_binary(t_env **e, char *bin)
 {
-	write(1, &c, 1);
+	if (((*e)->fd = open(bin, O_RDONLY)) < 0)
+		return (ft_perror("Can not open fd\n", *e));
+	if (fstat((*e)->fd, &(*e)->buf) < 0)
+		return (ft_perror("fstat error\n", *e));
+	if (((*e)->p = (char *)mmap(0, (*e)->buf.st_size,
+					RD, PRIV, (*e)->fd, 0)) == MAP_FAILED)
+		return (ft_perror("fstat error\n", *e));
+	return (EXIT_SUCCESS);
 }
 
-void		ft_putnbr(int nb)
+int			ft_perror(char *s, t_env *e)
 {
-	if (nb == INT_MAX)
-		prints("-2147483648");
-	else
-	{
-		if (nb < 0)
-		{
-			printc('-');
-			nb = -nb;
-		}
-		if (nb <= 9)
-			printc(nb + '0');
-		else
-		{
-			ft_putnbr(nb / 10);
-			ft_putnbr(nb % 10);
-		}
-	}
-}
-
-int			ft_strlen(char *s)
-{
-	char	*i;
-
-	i = s;
-	while (*i)
-		i++;
-	return (i - s);
-}
-
-void		prints(char *s)
-{
-	write(1, s, ft_strlen(s));
+	prints(s);
+	if (e->fd)
+		close(e->fd);
+	free(e);
+	return (EXIT_FAILURE);
 }
 
 void		init_env(t_env	**e)
