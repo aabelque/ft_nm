@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:56:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:54:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			main(int ac, char **av)
 	if (open_binary(&e, av[1]))
 		return (EXIT_FAILURE);
 	nm(e->p);
-	close(e->fd);
-	free(e);
+	if (close_binary(&e))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

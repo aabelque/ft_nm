@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:54:44 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:54:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_env
 }				t_env;
 
 
+int			close_binary(t_env **e);
 int			open_binary(t_env **e, char *bin);
 int			ft_perror(char *s, t_env *e);
 int			ft_strlen(char *s);

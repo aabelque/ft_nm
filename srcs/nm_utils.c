@@ -6,11 +6,20 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:54:46 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:54:54 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+
+int			close_binary(t_env **e)
+{
+	if (munmap((*e)->p, (*e)->buf.st_size))
+		return (ft_perror("Can't munmap ptr\n", *e));
+	close((*e)->fd);
+	free(*e);
+	return (EXIT_SUCCESS);
+}
 
 int			open_binary(t_env **e, char *bin)
 {
