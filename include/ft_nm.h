@@ -6,18 +6,24 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:09:34 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:21:46 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/mman.h>
-#include <mach-o/loader.h>
-#include <mach-o/nlist.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
+
+#if __APPLE__
+	#include <mach-o/loader.h>
+	#include <mach-o/nlist.h>
+#elif __linux__
+	#include </usr/include/linux/elf.h>
+	#include </usr/include/bsd/nlist.h>
+#endif
 
 typedef struct	s_env
 {
