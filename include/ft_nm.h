@@ -6,8 +6,31 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/04 13:39:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:09:34 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/mman.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
 
+typedef struct	s_env
+{
+	int32_t		fd;
+	char		*p;
+	struct stat	buf; 
+
+}				t_env;
+
+
+int			ft_strlen(char *s);
+void		prints(char *s);
+void		printc(char c);
+void		ft_putnbr(int nb);
+void		init_env(t_env **e);
+/* void		nm(); */
