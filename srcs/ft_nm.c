@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 19:18:27 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:32:15 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static void		handle_64(t_env *e)
 	e->lc = (void *)e->p + sizeof(*e->header_64);
 	while (i++ < ncmds)
 	{
-		if (e->lc->cmd == LC_SYMTAB)
+		if (e->lc->cmd == SYMTAB)
 		{
 			e->sym = (struct symtab_command *)e->lc;
+			ft_putnbr(e->sym->nsyms);
+			write(1, "\n", 1);
 			break ;
 		}
 		e->lc = (void *)e->lc + e->lc->cmdsize;
@@ -37,7 +39,7 @@ static void		nm(t_env *e)
 	int		magic_nb;
 
 	magic_nb = *(int *)e->p;
-	if (magic_nb == MH_MAGIC_64)
+	if (magic_nb == MAGIC_64)
 		handle_64(e);
 }
 
