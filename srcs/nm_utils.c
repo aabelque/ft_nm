@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 15:54:54 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:48:36 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,8 @@ void		init_env(t_env	**e)
 	*e = (t_env *)malloc(sizeof(t_env));
 	(*e)->fd = 0;
 	(*e)->p = NULL;
+	(*e)->header_64 = NULL;
+	(*e)->header_32 = NULL;
+	(*e)->lc = NULL;
+	(*e)->sym = NULL;
 }

@@ -6,11 +6,21 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 09:40:18 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:20:12 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+
+void		hexdump(long n)
+{
+	if (n > 15)
+		hexdump(n / 16);
+	if (n % 16 < 10)
+		printc((n % 16) + 48);
+	else
+		printc((n % 16) - 10 + 97);
+}
 
 void		printc(char c)
 {
