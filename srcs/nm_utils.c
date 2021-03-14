@@ -6,49 +6,82 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 19:15:40 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:14:42 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int			close_binary(t_env **e)
+void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *))
 {
-	if (munmap((*e)->p, (*e)->buf.st_size))
-		return (ft_perror("Can't munmap ptr\n", *e));
-	close((*e)->fd);
-	free(*e);
+	int		last;
+	int		i;
+
+	if (left >= right)
+		return ;
+	ft_swap_symbol(sym, left, (left + right) / 2);
+	last = left;
+	for (i = left + 1; i <= right; i++)
+		if (comp(sym[i].name, sym[left].name) < 0)
+			ft_swap_symbol(sym, ++last, i);
+	ft_swap_symbol(sym, left, last);
+	ft_qsort_symbol(sym, left, last - 1, comp);
+	ft_qsort_symbol(sym, last + 1, right, comp);
+}
+
+void		ft_swap_symbol(t_symbol *sym, int i, int j)
+{
+	t_symbol	tmp;
+
+	tmp = sym[i];
+	sym[i] = sym[j];
+	sym[j] = tmp;
+}
+
+int			close_binary(void **ptr, int *fd, struct stat *buff)
+{
+	if (munmap(*ptr, buff->st_size))
+		return (ft_perror("Can't munmap ptr\n", *fd));
+	close(*fd);
 	return (EXIT_SUCCESS);
 }
 
-int			open_binary(t_env **e, char *bin)
+int			open_binary(char *bin, int *fd, void **ptr, struct stat *buff)
 {
-	if (((*e)->fd = open(bin, O_RDONLY)) < 0)
-		return (ft_perror("Can not open fd\n", *e));
-	if (fstat((*e)->fd, &(*e)->buf) < 0)
-		return (ft_perror("fstat error\n", *e));
-	if (((*e)->p = (char *)mmap(0, (*e)->buf.st_size,
-					RD, PRIV, (*e)->fd, 0)) == MAP_FAILED)
-		return (ft_perror("fstat error\n", *e));
+	if ((*fd = open(bin, O_RDONLY)) < 0)
+	{
+		if (*fd == -1 && errno == EACCES)
+			return (ft_perror("Permission denied.\n", *fd));
+		else if (*fd == -1)
+			return (ft_perror("No such file or directory.\n", *fd));
+	}
+	if (fstat(*fd, buff) < 0)
+		return (ft_perror("Not a valid open file descriptor.\n", *fd));
+	if (S_ISDIR(buff->st_mode))
+		return (ft_perror("Is a directory.\n", *fd));
+	if ((*ptr = mmap(0, buff->st_size, RD, PRIV, *fd, 0)) == MAP_FAILED)
+		return (ft_perror("Mmap failed\n", *fd));
 	return (EXIT_SUCCESS);
 }
 
-int			ft_perror(char *s, t_env *e)
+int			ft_perror(char *s, int fd)
 {
 	prints(s);
-	if (e->fd)
-		close(e->fd);
-	free(e);
+	if (fd)
+		close(fd);
 	return (EXIT_FAILURE);
 }
 
-void		init_env(t_env	**e)
+t_section		*sections(void)
 {
-	*e = (t_env *)malloc(sizeof(t_env));
-	(*e)->fd = 0;
-	(*e)->p = NULL;
-	(*e)->header_64 = NULL;
-	(*e)->header_32 = NULL;
-	(*e)->lc = NULL;
-	(*e)->sym = NULL;
+	static t_section	sections = {0, 0, 0, 0};
+	return (&sections);
+}
+
+void		init_sections(void)
+{
+	sections()->index = 0;
+	sections()->text = 0;
+	sections()->data = 0;
+	sections()->bss = 0;
 }

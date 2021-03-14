@@ -6,20 +6,54 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 18:08:37 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/14 21:58:05 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+#include <string.h> 
 
-void		hexdump(long n)
+char		*ft_strcpy(char *dest, const char *src)
 {
-	if (n > 15)
-		hexdump(n / 16);
-	if (n % 16 < 10)
-		printc((n % 16) + 48);
-	else
-		printc((n % 16) - 10 + 97);
+	char	*tmp;
+
+	tmp = dest;
+	while ((*dest++ = *src++))
+		;
+	return (tmp);
+}
+
+int			ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 == *s2)
+	{
+		if (*s1 == '\0')
+			return (0);
+		++s1;
+		++s2;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+
+void		hexdump(uint64_t n)
+{
+	int			i, j;   
+	int			digit;
+	static char	hex[15];
+
+	j = 15;
+	for (i = 0; i < 16; i++)
+	{
+		digit = n & 0xf;
+		if (digit >= 10)
+			digit += 'a' - 10;
+		else
+			digit += '0';
+		hex[j--] = digit;
+		n >>= 4;
+	}
+	hex[j] = 0;
+	prints(hex);
 }
 
 void		printc(char c)
@@ -60,5 +94,7 @@ size_t			ft_strlen(const char *s)
 
 void		prints(char const *s)
 {
+	if (!s)
+		return ;
 	write(1, s, ft_strlen(s));
 }

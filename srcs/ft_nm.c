@@ -6,54 +6,38 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/05 19:32:15 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/11 20:47:40 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static void		handle_64(t_env *e)
-{
-	int		ncmds;
-	int		i;
-
-	i = 0;
-	e->header_64 = (struct mach_header_64 *)e->p;
-	ncmds = e->header_64->ncmds;
-	e->lc = (void *)e->p + sizeof(*e->header_64);
-	while (i++ < ncmds)
-	{
-		if (e->lc->cmd == SYMTAB)
-		{
-			e->sym = (struct symtab_command *)e->lc;
-			ft_putnbr(e->sym->nsyms);
-			write(1, "\n", 1);
-			break ;
-		}
-		e->lc = (void *)e->lc + e->lc->cmdsize;
-	}
-}
-
-static void		nm(t_env *e)
+static int		nm(char *ptr, off_t offset)
 {
 	int		magic_nb;
 
-	magic_nb = *(int *)e->p;
+	init_sections();
+	magic_nb = *(int *)ptr;
 	if (magic_nb == MAGIC_64)
-		handle_64(e);
+		if (!handle_64(ptr))
+			return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int				main(int ac, char **av)
 {
-	t_env	*e;
+	int		fd;
+	off_t	offset;
+	void	*ptr;
+	struct stat buff;
 
-	init_env(&e);
 	if (ac != 2)
-		return (ft_perror("USAGE: ./ft_nm <input files>\n", e));
-	if (open_binary(&e, av[1]))
+		return (ft_perror("USAGE: ./ft_nm <input files>\n", 0));
+	if (open_binary(av[1], &fd, &ptr, &buff))
 		return (EXIT_FAILURE);
-	nm(e);
-	if (close_binary(&e))
+	offset = buff.st_size;
+	nm(ptr, offset);
+	if (close_binary(&ptr, &fd, &buff))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

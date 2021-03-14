@@ -6,7 +6,7 @@
 #    By: aabelque <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:38:41 by aabelque          #+#    #+#              #
-#    Updated: 2021/03/05 09:40:43 by aabelque         ###   ########.fr        #
+#    Updated: 2021/03/14 22:19:27 by aabelque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CFLAG = -Wall -Wextra -Werror -Wpadded
 SRC = ft_nm.c
 SRC += nm_utils.c
 SRC += libc.c
+SRC += nm_64.c
 
 OBJS = $(addprefix $(O_DIR),$(SRC:.c=.o))
 
