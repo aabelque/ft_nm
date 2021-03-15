@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/14 20:23:56 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:11:41 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
 	#include <mach-o/loader.h>
 	#include <mach-o/nlist.h>
 	# define MAGIC_64 MH_MAGIC_64
+	# define MAGIC_32 MH_MAGIC
 	# define SYMTAB LC_SYMTAB
 	# define SEGMENT64 LC_SEGMENT_64
+	# define SEGMENT32 LC_SEGMENT
 # elif __linux__
 	#include </usr/include/linux/elf.h>
 	#include </usr/include/bsd/nlist.h>
@@ -54,6 +56,7 @@ typedef struct	s_section
 }				t_section;
 
 int			handle_64(char *ptr);
+int			handle_32(char *ptr);
 void		init_sections(void);
 t_section	*sections(void);
 int			close_binary(void **ptr, int *fd, struct stat *buff);
@@ -69,5 +72,5 @@ size_t		ft_strlen(const char *s);
 void		prints(char const *s);
 void		printc(char c);
 void		ft_putnbr(int nb);
-void		hexdump(uint64_t n);
-char		*ft_strcpy(char *dest, const char *src);
+void		hexdump32(uint32_t n);
+void		hexdump64(uint64_t n);

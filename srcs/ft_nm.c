@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/11 20:47:40 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/15 13:30:49 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static int		nm(char *ptr, off_t offset)
 	magic_nb = *(int *)ptr;
 	if (magic_nb == MAGIC_64)
 		if (!handle_64(ptr))
+			return (EXIT_FAILURE);
+	if (magic_nb == MAGIC_32)
+		if (!handle_32(ptr))
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
