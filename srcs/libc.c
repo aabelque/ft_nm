@@ -6,12 +6,45 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/15 14:11:43 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:11:56 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 #include <string.h> 
+
+static int ft_isspace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\f' || c == '\r' || c == '\n'
+			|| c == '\v')
+		return (1);
+	return (0);
+}
+
+int		ft_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	nbr;
+
+	i = 0;
+	sign = 1;
+	nbr = 0;
+	if (!str[i])
+		return (0);
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i++] == '-')
+			sign = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = (nbr * 10) + (str[i++] - '0');
+	}
+	return (nbr * sign);
+}
 
 int			ft_strcmp(const char *s1, const char *s2)
 {
@@ -25,46 +58,16 @@ int			ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void		hexdump32(uint32_t n)
+void		hexdump(uintmax_t addr, size_t base, size_t len)
 {
-	int			i, j;   
-	int			digit;
-	static char	hex[7];
+	char	value;
+	char	hex[16] = "0123456789abcdef";
 
-	j = 7;
-	for (i = 0; i < 8; i++)
-	{
-		digit = n & 0xf;
-		if (digit >= 10)
-			digit += 'a' - 10;
-		else
-			digit += '0';
-		hex[j--] = digit;
-		n >>= 4;
-	}
-	hex[j] = 0;
-	prints(hex);
-}
-
-void		hexdump64(uint64_t n)
-{
-	int			i, j;   
-	int			digit;
-	static char	hex[15];
-
-	j = 15;
-	for (i = 0; i < 16; i++)
-	{
-		digit = n & 0xf;
-		if (digit >= 10)
-			digit += 'a' - 10;
-		else
-			digit += '0';
-		hex[j--] = digit;
-		n >>= 4;
-	}
-	hex[j] = 0;
-	prints(hex);
+	if (len < 1)
+		return ;
+	hexdump(addr / base, base, len - 1);
+	value = hex[(addr % base)];
+	write(1, &value, 1);
 }
 
 void		printc(char c)

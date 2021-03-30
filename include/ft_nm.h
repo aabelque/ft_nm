@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/15 14:11:41 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:03:43 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,19 @@
 
 # if __APPLE__
 	#include <mach-o/loader.h>
+	#include <mach-o/fat.h>
 	#include <mach-o/nlist.h>
+	#include <ar.h>
+	# define AR_MAGIC 0x72613c21
+	# define AR_CIGAM 0x213c6172
 	# define MAGIC_64 MH_MAGIC_64
+	# define CIGAM_64 MH_CIGAM_64
 	# define MAGIC_32 MH_MAGIC
+	# define CIGAM_32 MH_CIGAM
+	# define FAT FAT_MAGIC
+	# define TAF FAT_CIGAM
+	# define FAT64 FAT_MAGIC_64
+	# define TAF64 FAT_CIGAM_64
 	# define SYMTAB LC_SYMTAB
 	# define SEGMENT64 LC_SEGMENT_64
 	# define SEGMENT32 LC_SEGMENT
@@ -55,22 +65,36 @@ typedef struct	s_section
 	uint32_t	bss;
 }				t_section;
 
-int			handle_64(char *ptr);
-int			handle_32(char *ptr);
-void		init_sections(void);
-t_section	*sections(void);
-int			close_binary(void **ptr, int *fd, struct stat *buff);
-int			open_binary(char *bin, int *fd, void **ptr, struct stat *buff);
-int			ft_perror(char *s, int fd);
-void		sort_symbols(t_symbol *sym, uint32_t nsyms);
-void		ft_swap_symbol(t_symbol *sym, int i, int j);
-void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
+int						handle_64(void *ptr, void *offset);
+int						handle_32(void *ptr, void *offset);
+int						fat32(void *ptr, void *offset, char *bin);
+int						fat64(void *ptr, void *offset, char *bin);
+int						ar(void *ptr, void *offset, char *bin);
+int						close_binary(void **ptr, int *fd, struct stat *buff);
+int						open_binary(char *bin, int *fd, void **ptr, struct stat *buff);
+int						nm(void *ptr, void *offset, char *bin);
+int						ft_perror(char *s, int fd);
+int						check_offset(void *ptr, void *offset);
+uint32_t				swap32(uint32_t x);
+uint32_t				ppc32(uint32_t x);
+uint64_t				ppc64(uint64_t x);
+uint64_t				swap64(uint64_t x);
+void					set_ppc(uint8_t ppc);
+void					init_sections(void);
+void					sort_symbols(t_symbol *sym, uint32_t nsyms);
+void					ft_swap_symbol(t_symbol *sym, int i, int j);
+void					ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
+struct load_command		*swaplc_32(struct load_command *lc);
+struct symtab_command	*swapsym_32(struct symtab_command *sym);
+struct nlist			swapnlst_32(struct nlist nlst);
+t_section				*sections(void);
 
-int			ft_strcmp(const char *s1, const char *s2);
-char		*ft_strdup(const char *s);
-size_t		ft_strlen(const char *s);
-void		prints(char const *s);
-void		printc(char c);
-void		ft_putnbr(int nb);
-void		hexdump32(uint32_t n);
-void		hexdump64(uint64_t n);
+int						ft_strcmp(const char *s1, const char *s2);
+int						ft_atoi(const char *str);
+size_t					ft_strlen(const char *s);
+void					prints(char const *s);
+void					printc(char c);
+void					ft_putnbr(int nb);
+void					hexdump(uintmax_t addr, size_t base, size_t len);
+char					*ft_strdup(const char *s);
+

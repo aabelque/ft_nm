@@ -6,24 +6,35 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/15 14:11:46 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:55:39 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
+int			check_offset(void *ptr, void  *offset)
+{
+	if (ptr > offset)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *))
 {
 	int		last;
 	int		i;
+	int		r;
 
 	if (left >= right)
 		return ;
 	ft_swap_symbol(sym, left, (left + right) / 2);
 	last = left;
 	for (i = left + 1; i <= right; i++)
-		if (comp(sym[i].name, sym[left].name) < 0)
+	{
+		r = comp(sym[i].name, sym[left].name);
+		if (r < 0 || (r == 0 && sym[i].n_value < sym[left].n_value))
 			ft_swap_symbol(sym, ++last, i);
+	}
 	ft_swap_symbol(sym, left, last);
 	ft_qsort_symbol(sym, left, last - 1, comp);
 	ft_qsort_symbol(sym, last + 1, right, comp);
