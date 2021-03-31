@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 21:33:10 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/29 19:49:02 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:48:20 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		ar(void *ptr, void *offset, char *bin)
 		while (!str[len++])
 			;
 		print_archive(str, bin);
-		nm(ptr + sizeof(struct ar_hdr) + (len - 1), offset, bin);
+		if (nm(ptr + sizeof(struct ar_hdr) + (len - 1), offset, bin))
+			return (ft_perror("Corrupted\n", 0));
 		ptr += ft_atoi(ar->ar_size) + sizeof(struct ar_hdr);
 	}
 	return (EXIT_SUCCESS);

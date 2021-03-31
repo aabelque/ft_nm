@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:49:50 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/30 10:07:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:46:30 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int					fat32(void *ptr, void *offset, char *bin)
 	while (i++ < narch)
 	{
 		find_arch(arch->cputype, arch->cpusubtype, bin);
-		nm(ptr + swap32(arch->offset), offset, bin);
+		if (nm(ptr + swap32(arch->offset), offset, bin))
+			return (ft_perror("Corrupted\n", 0));
 		if (i < narch)
 			write(1, "\n", 1);
 		arch++;

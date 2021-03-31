@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:19:51 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/30 10:06:17 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/30 21:59:15 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int			handle_32(void *ptr, void *offset)
 		return (ft_perror("Corrupted file\n", 0));
 	for (i = 0; i < ncmds; i++)
 	{
+		if (check_offset(lc, offset))
+			return (ft_perror("Corrupted\n", 0));
 		if (ppc32(lc->cmd) == SEGMENT32)
 			get_section32(ptr, (struct segment_command *)lc, offset);
 		if (ppc32(lc->cmd) == SYMTAB)

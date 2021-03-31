@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/30 10:50:26 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:24:13 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		nm(void *ptr, void  *offset, char *bin)
 				return (EXIT_FAILURE);
 			break;
 		default:
-			return (ft_perror("Invalid magic number\n", 0));
+			return (ft_perror("No magic number\n", 0));
 	}
 	return (EXIT_SUCCESS);
 }

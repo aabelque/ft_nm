@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/29 15:55:39 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:59:25 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			open_binary(char *bin, int *fd, void **ptr, struct stat *buff)
 	if (S_ISDIR(buff->st_mode))
 		return (ft_perror("Is a directory.\n", *fd));
 	if ((*ptr = mmap(0, buff->st_size, RD, PRIV, *fd, 0)) == MAP_FAILED)
-		return (ft_perror("Mmap failed\n", *fd));
+		return (ft_perror("Can't mmap\n", *fd));
 	return (EXIT_SUCCESS);
 }
 
