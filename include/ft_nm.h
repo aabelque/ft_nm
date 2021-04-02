@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/01 11:40:36 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:20:36 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,15 @@ typedef struct	s_section
 	uint32_t	bss;
 }				t_section;
 
+/* ******************** ELF files ******************** */
+int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
+int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
+int						nm_elf(char *ptr, char *offset, char *bin);
+int						check_offset_elf(char *ptr, char *offset);
+
+
+/* ******************** Mach-o file ******************** */
+
 int						handle_64(void *ptr, void *offset);
 int						handle_32(void *ptr, void *offset);
 int						fat32(void *ptr, void *offset, char *bin);
@@ -74,8 +83,14 @@ int						ar(void *ptr, void *offset, char *bin);
 int						close_binary(void **ptr, int *fd, struct stat *buff);
 int						open_binary(char *bin, int *fd, void **ptr, struct stat *buff);
 int						nm(void *ptr, void *offset, char *bin);
-int						ft_perror(char *s, int fd);
 int						check_offset(void *ptr, void *offset);
+struct load_command		*swaplc_32(struct load_command *lc);
+struct symtab_command	*swapsym_32(struct symtab_command *sym);
+struct nlist			swapnlst_32(struct nlist nlst);
+
+/* ******************** SHARED FUNCTIONS ******************** */
+
+int						ft_perror(char *s, int fd);
 uint32_t				swap32(uint32_t x);
 uint32_t				ppc32(uint32_t x);
 uint64_t				ppc64(uint64_t x);
@@ -85,10 +100,9 @@ void					init_sections(void);
 void					sort_symbols(t_symbol *sym, uint32_t nsyms);
 void					ft_swap_symbol(t_symbol *sym, int i, int j);
 void					ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
-struct load_command		*swaplc_32(struct load_command *lc);
-struct symtab_command	*swapsym_32(struct symtab_command *sym);
-struct nlist			swapnlst_32(struct nlist nlst);
 t_section				*sections(void);
+
+/* ******************** LIB C ******************** */
 
 int						ft_strcmp(const char *s1, const char *s2);
 int						ft_atoi(const char *str);

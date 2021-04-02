@@ -6,13 +6,13 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/31 20:33:02 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:20:36 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int			check_offset(void *ptr, void  *offset)
+int			check_offset_elf(char *ptr, char  *offset)
 {
 	if (ptr > offset)
 		return (EXIT_FAILURE);
@@ -47,7 +47,7 @@ void		ft_swap_symbol(t_symbol *sym, int i, int j)
 	sym[j] = tmp;
 }
 
-int			close_binary(void **ptr, int *fd, struct stat *buff)
+int			close_binary_elf(char **ptr, int *fd, struct stat *buff)
 {
 	if (munmap(*ptr, buff->st_size))
 		return (ft_perror("Can't munmap ptr\n", *fd));
@@ -55,7 +55,7 @@ int			close_binary(void **ptr, int *fd, struct stat *buff)
 	return (EXIT_SUCCESS);
 }
 
-int			open_binary(char *bin, int *fd, void **ptr, struct stat *buff)
+int			open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff)
 {
 	if ((*fd = open(bin, O_RDONLY)) < 0)
 	{
