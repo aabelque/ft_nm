@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 15:48:55 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:49:47 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int			nm_elf(char *ptr, char *offset, char *bin)
 {
+	write(1, "X", 1);
+	write(1, "\n", 1);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	if ((unsigned char)ptr[ELFMAG0] == 0x7f &&
@@ -36,11 +38,8 @@ int			main(int ac, char **av)
 	i = 0;
 	if (ac < 2)
 		return (ft_perror("USAGE: ./ft_nm <input files>\n", 0));
-	ft_putnbr(ac);
 	while (++i < ac)
 	{
-		write(1, "X", 1);
-		write(1, "\n", 1);
 		if (ac > 2 && i == 1)
 			write(1, "\n", 1);
 		if (ac > 2)
