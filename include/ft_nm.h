@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/29 19:03:43 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:40:36 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <limits.h>
 #include <stdint.h>
 #include <errno.h>
+#include <string.h> 
 
 # define ERROR(s) prints(s) 
 # define RD PROT_READ
