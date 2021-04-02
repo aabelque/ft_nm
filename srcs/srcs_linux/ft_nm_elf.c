@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 15:46:22 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:47:02 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int			main(int ac, char **av)
 	char		*ptr;
 	struct stat	buff;
 
-	write(1, "X", 1);
-	write(1, "\n", 1);
 	i = 1;
 	if (ac < 2)
 		return (ft_perror("USAGE: ./ft_nm <input files>\n", 0));
 	while (++i < ac)
 	{
+		write(1, "X", 1);
+		write(1, "\n", 1);
 		if (ac > 2 && i == 1)
 			write(1, "\n", 1);
 		if (ac > 2)
