@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 15:05:15 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:07:59 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int			nm(void *ptr, void *offset, char *bin)
 	char	*p = (char *)ptr;
 	if (check_offset(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
+	printc(p[EI_MAG1]);
+	write(1, "\n", 1);
 	if ((unsigned char)p[EI_MAG0] == 0x7f &&
 			(unsigned char)p[EI_MAG1] == 'E' &&
 			(unsigned char)p[EI_MAG2] == 'L' &&
