@@ -6,7 +6,7 @@
 #    By: aabelque <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:38:41 by aabelque          #+#    #+#              #
-#    Updated: 2021/04/02 12:14:39 by aabelque         ###   ########.fr        #
+#    Updated: 2021/04/02 14:33:41 by aabelque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ MAKE = make
 H_DIR = include/
 C_DIR_MAC = srcs/srcs_macos/
 C_DIR_LINUX = srcs/srcs_linux/
-C_DIR_SHARED = ../shared_srcs/
 O_DIR = objs/
 
 NAME = ft_nm
@@ -25,7 +24,7 @@ CC = gcc
 DEBUG = -g3
 CFLAG = -Wall -Wextra -Werror -Wpadded
 
-SRC_LINUX = ft_nm_linux.c
+SRC_LINUX = ft_nm_elf.c
 SRC_LINUX += nm_utils.c
 SRC_LINUX += libc.c
 SRC_LINUX += swap.c
