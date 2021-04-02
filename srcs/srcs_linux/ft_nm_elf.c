@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 14:55:44 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:58:31 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int			nm(void *ptr, void *offset, char *bin)
 {
 	if (check_offset(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
-	if (ft_strcmp((unsigned char)ptr[ELFMAG], "\177ELF"))
+	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
+			(unsigned char)ptr[EI_MAG1] == 'E' &&
+			(unsigned char)ptr[EI_MAG2] == 'L' &&
+			(unsigned char)ptr[EI_MAG3] == 'F')
 		prints("It's an elf file\n");
 	return (EXIT_SUCCESS);
 
