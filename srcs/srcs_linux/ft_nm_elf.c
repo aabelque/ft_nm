@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 16:06:40 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:23:48 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ int			nm_elf(char *ptr, char *offset, char *bin)
 {
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
-	if ((char *)ptr[ELFMAG] == "\177ELF")
-		prints("It's fine\n");
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
 			(unsigned char)ptr[EI_MAG1] == 'E' &&
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
 			(unsigned char)ptr[EI_MAG3] == 'F')
 	{
-		prints("It's an elf file\n");
+		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS64)
+			prints("Elf class 64\n");
 	}
 	return (EXIT_SUCCESS);
 
