@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 15:20:36 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/06 19:23:29 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
 int						nm_elf(char *ptr, char *offset, char *bin);
 int						check_offset_elf(char *ptr, char *offset);
+int						elf64(char *ptr, char *offset);
 
 
 /* ******************** Mach-o file ******************** */

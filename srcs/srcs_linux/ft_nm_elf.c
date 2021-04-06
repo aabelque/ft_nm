@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 16:23:48 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/06 19:23:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int			nm_elf(char *ptr, char *offset, char *bin)
 			(unsigned char)ptr[EI_MAG3] == 'F')
 	{
 		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS64)
-			prints("Elf class 64\n");
+			if (elf64(ptr, offset))
+				return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 
