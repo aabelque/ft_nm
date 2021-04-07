@@ -6,19 +6,24 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/06 19:53:50 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:21:49 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int		elf64(char *ptr, char *offset)
+int			elf64(char *ptr, char *offset)
 {
+	short	lendian = 0;
+	struct Elf64_Ehdr	*header;
+
+	header = (struct Elf64_Ehdr *)ptr;
+	ft_putnbr(header->e_phnum);
+	write(1, "\n", 1);
+	ft_putnbr(header->e_shnum);
+	write(1, "\n", 1);
 	if ((unsigned char)ptr[EI_DATA] == ELFDATA2LSB)
-		prints("Little endian\n");
-	else if ((unsigned char)ptr[EI_DATA] == ELFDATA2MSB)
-		prints("Big endian\n");
-	if ((unsigned char)ptr[EI_OSABI] == ELFOSABI_NONE)
-		prints("UNIX system V ABI\n");
+		lendian = 1;
+	
 	return (EXIT_SUCCESS);
 }
