@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/07 14:21:49 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:26:29 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int			elf64(char *ptr, char *offset)
 {
-	short	lendian = 0;
-	struct Elf64_Ehdr	*header;
+	short				lendian = 0;
+	Elf64_Ehdr			*header;
 
-	header = (struct Elf64_Ehdr *)ptr;
+	header = (Elf64_Ehdr *)ptr;
 	ft_putnbr(header->e_phnum);
 	write(1, "\n", 1);
 	ft_putnbr(header->e_shnum);
