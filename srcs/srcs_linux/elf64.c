@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/07 15:28:59 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:46:22 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			elf64(char *ptr, char *offset)
 	header = (Elf64_Ehdr *)ptr;
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
-	sect = (void *)header + (header->e_shoff + header->e_phentsize * header->e_shstrndx);
+	sect = (void *)header + (header->e_shoff * header->e_shstrndx);
 	prints((const char *)ptr + sect->sh_offset);
 
 	
