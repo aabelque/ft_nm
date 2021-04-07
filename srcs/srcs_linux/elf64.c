@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/07 18:13:56 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:15:17 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			elf64(char *ptr, char *offset)
 	for (int i = 0; i < header->e_shnum; i++)
 	{
 		program_hdr = (Elf64_Phdr *)(void *)ptr + (header->e_phoff + header->e_phentsize * i);
-		ft_putnbr(program_hdr->p_type);
+		ft_putnbr(swap64(program_hdr->p_type));
 	}
 
 	
