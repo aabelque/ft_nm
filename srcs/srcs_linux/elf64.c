@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/08 11:15:13 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:42:49 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int			elf64(char *ptr, char *offset)
 	{
 		ph = (Elf64_Phdr *)((char *)ptr + (eh->e_phoff + eh->e_phentsize * i));
 		if (ph->p_type == PT_DYNAMIC)
+		{
+			ft_putnbr(ph->p_type);
+			write(1, "\n", 1);
+		}
+		if (ph->p_type == PT_LOAD)
 		{
 			ft_putnbr(ph->p_type);
 			write(1, "\n", 1);
