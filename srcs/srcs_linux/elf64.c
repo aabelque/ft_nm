@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/09 13:23:14 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/09 13:26:06 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ static int	get_dynamic_table(Elf64_Dyn *dyn)
 	}
 	if (stringtable == NULL)
 		return (ft_perror("There is no string table\n", 0));
-	/* prints(stringtable); */
-	/* write(1, "\n", 1); */
+	while (42)
+	{
+		if (dyn[i].d_tag == DT_NULL)
+			break ;
+		if (dyn[i].d_tag == DT_NEEDED)
+			prints(stringtable[dyn[i].d_un.d_val]);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
 
