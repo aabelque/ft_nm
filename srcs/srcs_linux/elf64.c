@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/09 13:26:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/09 13:26:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	get_dynamic_table(Elf64_Dyn *dyn)
 		if (dyn[i].d_tag == DT_NULL)
 			break ;
 		if (dyn[i].d_tag == DT_NEEDED)
-			prints(stringtable[dyn[i].d_un.d_val]);
+			prints(&stringtable[dyn[i].d_un.d_val]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
