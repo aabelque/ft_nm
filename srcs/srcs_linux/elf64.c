@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 10:49:28 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 10:50:13 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			elf64(char *ptr, char *offset)
 		if (ph->p_type == PT_LOAD)
 		{
 			load_offset = ph->p_offset;
-			load_addr = ph->p_vaddr;
+			load_addr = (const char *)ph->p_vaddr;
 		}
 		if (ph->p_type == PT_DYNAMIC)
 			if (get_dynamic_table(ptr, (Elf64_Dyn *)(ptr + ph->p_offset), load_addr, load_offset))
