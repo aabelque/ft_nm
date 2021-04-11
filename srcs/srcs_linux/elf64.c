@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 15:29:12 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:29:38 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			elf64(char *ptr, char *offset)
 		lendian = 1;
 	ft_putnbr(lendian);
 	write(1, "\n", 1);
-	ft_putnbr(swap64(eh->e_phoff));
+	ft_putnbr(eh->e_phoff);
 	write(1, "\n", 1);
 	ft_putnbr(eh->e_shoff);
 	write(1, "\n", 1);
