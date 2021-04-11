@@ -6,33 +6,39 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/09 13:26:50 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 10:49:28 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static int	get_dynamic_table(Elf64_Dyn *dyn)
+static int	get_dynamic_table(char *ptr, Elf64_Dyn *dyn, const char *addr, int	offset)
 {
 	int			i = 0;
-	const char	*stringtable = NULL;
+	int			stroffset;
+	const char	*straddr = NULL;
+	const char	*strtab = NULL;
 
 	while (42)
 	{
 		if (dyn[i].d_tag == DT_NULL)
 			break ;
 		if (dyn[i].d_tag == DT_STRTAB)
-			stringtable = (const char *)dyn[i].d_un.d_ptr;
+		{
+			straddr = (const char *)dyn[i].d_un.d_ptr;
+			stroffset = offset + (straddr - addr);
+			strtab = ptr + stroffset;
+		}
 		i++;
 	}
-	if (stringtable == NULL)
+	if (strtab == NULL)
 		return (ft_perror("There is no string table\n", 0));
 	while (42)
 	{
 		if (dyn[i].d_tag == DT_NULL)
 			break ;
 		if (dyn[i].d_tag == DT_NEEDED)
-			prints(&stringtable[dyn[i].d_un.d_val]);
+			prints(&strtab[dyn[i].d_un.d_val]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -40,9 +46,11 @@ static int	get_dynamic_table(Elf64_Dyn *dyn)
 
 int			elf64(char *ptr, char *offset)
 {
-	short				lendian = 0;
-	Elf64_Ehdr			*eh;
-	Elf64_Phdr			*ph;
+	short		lendian = 0;
+	int			load_offset;
+	const char	*load_addr = NULL;
+	Elf64_Ehdr	*eh;
+	Elf64_Phdr	*ph;
 
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
@@ -50,8 +58,13 @@ int			elf64(char *ptr, char *offset)
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
 		ph = (Elf64_Phdr *)((char *)ptr + (eh->e_phoff + eh->e_phentsize * i));
+		if (ph->p_type == PT_LOAD)
+		{
+			load_offset = ph->p_offset;
+			load_addr = ph->p_vaddr;
+		}
 		if (ph->p_type == PT_DYNAMIC)
-			if (get_dynamic_table((Elf64_Dyn *)(ptr + ph->p_offset)))
+			if (get_dynamic_table(ptr, (Elf64_Dyn *)(ptr + ph->p_offset), load_addr, load_offset))
 				return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
