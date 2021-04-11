@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 15:54:10 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:55:13 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			elf64(char *ptr, char *offset)
 	Elf64_Shdr	*sh;
 
 	eh = (Elf64_Ehdr *)ptr;
-	sh = ptr + eh->e_shoff;
+	sh = (Elf64_Shdr *)((char *)ptr + eh->e_shoff);
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
 	for (int i = 0; i < eh->e_shnum; i++)
@@ -64,7 +64,7 @@ int			elf64(char *ptr, char *offset)
 			prints("Dynamic\n");
 		if (sh->sh_type == SHT_STRTAB)
 			prints("Strtab\n");
-		sh = (char *)sh + sh->sh_size;
+		sh = (Elf64_Shdr *)((char *)sh + sh->sh_size);
 	}
 	ft_putnbr(lendian);
 	write(1, "\n", 1);
