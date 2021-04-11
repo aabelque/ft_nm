@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 10:50:13 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 13:29:53 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,13 @@ int			elf64(char *ptr, char *offset)
 	int			load_offset;
 	const char	*load_addr = NULL;
 	Elf64_Ehdr	*eh;
-	Elf64_Phdr	*ph;
+	Elf64_Shdr	*sh;
 
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
-	for (int i = 0; i < eh->e_shnum; i++)
-	{
-		ph = (Elf64_Phdr *)((char *)ptr + (eh->e_phoff + eh->e_phentsize * i));
-		if (ph->p_type == PT_LOAD)
-		{
-			load_offset = ph->p_offset;
-			load_addr = (const char *)ph->p_vaddr;
-		}
-		if (ph->p_type == PT_DYNAMIC)
-			if (get_dynamic_table(ptr, (Elf64_Dyn *)(ptr + ph->p_offset), load_addr, load_offset))
-				return (EXIT_FAILURE);
-	}
+	sh = (Elf64_Shdr *)((char *)ptr + eh->e_shoff);
+	if (sh->sh_type == SH_SYMTAB)
+		prints("Yes !!\n");
 	return (EXIT_SUCCESS);
 }
