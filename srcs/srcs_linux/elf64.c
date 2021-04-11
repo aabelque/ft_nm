@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 13:30:14 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 13:36:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			elf64(char *ptr, char *offset)
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
-	sh = (Elf64_Shdr *)((char *)ptr + eh->e_shoff);
+	sh = (Elf64_Shdr *)((char *)ptr + eh->e_shoff + eh->shentsize);
 	if (sh->sh_type == SHT_SYMTAB)
 		prints("Yes !!\n");
 	return (EXIT_SUCCESS);
