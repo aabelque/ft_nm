@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/11 15:55:48 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:32:06 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			elf64(char *ptr, char *offset)
 {
 	short		lendian = 0;
 	int			load_offset;
-	char	*load_addr = NULL;
+	char		*strtab = NULL;
 	Elf64_Ehdr	*eh;
 	Elf64_Shdr	*sh;
 
@@ -63,7 +63,11 @@ int			elf64(char *ptr, char *offset)
 		if (sh[i].sh_type == SHT_DYNAMIC)
 			prints("Dynamic\n");
 		if (sh[i].sh_type == SHT_STRTAB)
-			prints("Strtab\n");
+		{
+			strtab = ptr + sh->sh_name;
+			prints(strtab);
+			write(1, "\n", 1);
+		}
 		sh = (Elf64_Shdr *)((char *)sh + sh->sh_size);
 	}
 	ft_putnbr(lendian);
