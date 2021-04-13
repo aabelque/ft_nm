@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 11:10:19 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:15:08 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int			elf64(char *ptr, char *offset)
 	char		*strtab = NULL;
 	Elf64_Ehdr	*eh;
 	Elf64_Shdr	*sh;
+	Elf64_Sym	*sym;
 
 	eh = (Elf64_Ehdr *)ptr;
 	sh = (Elf64_Shdr *)((char *)ptr + eh->e_shoff);
@@ -61,7 +62,11 @@ int			elf64(char *ptr, char *offset)
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
 		if (sh[i].sh_type == SHT_SYMTAB)
+		{
+			sym = (Elf64_Sym *)sh;
+			hexdump(sym->st_value, 16, 16);
 			prints("Symtab\n");
+		}
 		if (sh[i].sh_type == SHT_DYNAMIC)
 			prints("Dynamic\n");
 		if (sh[i].sh_type == SHT_STRTAB)
