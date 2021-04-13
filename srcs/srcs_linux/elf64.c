@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 16:28:37 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:30:29 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static inline void	print_symelf(Elf64_Ehdr *eh, Elf64_Shdr *sh, int idx)
 	int			ndx;
 	Elf64_Sym	*sym;
 
-	sym = sh[idx];
+	sym = (Elf64_Sym *)sh[idx];
 	ndx = sh[idx].sh_link;
-	strtable = sh[ndx];
+	strtable = (char *)sh[ndx];
 	int count = sh[idx].sh_size / sizeof(Elf64_Sym);
 
 	for (int i = 0; i < count; i++)
