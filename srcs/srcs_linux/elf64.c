@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 16:07:58 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:28:37 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ static inline char			*get_strname(Elf64_Ehdr *eh, int offset)
 	return (strtable + offset);
 }
 
+static inline void	print_symelf(Elf64_Ehdr *eh, Elf64_Shdr *sh, int idx)
+{
+	char		*str, *strtable;
+	int			ndx;
+	Elf64_Sym	*sym;
+
+	sym = sh[idx];
+	ndx = sh[idx].sh_link;
+	strtable = sh[ndx];
+	int count = sh[idx].sh_size / sizeof(Elf64_Sym);
+
+	for (int i = 0; i < count; i++)
+	{
+		prints(strtable + sym[i].st_name);
+		write(1, "\n", 1);
+	}
+}
+
 int			elf64(char *ptr, char *offset)
 {
 	short		lendian = 0;
@@ -55,12 +73,8 @@ int			elf64(char *ptr, char *offset)
 		strtab = get_strname(eh, sh->sh_name);
 		prints(strtab);
 		write(1, "\n", 1);
-		/* if (sh[i].sh_type == SHT_SYMTAB) */
-		/* { */
-		/* 	strtab = get_strname(eh, sh->sh_name); */
-		/* 	prints(strtab); */
-		/* 	write(1, "\n", 1); */
-		/* } */
+		if (sh[i].sh_type == SHT_SYMTAB)
+			print_symelf(eh, sh, i);
 	}
 	return (EXIT_SUCCESS);
 }
