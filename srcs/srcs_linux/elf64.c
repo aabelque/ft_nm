@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 15:51:53 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:52:35 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline char			*get_strtable(Elf64_Ehdr *eh)
 {
 	if (eh->e_shstrndx == SHN_UNDEF)
 		return (NULL);
-	return ((char *)eh + get_elfsection(eh, eh->e_shstrndx)->sh_shoff);
+	return ((char *)eh + get_elfsection(eh, eh->e_shstrndx)->sh_offset);
 }
 
 static inline char			*get_strname(Elf64_Ehdr *eh, int offset)
@@ -44,6 +44,7 @@ int			elf64(char *ptr, char *offset)
 	int			load_offset;
 	char		*strtab = NULL;
 	Elf64_Ehdr	*eh;
+	Elf64_Shdr	*sh;
 
 	eh = (Elf64_Ehdr *)ptr;
 	sh = get_shdr(eh);
