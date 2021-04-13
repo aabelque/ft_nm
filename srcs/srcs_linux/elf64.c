@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 17:38:47 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 20:01:27 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int			elf64(char *ptr, char *offset)
 	char		*names = NULL;
 	Elf64_Ehdr	*eh;
 	Elf64_Shdr	*sh;
-	char		*strtb;
-	Elf64_Sym	*sym;
+	Elf64_Shdr	*strtb;
+	Elf64_Shdr	*symtab;
 
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
@@ -76,16 +76,16 @@ int			elf64(char *ptr, char *offset)
 		prints(names);
 		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB)
-		{
-			sym = (Elf64_Sym *)((char *)eh + sh[i].sh_offset);
-			symcnt = sh[i].sh_size / sizeof(Elf64_Sym);
-		}
+			symtab = (Elf64_Sym *)&sh[i];
 		if (sh[i].sh_type == SHT_STRTAB)
-			strtb = (char *)eh + sh[i].sh_offset;
+			strtb = (Elf64_Shdr *)&sh[i];
 	}
+	Elf64_Sym *sym = (Elf64_Sym *)(ptr + symtab->sh_offset);
+	symcnt = symtab->sh_size / sizeof(Elf64_Sym);
+	char *str = (char *)(ptr + strtb->sh_offset);
 	for (int i = 0; i < symcnt; i++)
 	{
-		prints(strtb + sym[i].st_name);
+		prints(str + sym[i].st_name);
 		write(1, "\n", 1);
 	}
 	return (EXIT_SUCCESS);
