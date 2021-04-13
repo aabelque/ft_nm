@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 16:30:29 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:11:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static inline char			*get_strname(Elf64_Ehdr *eh, int offset)
 	return (strtable + offset);
 }
 
-static inline void	print_symelf(Elf64_Ehdr *eh, Elf64_Shdr *sh, int idx)
+static inline void	print_symelf(Elf64_Sym *sym)
 {
 	char		*str, *strtable;
 	int			ndx;
@@ -60,7 +60,7 @@ int			elf64(char *ptr, char *offset)
 {
 	short		lendian = 0;
 	int			load_offset;
-	char		*strtab = NULL;
+	char		*names = NULL;
 	Elf64_Ehdr	*eh;
 	Elf64_Shdr	*sh;
 
@@ -70,11 +70,15 @@ int			elf64(char *ptr, char *offset)
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
 		sh = get_elfsection(eh, i);
-		strtab = get_strname(eh, sh->sh_name);
-		prints(strtab);
+		names = get_strname(eh, sh->sh_name);
+		prints(names);
 		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB)
-			print_symelf(eh, sh, i);
+		{
+			Elf64_Sym *sym = (Elf64_Sym *)sh;
+			ft_putnbr(sym->st_shndx);
+			write(1, "\n", 1);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
