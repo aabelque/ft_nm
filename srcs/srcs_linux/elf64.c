@@ -6,14 +6,14 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 15:49:32 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:51:53 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
 static inline Elf64_Shdr	*get_shdr(Elf64_Ehdr *eh) {
-	return ((Elf64_Shdr *)((int)eh + eh->e_shoff));
+	return ((Elf64_Shdr *)((char *)eh + eh->e_shoff));
 }
 
 static inline Elf64_Shdr	*get_elfsection(Elf64_Ehdr *eh, int idx)
@@ -25,7 +25,7 @@ static inline char			*get_strtable(Elf64_Ehdr *eh)
 {
 	if (eh->e_shstrndx == SHN_UNDEF)
 		return (NULL);
-	return ((char *)eh + get_elfsection(eh, eh->e_shstrndx)->e_shoff);
+	return ((char *)eh + get_elfsection(eh, eh->e_shstrndx)->sh_shoff);
 }
 
 static inline char			*get_strname(Elf64_Ehdr *eh, int offset)
@@ -46,9 +46,10 @@ int			elf64(char *ptr, char *offset)
 	Elf64_Ehdr	*eh;
 
 	eh = (Elf64_Ehdr *)ptr;
+	sh = get_shdr(eh);
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
-	strtab = get_strname(eh, eh->shoff);
+	strtab = get_strname(eh, eh->e_shoff);
 	prints(strtab);
 	write(1, "\n", 1);
 	for (int i = 0; i < eh->e_shnum; i++)
