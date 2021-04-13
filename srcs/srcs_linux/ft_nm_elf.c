@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/06 19:23:44 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:22:43 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int			nm_elf(char *ptr, char *offset, char *bin)
 			if (elf64(ptr, offset))
 				return (EXIT_FAILURE);
 	}
+	else
+		return (ft_perror("Invalid ELF file\n", 0));
 	return (EXIT_SUCCESS);
 
 }
