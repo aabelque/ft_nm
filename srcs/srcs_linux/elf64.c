@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 13:53:33 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:54:01 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			elf64(char *ptr, char *offset)
 		if (sh[i].sh_type == SHT_SYMTAB)
 		{
 			sym = (Elf64_Sym *)sh;
-			hexdump(swap64(sym[i]st_value), 16, 16);
+			hexdump(swap64(sym[i].st_value), 16, 16);
 			prints("Symtab\n");
 		}
 		if (sh[i].sh_type == SHT_DYNAMIC)
