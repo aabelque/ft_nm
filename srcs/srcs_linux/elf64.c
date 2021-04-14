@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/14 16:57:14 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,17 @@ int			elf64(char *ptr, char *offset)
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
+	sh = ptr + eh->eshoff;
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
-		sh = get_elfsection(eh, i);
-		names = get_strname(eh, sh->sh_name);
-		prints(names);
-		write(1, "\n", 1);
-		if (sh->sh_type == SHT_SYMTAB)
-			symtab = (Elf64_Shdr *)sh;
-		if (sh->sh_type == SHT_STRTAB)
-			strtb = (Elf64_Shdr *)sh;
+		/* sh = get_elfsection(eh, i); */
+		/* names = get_strname(eh, sh->sh_name); */
+		/* prints(names); */
+		/* write(1, "\n", 1); */
+		if (sh[i].sh_type == SHT_SYMTAB)
+			symtab = &sh[i];
+		if (sh[i].sh_type == SHT_STRTAB)
+			strtb = &sh[i];
 	}
 	Elf64_Sym *sym = (Elf64_Sym *)(ptr + symtab->sh_offset);
 	symcnt = symtab->sh_size / sizeof(Elf64_Sym);
