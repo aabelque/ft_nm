@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/14 17:03:46 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:05:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			elf64(char *ptr, char *offset)
 			strtb = &sh[i];
 	}
 	Elf64_Sym *sym = (Elf64_Sym *)(ptr + symtab->sh_offset);
-	symcnt = symtab->sh_size / sizeof(Elf64_Sym);
+	symcnt = symtab->sh_size / symtab->sh_entsize;
 	char *str = (char *)(ptr + strtb->sh_offset);
 	for (int i = 0; i < symcnt; i++)
 	{
