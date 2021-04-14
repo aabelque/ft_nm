@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/14 17:05:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:24:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,29 @@ int			elf64(char *ptr, char *offset)
 	Elf64_Shdr	*sh;
 	Elf64_Shdr	*strtb;
 	Elf64_Shdr	*symtab;
+	Elf64_Sym	*sym;
+	char		*str;
 
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
+	names = ptr + sh[eh->e_shstrndx]->sh_offset;
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
 		/* sh = get_elfsection(eh, i); */
 		/* names = get_strname(eh, sh->sh_name); */
-		/* prints(names); */
+		prints(names + sh[i].sh_name);
 		/* write(1, "\n", 1); */
 		if (sh[i].sh_type == SHT_SYMTAB)
-			symtab = &sh[i];
+		{
+			sym = (Elf64_Sym *)(ptr + sh[i].sh_offset);
+			symcnt = sh[i].sh_size / sh[i].sh_entsize;
+			str = (char *)(ptr + sh[sh[i].sh_link].sh_offset);
+		}
 		if (sh[i].sh_type == SHT_STRTAB)
 			strtb = &sh[i];
 	}
-	Elf64_Sym *sym = (Elf64_Sym *)(ptr + symtab->sh_offset);
-	symcnt = symtab->sh_size / symtab->sh_entsize;
-	char *str = (char *)(ptr + strtb->sh_offset);
 	for (int i = 0; i < symcnt; i++)
 	{
 		prints(str + sym[i].st_name);
