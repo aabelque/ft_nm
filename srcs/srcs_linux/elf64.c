@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 18:16:52 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:24:41 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 			symbols[j].n_type = ELF64_ST_BIND(sym[i].st_info);
 			symbols[j].ext = ELF64_ST_TYPE(sym[i].st_info);
 			symbols[j].name = symstr_table + sym[i].st_name;
+			symbols[j].n_sect = sym[i].st_shndx;
 			symbols[j].n_value = sym[i].st_value;
 			j++;
 		}
@@ -34,7 +35,7 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 		write(1, " ", 1);
 		ft_putnbr(symbols[i].n_type);
 		write(1, " ", 1);
-		ft_putnbr(symbols[i].ext);
+		ft_putnbr(symbols[i].n_sect);
 		write(1, " ", 1);
 		prints(symbols[i].name);
 		write(1, "\n", 1);
@@ -55,6 +56,8 @@ int			elf64(char *ptr, char *offset) {
 	for (int i = 0; i < eh->e_shnum; i++) {
 		/* prints(names + sh[i].sh_name); */
 		/* write(1, "\n", 1); */
+		ft_putnbr(sh[i].sh_name);
+		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB)
 			print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i);
 	}
