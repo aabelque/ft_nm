@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 17:20:18 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:21:30 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 	symbols = (t_symbol *)malloc(sizeof(t_symbol) * symcnt);
 	for (i = 0; i < symcnt; i++) {
 		symbols_name = symstr_table + sym[i].st_name;
-		ft_putnbr(sym[i].st_shndx);
+		ft_putnbr(sym[i].st_name);
 		write(1, "\n", 1);
 		if (symbols_name) {
 			symbols[i].name = symbols_name;
