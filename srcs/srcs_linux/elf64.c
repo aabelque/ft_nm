@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 16:34:31 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 16:36:16 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 	symbols = (t_symbol *)malloc(sizeof(t_symbol) * symcnt);
 	for (i = 0; i < symcnt; i++) {
 		symbols_name = symstr_table + sym[i].st_name;
-		if (symbols_name == NULL) {
-			symbols[i].name = symbols_name;
-			symbols[i].n_value = sym[i].st_value;
-			j++;
-		}
-	}
-	for (i = 0; i < j; i++) {
-		hexdump(symbols[i].n_value, 16, 16);
-		write(1, " ", 1);
-		prints(symbols[i].name);
+		prints(symbols_name);
 		write(1, "\n", 1);
+		/* if (symbols_name != NULL) { */
+		/* 	symbols[i].name = symbols_name; */
+		/* 	symbols[i].n_value = sym[i].st_value; */
+		/* 	j++; */
+		/* } */
 	}
+	/* for (i = 0; i < j; i++) { */
+	/* 	hexdump(symbols[i].n_value, 16, 16); */
+	/* 	write(1, " ", 1); */
+	/* 	prints(symbols[i].name); */
+	/* 	write(1, "\n", 1); */
+	/* } */
 }
 
 int			elf64(char *ptr, char *offset) {
