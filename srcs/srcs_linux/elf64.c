@@ -6,14 +6,14 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 17:21:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:23:37 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
 static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx) {
-	char		*symbols_name, *symstr_table;
+	char		*symstr_table;
 	int			symcnt, i, j = 0;
 	t_symbol	*symbols;
 
@@ -21,11 +21,8 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
 	symbols = (t_symbol *)malloc(sizeof(t_symbol) * symcnt);
 	for (i = 0; i < symcnt; i++) {
-		symbols_name = symstr_table + sym[i].st_name;
-		ft_putnbr(sym[i].st_name);
-		write(1, "\n", 1);
-		if (symbols_name) {
-			symbols[i].name = symbols_name;
+		if (sym[i].st_name != STN_UNDEF) {
+			symbols[i].name = symstr_table + sym[i].st_name;
 			symbols[i].n_value = sym[i].st_value;
 			j++;
 		}
