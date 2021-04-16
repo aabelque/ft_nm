@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 11:36:52 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:50:27 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
+
+typedef struct	s_symelf
+{
+	char			*name;
+	uint8_t			type;
+	uint8_t			bind;
+	uint8_t			shndx;
+	uint64_t		value;
+}				t_symelf;
 
 typedef struct	s_symbol
 {
