@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 18:50:27 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:10:09 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 	# define SEGMENT64 LC_SEGMENT_64
 	# define SEGMENT32 LC_SEGMENT
 # elif __linux__
-	#include </usr/include/linux/elf.h>
-	#include </usr/include/bsd/nlist.h>
+	#include </usr/include/elf.h>
+	#include </usr/include/nlist.h>
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
