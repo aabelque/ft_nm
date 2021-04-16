@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 19:09:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:30:03 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 	for (i = 0; i < j; i++) {
 		hexdump(symbols[i].value, 16, 16);
 		write(1, " ", 1);
-		if (symbols[i].bind == STB_GNU_UNIQUE)
-			prints("u ");
+		if (sh[symbols[i].shndx].sh_type == SHT_NOBITS
+       && sh[symbols[i].shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+			prints("B ");
 		ft_putnbr(symbols[i].type);
 		write(1, " ", 1);
 		ft_putnbr(symbols[i].bind);
