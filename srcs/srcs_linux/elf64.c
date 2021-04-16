@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 11:33:43 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 11:38:31 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int			elf64(char *ptr, char *offset)
 	for (int i = 0; i < eh->e_shnum; i++)
 	{
 		/* sh = get_elfsection(eh, i); */
-		/* names = get_strname(eh, sh->sh_name); */
-		prints(names + sh[i].sh_name);
+		names = get_strname(eh, sh->sh_name);
+		prints(names);
 		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB)
 		{
