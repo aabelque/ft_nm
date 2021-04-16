@@ -6,7 +6,7 @@
 #    By: aabelque <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:38:41 by aabelque          #+#    #+#              #
-#    Updated: 2021/04/16 11:34:18 by aabelque         ###   ########.fr        #
+#    Updated: 2021/04/16 11:35:45 by aabelque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,12 @@ ifeq ($(OS), Darwin)
 OBJS_MAC = $(addprefix $(O_DIR),$(SRC_MAC:.c=.o))
 	
 $(NAME): $(OBJS_MAC) $(H_DIR)
-	@$(CC) $(DEBUG) $(CFLAGS) -o $(NAME) $(OBJS_MAC)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS_MAC)
 	@tput dl; tput el1; tput cub 100; echo "\033[33mBuilt ft_nm:\033[0m \033[32;1;4m$(notdir $@)\033[0m"
 
 $(OBJS_MAC): $(O_DIR)%.o: $(C_DIR_MAC)%.c
 	@mkdir -p $(O_DIR) 2> /dev/null || echo "" > /dev/null
-	@$(CC) $(DEBUG) $(CFLAGS) -o $@ -c $< -fPIC -I$(H_DIR)
+	@$(CC) $(CFLAGS) -o $@ -c $< -fPIC -I$(H_DIR)
 
 endif
 
