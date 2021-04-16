@@ -6,22 +6,31 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 15:24:34 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:33:31 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
 static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx) {
-	char		*symbols_name;
-	int			symcnt;
+	char		*symbols_name, *symstr_table;
+	int			symcnt, i, j = 0;
+	t_symbol	*symbols;
 
 	symcnt = sh[idx].sh_size / sh[idx].sh_entsize;
-	symbols_name = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
-	for (int i = 0; i < symcnt; i++) {
-		hexdump(sym[i].st_value, 16, 16);
+	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
+	for (i = 0; i < symcnt; i++) {
+		symbols_name = symstr_table + sym[i].st_name;
+		if (symbols_name) {
+			symbols[i].name = symbols_name;
+			symbols[i].n_value = sym[i].st_value;
+			j++;
+		}
+	}
+	for (i = 0; i < j; i++) {
+		hexdump(symbols[i].n_value, 16, 16);
 		write(1, " ", 1);
-		prints(symbols_name + sym[i].st_name);
+		prints(symbols[i].name);
 		write(1, "\n", 1);
 	}
 }
