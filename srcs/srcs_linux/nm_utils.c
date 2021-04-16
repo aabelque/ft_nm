@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/02 15:20:36 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:41:55 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			check_offset_elf(char *ptr, char  *offset)
 	return (EXIT_SUCCESS);
 }
 
-void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *))
+void		ft_qsort_symbol(t_symelf *sym, int left, int right, int (*comp)(const char *, const char *))
 {
 	int			last, i, r;
 
@@ -30,7 +30,7 @@ void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char
 	for (i = left + 1; i <= right; i++)
 	{
 		r = comp(sym[i].name, sym[left].name);
-		if (r < 0 || (r == 0 && sym[i].n_value < sym[left].n_value))
+		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
 			ft_swap_symbol(sym, ++last, i);
 	}
 	ft_swap_symbol(sym, left, last);
@@ -38,9 +38,9 @@ void		ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char
 	ft_qsort_symbol(sym, last + 1, right, comp);
 }
 
-void		ft_swap_symbol(t_symbol *sym, int i, int j)
+void		ft_swap_symbol(t_symelf *sym, int i, int j)
 {
-	t_symbol	tmp;
+	t_symelf	tmp;
 
 	tmp = sym[i];
 	sym[i] = sym[j];

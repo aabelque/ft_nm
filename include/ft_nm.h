@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 19:10:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:43:08 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
 Elf64_Shdr				*get_elfsection(Elf64_Ehdr *eh, int idx);
 char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
+void					ft_swap_symbol(t_symelf *sym, int i, int j);
+void					ft_qsort_symbol(t_symelf *sym, int left, int right, int (*comp)(const char *, const char *));
 
 
 /* ******************** Mach-o file ******************** */
@@ -98,6 +100,8 @@ int						close_binary(void **ptr, int *fd, struct stat *buff);
 int						open_binary(char *bin, int *fd, void **ptr, struct stat *buff);
 int						nm(void *ptr, void *offset, char *bin);
 int						check_offset(void *ptr, void *offset);
+void					ft_swap_symbol(t_symbol *sym, int i, int j);
+void					ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
 struct load_command		*swaplc_32(struct load_command *lc);
 struct symtab_command	*swapsym_32(struct symtab_command *sym);
 struct nlist			swapnlst_32(struct nlist nlst);
@@ -111,9 +115,6 @@ uint64_t				ppc64(uint64_t x);
 uint64_t				swap64(uint64_t x);
 void					set_ppc(uint8_t ppc);
 void					init_sections(void);
-void					sort_symbols(t_symbol *sym, uint32_t nsyms);
-void					ft_swap_symbol(t_symbol *sym, int i, int j);
-void					ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
 t_section				*sections(void);
 
 /* ******************** LIB C ******************** */
