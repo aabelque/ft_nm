@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 09:49:25 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 09:50:14 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ int			elf64(char *ptr, char *offset)
 		}
 		write(1, "\n", 1);
 	}
-	for (int i = 0; i < symcnt; i++)
-	{
-		hexdump(sym[i].st_value, 16, 16);
-		write(1, " ", 1);
-		prints(str + sym[i].st_name);
-		write(1, "\n", 1);
-	}
+	/* for (int i = 0; i < symcnt; i++) */
+	/* { */
+	/* 	hexdump(sym[i].st_value, 16, 16); */
+	/* 	write(1, " ", 1); */
+	/* 	prints(str + sym[i].st_name); */
+	/* 	write(1, "\n", 1); */
+	/* } */
 	return (EXIT_SUCCESS);
 }
