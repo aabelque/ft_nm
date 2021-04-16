@@ -6,21 +6,19 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/13 15:22:43 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:24:33 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int			nm_elf(char *ptr, char *offset, char *bin)
-{
+int			nm_elf(char *ptr, char *offset, char *bin) {
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
 			(unsigned char)ptr[EI_MAG1] == 'E' &&
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
-			(unsigned char)ptr[EI_MAG3] == 'F')
-	{
+			(unsigned char)ptr[EI_MAG3] == 'F') {
 		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS64)
 			if (elf64(ptr, offset))
 				return (EXIT_FAILURE);
@@ -31,8 +29,7 @@ int			nm_elf(char *ptr, char *offset, char *bin)
 
 }
 
-int			main(int ac, char **av)
-{
+int			main(int ac, char **av) {
 	int			i, fd;
 	char		*ptr;
 	struct stat	buff;
@@ -40,12 +37,10 @@ int			main(int ac, char **av)
 	i = 0;
 	if (ac < 2)
 		return (ft_perror("USAGE: ./ft_nm <input files>\n", 0));
-	while (++i < ac)
-	{
+	while (++i < ac) {
 		if (ac > 2 && i == 1)
 			write(1, "\n", 1);
-		if (ac > 2)
-		{
+		if (ac > 2) {
 			prints(av[i]);
 			write(1, ":\n", 2);
 		}
