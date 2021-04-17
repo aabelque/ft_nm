@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/17 17:30:05 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/17 17:30:25 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static inline char	get_flags(Elf64_Shdr *sh, Elf64_Sym sym) {
 
-	if (sh[sym.shndx].sh_type == SHT_NOBITS
-			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+	if (sh[sym.st_shndx].sh_type == SHT_NOBITS
+			&& sh[sym.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
 		return ('B');
 	return (' ');
 }
