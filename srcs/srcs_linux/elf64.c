@@ -6,13 +6,13 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/17 17:31:39 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/17 17:32:02 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static inline char	get_flags(Elf64_Shdr *sh, Elf64_Sym sym) {
+static inline char	get_flags(Elf64_Shdr *sh, t_symbol sym) {
 
 	if (sh[sym.st_shndx].sh_type == SHT_NOBITS
 			&& sh[sym.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
