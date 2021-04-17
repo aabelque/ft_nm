@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/17 18:50:32 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/17 18:51:26 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline char	get_flags(Elf64_Shdr *sh, t_symelf sym) {
 
-	if (sym.type == STB_WEAK)
+	if (sym.bind == STB_WEAK)
 		return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 	if (sym.shndx == SHN_UNDEF)
 		return (sym.bind == STB_WEAK ? 'w' : 'U');
