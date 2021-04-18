@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:39:50 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:42:06 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 		}
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
+	write(1, "X", 1);
 	for (i = 0; i < j; i++) {
 		c = get_flags(sh, symbols[i]);
 		if (symbols[i].shndx == SHN_UNDEF)
