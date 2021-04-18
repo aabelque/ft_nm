@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 13:33:58 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:04:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
 Elf64_Shdr				*get_elfsection(Elf64_Ehdr *eh, int idx);
 char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
-void					ft_swap_symelf(t_symelf *sym, int i, int j);
-void					ft_qsort_symelf(t_symelf *sym, int left, int right, int (*comp)(const char *, const char *));
+void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
+void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
 
 
 /* ******************** Mach-o file ******************** */
