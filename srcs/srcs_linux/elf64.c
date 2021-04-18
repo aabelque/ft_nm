@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 19:51:34 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 19:52:02 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
 	write(1, "2", 1);
 	ft_putnbr(sh[sym.shndx].sh_type);
 	write(1, "\n", 1);
-	if (sh[sym.shndx].sh_type == SHT_PROGBITS)
-		return (sym.shndx == SHN_ABS ? 'a' : 'A');
+	/* if (sh[sym.shndx].sh_type == SHT_PROGBITS) */
+	/* 	return (sym.shndx == SHN_ABS ? 'a' : 'A'); */
 	write(1, "3", 1);
 	if (sh[sym.shndx].sh_type == SHT_NOBITS
 			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
