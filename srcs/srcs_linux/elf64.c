@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:24:15 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:24:59 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,22 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	ft_putnbr(symcnt);
 	write(1, "\n", 1);
 	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
-	write(1, "X", 1);
 	symbols = malloc(sizeof(t_elf_symbol) * symcnt);
-	write(1, "X", 1);
 	if (!symbols)
 		return (ft_perror("Malloc symbols fail\n", 0));
-	write(1, "X", 1);
 	for (i = 0; i < symcnt; i++) {
 		if (sym[i].st_name != 0 && ELF64_ST_TYPE(sym[i].st_info) != STT_FILE) {
+			write(1, "X", 1);
 			symbols[j].type = ELF64_ST_TYPE(sym[i].st_info);
+			write(1, "X", 1);
 			symbols[j].bind = ELF64_ST_BIND(sym[i].st_info);
+			write(1, "X", 1);
 			symbols[j].name = symstr_table + sym[i].st_name;
+			write(1, "X", 1);
 			symbols[j].shndx = sym[i].st_shndx;
+			write(1, "X", 1);
 			symbols[j].value = sym[i].st_value;
+			write(1, "X", 1);
 			j++;
 		}
 	}
