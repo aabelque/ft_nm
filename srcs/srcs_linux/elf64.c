@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:39:25 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:39:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
 	if (sh[sym.shndx].sh_type == SHT_INIT_ARRAY
 			|| sh[sym.shndx].sh_type == SHT_FINI_ARRAY)
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
-	return (' ');
+	return ('P');
 }
 
 static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx) {
