@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:42:34 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:55:14 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,39 @@
 
 static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
 
+	write(1, "X", 1);
 	if (sym.bind == STB_WEAK)
 		return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+	write(1, "X", 1);
 	if (sym.shndx == SHN_UNDEF)
 		return (sym.bind == STB_WEAK ? 'w' : 'U');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_PROGBITS)
 		return (sym.shndx == SHN_ABS ? 'a' : 'A');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_NOBITS
 			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
 		return (sym.bind == STB_LOCAL ? 'b' : 'B');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_PROGBITS
 			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
 		return (sym.bind == STB_LOCAL ? 'd' : 'D');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_DYNAMIC)
 		return (sym.bind == STB_LOCAL ? 'd' : 'D');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_PROGBITS
 			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_EXECINSTR))
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_PROGBITS
 			&& sh[sym.shndx].sh_flags == SHF_ALLOC)
 		return (sym.bind == STB_LOCAL ? 'r' : 'R');
+	write(1, "X", 1);
 	if (sh[sym.shndx].sh_type == SHT_INIT_ARRAY
 			|| sh[sym.shndx].sh_type == SHT_FINI_ARRAY)
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
+	write(1, "X", 1);
 	return ('P');
 }
 
