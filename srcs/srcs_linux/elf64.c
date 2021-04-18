@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:28:01 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:35:05 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
 		return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 	if (sym.shndx == SHN_UNDEF)
 		return (sym.bind == STB_WEAK ? 'w' : 'U');
+	if (sym.shndx == SHN_ABS)
+		return (sym.bind == STB_WEAK ? 'a' : 'A');
 	if (sh[sym.shndx].sh_type == SHT_NOBITS
 			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
 		return (sym.bind == STB_LOCAL ? 'b' : 'B');
@@ -45,8 +47,6 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	t_elf_symbol	*symbols = NULL;
 
 	symcnt = sh[idx].sh_size / sh[idx].sh_entsize;
-	ft_putnbr(symcnt);
-	write(1, "\n", 1);
 	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
 	symbols = malloc(sizeof(t_elf_symbol) * symcnt);
 	if (!symbols)
@@ -61,9 +61,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 			j++;
 		}
 	}
-	write(1, "X", 1);
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
-	write(1, "X", 1);
 	for (i = 0; i < j; i++) {
 		c = get_flags(sh, symbols[i]);
 		if (symbols[i].shndx == SHN_UNDEF)
@@ -95,10 +93,10 @@ int			elf64(char *ptr, char *offset) {
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
 	names = ptr + sh[eh->e_shstrndx].sh_offset;
 	for (int i = 0; i < eh->e_shnum; i++) {
-		prints(names + sh[i].sh_name);
-		write(1, " ", 1);
-		ft_putnbr(i);
-		write(1, "\n", 1);
+		/* prints(names + sh[i].sh_name); */
+		/* write(1, " ", 1); */
+		/* ft_putnbr(i); */
+		/* write(1, "\n", 1); */
 		if (sh[i].sh_type == SHT_SYMTAB
 				|| sh[i].sh_type == SHT_DYNSYM)
 			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i))
