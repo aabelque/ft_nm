@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:25:25 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:27:16 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int			elf64(char *ptr, char *offset) {
 		prints(names + sh[i].sh_name);
 		write(1, " ", 1);
 		ft_putnbr(i);
+		write(1, "\n", 1);
+		ft_putnbr(sh[i].sh_type);
 		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB
 				|| sh[i].sh_type == SHT_DYNAMIC)
