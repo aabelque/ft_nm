@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 16:59:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:05:45 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ static inline void	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, 
 	char		c;
 	char		*symstr_table;
 	int			symcnt, i, j = 0;
-	t_elf_symbol	*symbols;
+	t_elf_symbol	*symbols = NULL;
 
 	symcnt = sh[idx].sh_size / sh[idx].sh_entsize;
 	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
-	symbols = (t_symelf *)malloc(sizeof(t_symelf) * symcnt);
+	symbols = malloc(sizeof(t_symelf) * symcnt);
+	if (!symbols)
+		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
 		if (sym[i].st_name != 0 && ELF64_ST_TYPE(sym[i].st_info) != STT_FILE) {
 			symbols[j].type = ELF64_ST_TYPE(sym[i].st_info);
