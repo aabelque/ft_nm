@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/16 19:47:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/18 13:34:06 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			check_offset_elf(char *ptr, char  *offset)
 	return (EXIT_SUCCESS);
 }
 
-void		ft_qsort_symelf(t_symelf *sym, int left, int right, int (*comp)(const char *, const char *))
+void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *))
 {
 	int			last, i, r;
 
@@ -38,9 +38,9 @@ void		ft_qsort_symelf(t_symelf *sym, int left, int right, int (*comp)(const char
 	ft_qsort_symelf(sym, last + 1, right, comp);
 }
 
-void		ft_swap_symelf(t_symelf *sym, int i, int j)
+void		ft_swap_symelf(t_elf_symbol *sym, int i, int j)
 {
-	t_symelf	tmp;
+	t_elf_symbol	tmp;
 
 	tmp = sym[i];
 	sym[i] = sym[j];
