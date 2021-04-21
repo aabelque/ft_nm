@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 17:10:23 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:10:49 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 		/* write(1, " ", 1); */
 		ft_putnbr(symbols[i].shndx);
 		write(1, " ", 1);
-		/* prints(symbols[i].name); */
+		prints(symbols[i].name);
 		write(1, "\n", 1);
 	}
 	return (EXIT_SUCCESS);
@@ -118,7 +118,7 @@ int			elf64(char *ptr, char *offset) {
 		return (ft_perror("Malloc sections fail\n", 0));
 	for (int i = 0; i < eh->e_shnum; i++) {
 		if (sh[i].sh_type == SHT_SYMTAB
-				|| sh[i].sh_type == SHT_DYNSYM)
+				/* || sh[i].sh_type == SHT_DYNSYM) */
 			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
 				return (EXIT_FAILURE);
 	}
