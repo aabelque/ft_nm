@@ -6,14 +6,16 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 16:11:22 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:37:39 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
+static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section section) {
 
+	prints(section.name);
+	write(1, "\n", 1);
 	if (sym.shndx > MAX_SECTIONS)
 		return ('A');
 	if (sym.bind == STB_WEAK)
@@ -46,7 +48,7 @@ static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym) {
 	return ('?');
 }
 
-static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx) {
+static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
 	char			c;
 	char			*symstr_table;
 	int				symcnt, i, j = 0;
@@ -69,7 +71,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		c = get_flags(sh, symbols[i]);
+		c = get_flags(sh, symbols[i], sections[i]);
 		if (symbols[i].shndx == SHN_UNDEF)
 			write(1, "                ", 16);
 		else
@@ -87,38 +89,28 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	return (EXIT_SUCCESS);
 }
 
-static void		get_elfsection(char *strtable, Elf64_Shdr sh) {
-
-	char	*section_name;
-
-	section_name = strtable + sh.sh_name;
-	/* if (ft_strcmp(section_name, "interp")) */
-	/* 	section */
-}
-
 int			elf64(char *ptr, char *offset) {
-	short		lendian = 0;
-	char		*strtable;
-	Elf64_Ehdr	*eh;
-	Elf64_Shdr	*sh;
+	short			lendian = 0;
+	char			*strtable;
+	Elf64_Ehdr		*eh;
+	Elf64_Shdr		*sh;
+	t_elf_section	*sections = NULL;
 
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2LSB)
 		lendian = 1;
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
 	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
-	ft_putnbr(eh->e_shnum);
-	write(1, "\n", 1);
+	sections = malloc(sizeof(t_elf_section) * eh->e_shnum);
+	if (!sections)
+		return (ft_perror("Malloc sections fail\n", 0));
 	for (int i = 0; i < eh->e_shnum; i++) {
-		prints(strtable + sh[i].sh_name);
-		write(1, " ", 1);
-		ft_putnbr(i);
-		write(1, "\n", 1);
-		/* get_elfsection(strtable, sh[i]); */
-		/* if (sh[i].sh_type == SHT_SYMTAB */
-		/* 		|| sh[i].sh_type == SHT_DYNSYM) */
-			/* if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i)) */
-			/* 	return (EXIT_FAILURE); */
+		if (i)
+			sections[i].name = strtable + sh[i].sh_name;
+		if (sh[i].sh_type == SHT_SYMTAB
+				|| sh[i].sh_type == SHT_DYNSYM)
+			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i sections))
+				return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

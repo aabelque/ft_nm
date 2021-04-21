@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 16:10:50 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:37:19 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,41 +52,7 @@
 
 typedef struct	s_elf_section
 {
-	uint32_t	index;
-	uint32_t	interp;
-	uint32_t	note_ABI;
-	uint32_t	note_gnu;
-	uint32_t	gnu_hash;
-	uint32_t	dynsym;
-	uint32_t	dynstr;
-	uint32_t	gnu_version;
-	uint32_t	gnu_version_r;
-	uint32_t	rela_dyn;
-	uint32_t	rela_plt;
-	uint32_t	init;
-	uint32_t	plt;
-	uint32_t	plt_got;
-	uint32_t	text;
-	uint32_t	fini;
-	uint32_t	rodata;
-	uint32_t	eh_frame_hdr;
-	uint32_t	eh_frame;
-	uint32_t	init_array;
-	uint32_t	fini_array;
-	uint32_t	dynamic;
-	uint32_t	got;
-	uint32_t	data;
-	uint32_t	bss;
-	uint32_t	comment;
-	uint32_t	debug_aranges;
-	uint32_t	debug_info;
-	uint32_t	debug_abbrev;
-	uint32_t	debug_line;
-	uint32_t	debug_str;
-	uint32_t	debug_macro;
-	uint32_t	symtab;
-	uint32_t	strtab;
-	uint32_t	shstrtab;
+	char			*name;
 }				t_elf_section;
 
 typedef struct	s_elf_symbol
