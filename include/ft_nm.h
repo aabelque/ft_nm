@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 15:56:54 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:10:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int						nm_elf(char *ptr, char *offset, char *bin);
 int						check_offset_elf(char *ptr, char *offset);
 int						elf64(char *ptr, char *offset);
 Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
-Elf64_Shdr				*get_elfsection(Elf64_Ehdr *eh, int idx);
 char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
 void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
