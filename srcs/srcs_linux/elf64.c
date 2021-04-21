@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 17:30:58 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:41:03 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,58 @@
 
 static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section *sections) {
 
-	prints(sections[sym.shndx].name);
+	/* prints(sections[sym.shndx].name); */
+	if (sym.shndx > MAX_SECTIONS)
+		return ('A');
 	if (sections[sym.shndx].name == NULL) {
 		if (sym.bind == STB_WEAK)
 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
-	if (sym.shndx > MAX_SECTIONS)
-		return ('A');
-	if (sym.shndx == SHN_ABS)
-		return ('A');
-	if (sh[sym.shndx].sh_type == SHT_NOBITS
-			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
-		return (sym.bind == STB_LOCAL ? 'b' : 'B');
-	if (sh[sym.shndx].sh_type == SHT_PROGBITS
-			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+	else if (ft_strcmp(sections[sym.shndx].name, ".dynamic")
+			|| ft_strcmp(sections[sym.shndx].name, ".got")
+			|| ft_strcmp(sections[sym.shndx].name, ".data")
+			) {
+		if (sym.bind == STB_WEAK)
+			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 		return (sym.bind == STB_LOCAL ? 'd' : 'D');
-	if (sh[sym.shndx].sh_type == SHT_DYNAMIC)
-		return (sym.bind == STB_LOCAL ? 'd' : 'D');
-	if (sh[sym.shndx].sh_type == SHT_PROGBITS
-			&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_EXECINSTR))
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
-	if (sh[sym.shndx].sh_type == SHT_PROGBITS
-			&& sh[sym.shndx].sh_flags == SHF_ALLOC)
+	}
+	else if (ft_strcmp(sections[sym.shndx].name, ".rodata")
+			|| ft_strcmp(sections[sym.shndx].name, ".eh_frame")
+			|| ft_strcmp(sections[sym.shndx].name, ".eh_frame_hdr")
+			)
 		return (sym.bind == STB_LOCAL ? 'r' : 'R');
-	if (sh[sym.shndx].sh_type == SHT_INIT_ARRAY
-			|| sh[sym.shndx].sh_type == SHT_FINI_ARRAY)
+	else if (ft_strcmp(sections[sym.shndx].name, ".bss"))
+		return (sym.bind == STB_LOCAL ? 'b' : 'B');
+	else if (ft_strcmp(sections[sym.shndx].name, ".text")
+			|| ft_strcmp(sections[sym.shndx].name, ".fini_array")
+			|| ft_strcmp(sections[sym.shndx].name, ".fini")
+			|| ft_strcmp(sections[sym.shndx].name, ".init")
+			|| ft_strcmp(sections[sym.shndx].name, ".init_array")
+			)
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
+	/* if (sh[sym.shndx].sh_type == SHT_NOBITS */
+	/* 		&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE)) */
+	/* 	return (sym.bind == STB_LOCAL ? 'b' : 'B'); */
+	/* if (sh[sym.shndx].sh_type == SHT_PROGBITS */
+	/* 		&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_WRITE)) */
+	/* 	return (sym.bind == STB_LOCAL ? 'd' : 'D'); */
+	/* if (sh[sym.shndx].sh_type == SHT_DYNAMIC) */
+	/* if (sh[sym.shndx].sh_type == SHT_PROGBITS */
+	/* 		&& sh[sym.shndx].sh_flags == (SHF_ALLOC | SHF_EXECINSTR)) */
+	/* 	return (sym.bind == STB_LOCAL ? 't' : 'T'); */
+	/* if (sh[sym.shndx].sh_type == SHT_PROGBITS */
+	/* 		&& sh[sym.shndx].sh_flags == SHF_ALLOC) */
+	/* 	return (sym.bind == STB_LOCAL ? 'r' : 'R'); */
+	/* if (sh[sym.shndx].sh_type == SHT_INIT_ARRAY */
+	/* 		|| sh[sym.shndx].sh_type == SHT_FINI_ARRAY) */
+	/* 	return (sym.bind == STB_LOCAL ? 't' : 'T'); */
 	/* prints(sh[sym.shndx].sh_name); */
 	/* write(1, "\n", 1); */
 	/* if (ft_strcmp((const char *)sh[sym.shndx].sh_name, ".sbss")) */
 	/* 	return ('S'); */
-	return ('?');
+	return ('?' + 32);
 }
 
 static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
@@ -73,18 +92,18 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
 		c = get_flags(sh, symbols[i], sections);
-		/* if (symbols[i].shndx == SHN_UNDEF) */
-		/* 	write(1, "                ", 16); */
-		/* else */
-		/* 	hexdump(symbols[i].value, 16, 16); */
+		if (symbols[i].shndx == SHN_UNDEF)
+			write(1, "                ", 16);
+		else
+			hexdump(symbols[i].value, 16, 16);
 		write(1, " ", 1);
 		write(1, &c, 1);
 		/* write(1, " ", 1); */
 		/* ft_putnbr(symbols[i].bind); */
 		write(1, " ", 1);
 		ft_putnbr(symbols[i].shndx);
-		/* write(1, " ", 1); */
-		/* prints(symbols[i].name); */
+		write(1, " ", 1);
+		prints(symbols[i].name);
 		write(1, "\n", 1);
 	}
 	return (EXIT_SUCCESS);
