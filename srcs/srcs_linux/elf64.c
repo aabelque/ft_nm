@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 19:57:54 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 11:41:00 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 			symbols[j].name = symstr_table + sym[i].st_name;
 			symbols[j].shndx = sym[i].st_shndx;
 			symbols[j].value = sym[i].st_value;
+			ft_putnbr(symbols[j].shndx);
+			write(1, "\n", 1);
 			j++;
 		}
 	}
