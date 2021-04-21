@@ -6,15 +6,15 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 16:38:17 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:39:35 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section section) {
+static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section *sections) {
 
-	prints(section.name);
+	prints(sections[sym.shndx].name);
 	write(1, "\n", 1);
 	if (sym.shndx > MAX_SECTIONS)
 		return ('A');
@@ -71,7 +71,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		c = get_flags(sh, symbols[i], sections[i]);
+		c = get_flags(sh, symbols[i], sections);
 		if (symbols[i].shndx == SHN_UNDEF)
 			write(1, "                ", 16);
 		else
