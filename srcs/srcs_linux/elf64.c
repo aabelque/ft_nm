@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 16:09:55 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:11:22 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ static void		get_elfsection(char *strtable, Elf64_Shdr sh) {
 	char	*section_name;
 
 	section_name = strtable + sh.sh_name;
-	if (ft_strcmp(section_name, "interp"))
-		section
+	/* if (ft_strcmp(section_name, "interp")) */
+	/* 	section */
 }
 
 int			elf64(char *ptr, char *offset) {
