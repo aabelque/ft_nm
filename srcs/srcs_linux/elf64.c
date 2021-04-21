@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 17:26:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:29:56 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section *sections) {
 
+	prints(sections[sym.shndx].name);
 	if (sections[sym.shndx].name == NULL) {
 		if (sym.bind == STB_WEAK)
 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
@@ -76,14 +77,14 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 			write(1, "                ", 16);
 		else
 			hexdump(symbols[i].value, 16, 16);
-		write(1, " ", 1);
-		write(1, &c, 1);
-		write(1, " ", 1);
-		/* ft_putnbr(symbols[i].bind); */
 		/* write(1, " ", 1); */
-		ft_putnbr(symbols[i].shndx);
+		/* write(1, &c, 1); */
+		/* write(1, " ", 1); */
+		/* ft_putnbr(symbols[i].bind); */
 		write(1, " ", 1);
-		prints(symbols[i].name);
+		ft_putnbr(symbols[i].shndx);
+		/* write(1, " ", 1); */
+		/* prints(symbols[i].name); */
 		write(1, "\n", 1);
 	}
 	return (EXIT_SUCCESS);
