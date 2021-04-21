@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 13:34:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 15:56:38 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ int			ft_perror(char *s, int fd)
 	return (EXIT_FAILURE);
 }
 
-t_section	*sections(void)
+t_elf_section	*sections_elf(void)
 {
-	static t_section	sections = {0, 0, 0, 0};
-	return (&sections);
+	static t_elf_section	sections_elf = {0, 0, 0, 0};
+	return (&sections_elf);
 }
 
-void		init_sections(void)
+void		init_sections_elf(void)
 {
-	sections()->index = 0;
-	sections()->text = 0;
-	sections()->data = 0;
-	sections()->bss = 0;
+	sections_elf()->index = 0;
+	sections_elf()->text = 0;
+	sections_elf()->data = 0;
+	sections_elf()->bss = 0;
 }

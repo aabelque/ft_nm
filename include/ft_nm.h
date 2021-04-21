@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 13:36:48 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 15:56:54 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,40 @@
 typedef struct	s_elf_section
 {
 	uint32_t	index;
+	uint32_t	interp;
+	uint32_t	note_ABI;
+	uint32_t	note_gnu;
+	uint32_t	gnu_hash;
+	uint32_t	dynsym;
+	uint32_t	dynstr;
+	uint32_t	gnu_version;
+	uint32_t	gnu_version_r;
+	uint32_t	rela_dyn;
+	uint32_t	rela_plt;
+	uint32_t	init;
+	uint32_t	plt;
+	uint32_t	plt_got;
 	uint32_t	text;
+	uint32_t	fini;
+	uint32_t	rodata;
+	uint32_t	eh_frame_hdr;
+	uint32_t	eh_frame;
+	uint32_t	init_array;
+	uint32_t	fini_array;
+	uint32_t	dynamic;
+	uint32_t	got;
 	uint32_t	data;
 	uint32_t	bss;
+	uint32_t	comment;
+	uint32_t	debug_aranges;
+	uint32_t	debug_info;
+	uint32_t	debug_abbrev;
+	uint32_t	debug_line;
+	uint32_t	debug_str;
+	uint32_t	debug_macro;
+	uint32_t	symtab;
+	uint32_t	strtab;
+	uint32_t	shstrtab;
 }				t_elf_section;
 
 typedef struct	s_elf_symbol
@@ -96,6 +127,8 @@ char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
 void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
 void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
+void					init_sections_elf(void);
+t_elf_section			*sections_elf(void);
 
 
 /* ******************** Mach-o file ******************** */
@@ -114,6 +147,8 @@ void					ft_qsort_symbol(t_symbol *sym, int left, int right, int (*comp)(const c
 struct load_command		*swaplc_32(struct load_command *lc);
 struct symtab_command	*swapsym_32(struct symtab_command *sym);
 struct nlist			swapnlst_32(struct nlist nlst);
+void					init_sections(void);
+t_section				*sections(void);
 
 /* ******************** SHARED FUNCTIONS ******************** */
 
@@ -123,8 +158,6 @@ uint32_t				ppc32(uint32_t x);
 uint64_t				ppc64(uint64_t x);
 uint64_t				swap64(uint64_t x);
 void					set_ppc(uint8_t ppc);
-void					init_sections(void);
-t_section				*sections(void);
 
 /* ******************** LIB C ******************** */
 
