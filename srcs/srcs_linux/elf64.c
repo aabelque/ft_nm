@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/21 12:21:31 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:34:56 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int			elf64(char *ptr, char *offset) {
 		lendian = 1;
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
 	names = ptr + sh[eh->e_shstrndx].sh_offset;
+	ft_putnbr(eh->e_type);
+	write(1, "\n", 1);
 	for (int i = 0; i < eh->e_shnum; i++) {
 		/* prints(names + sh[i].sh_name); */
 		/* write(1, " ", 1); */
