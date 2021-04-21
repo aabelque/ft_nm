@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/18 17:04:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:36:48 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # elif __linux__
 	#include </usr/include/elf.h>
 	#include </usr/include/bsd/nlist.h>
+	# define MAX_SECTIONS 34
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
