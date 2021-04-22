@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/22 17:45:21 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:45:55 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int			elf64(char *ptr, char *offset) {
 	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
 		return (ft_perror("Malloc sections fail\n", 0));
 	for (int i = 0; i < eh->e_shnum; i++) {
-		write(1, "X", 1);
+		prints(strtable + sh[i].sh_name);
+		write(1, "\n", 1);
 		if (sh[i].sh_type == SHT_SYMTAB)
 			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
 				return (EXIT_FAILURE);
