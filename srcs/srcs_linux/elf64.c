@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/22 17:45:55 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:47:02 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int			elf64(char *ptr, char *offset) {
 		if (sh[i].sh_type == SHT_SYMTAB)
 			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
 				return (EXIT_FAILURE);
-		else if (sh[i].sh_type == SHT_DYNSYM)
+		if (sh[i].sh_type == SHT_DYNSYM)
 			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
 				return (EXIT_FAILURE);
 	}
