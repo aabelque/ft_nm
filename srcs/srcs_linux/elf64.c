@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/22 18:39:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:41:21 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section *se
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	else if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
 		return (sym.bind == STB_LOCAL ? 's' : 'S');
+	else if (!ft_strcmp(sections[sym.shndx].name, ".sdata"))
+		return (sym.bind == STB_LOCAL ? 'g' : 'G');
 	return ('?' + 32);
 }
 
