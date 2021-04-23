@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 19:52:31 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:53:32 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,21 @@
 		uint64_t		value;
 	}				t_elf_symbol;
 
-/* ******************** ELF files ******************** */
-int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
-int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
-/* int						nm_elf(char *ptr, char *offset, char *bin, int opt); */
-int						check_offset_elf(char *ptr, char *offset);
-int						elf64(char *ptr, char *offset, int opt);
-Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
-char					*get_strtable(Elf64_Ehdr *eh);
-char					*get_strname(Elf64_Ehdr *eh, int offset);
-void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
-void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
-uint64_t				reverse64(uint64_t x, size_t size, short reverse);
-int						get_endianess(void);
-short					should_reverse(short file, short machine);
+	/* ******************** ELF files ******************** */
+	int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
+	int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
+	/* int						nm_elf(char *ptr, char *offset, char *bin, int opt); */
+	int						check_offset_elf(char *ptr, char *offset);
+	int						elf64(char *ptr, char *offset, int opt);
+	Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
+	char					*get_strtable(Elf64_Ehdr *eh);
+	char					*get_strname(Elf64_Ehdr *eh, int offset);
+	void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
+	void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right,
+			int (*comp)(const char *, const char *));
+	uint64_t				reverse64(uint64_t x, size_t size, short reverse);
+	int						get_endianess(void);
+	short					should_reverse(short file, short machine);
 
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
