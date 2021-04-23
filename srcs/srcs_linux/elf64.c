@@ -6,13 +6,15 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:13:44 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:25:58 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static inline char	get_flags(Elf64_Shdr *sh, t_elf_symbol sym, t_elf_section *sections) {
+static short rev = 0;
+
+static inline char	get_flags(t_elf_symbol sym, t_elf_section *sections) {
 
 	/* prints(sections[sym.shndx].name); */
 	/* prints(" -->  "); */
@@ -69,24 +71,24 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 	int				symcnt, i, j = 0;
 	t_elf_symbol	*symbols = NULL;
 
-	symcnt = sh[idx].sh_size / sh[idx].sh_entsize;
-	symstr_table = (char *)((char *)eh + sh[sh[idx].sh_link].sh_offset);
+	symcnt = REV(sh[idx].sh_size, rev) / REV(sh[idx].sh_entsize, rev);
+	symstr_table = (char *)((char *)eh + REV(sh[sh[idx].sh_link].sh_offset, rev));
 	symbols = malloc(sizeof(t_elf_symbol) * symcnt);
 	if (!symbols)
 		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
-		if (sym[i].st_name != 0 && ELF64_ST_TYPE(sym[i].st_info) != STT_FILE) {
-			symbols[j].type = ELF64_ST_TYPE(sym[i].st_info);
-			symbols[j].bind = ELF64_ST_BIND(sym[i].st_info);
-			symbols[j].name = symstr_table + sym[i].st_name;
-			symbols[j].shndx = sym[i].st_shndx;
-			symbols[j].value = sym[i].st_value;
+		if (sym[i].st_name != 0 && ELF64_ST_TYPE(REV(sym[i].st_info, rev)) != STT_FILE) {
+			symbols[j].type = ELF64_ST_TYPE(REV(sym[i].st_info, rev));
+			symbols[j].bind = ELF64_ST_BIND(REV(sym[i].st_info, rev));
+			symbols[j].name = symstr_table + REV(sym[i].st_name, rev);
+			symbols[j].shndx = REV(sym[i].st_shndx, rev);
+			symbols[j].value = REV(sym[i].st_value, rev);
 			j++;
 		}
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		c = get_flags(sh, symbols[i], sections);
+		c = get_flags(symbols[i], sections);
 		if (symbols[i].shndx == SHN_UNDEF)
 			write(1, "                ", 16);
 		else
@@ -112,13 +114,13 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 	if (!sections)
 		return (NULL);
 	for (i = 1; i < shnum; i++) {
-		sections[i].name = strtable + sh[i].sh_name;
+		sections[i].name = strtable + REV(sh[i].sh_name, rev);
 	}
 	return (sections);
 }
 
 int			elf64(char *ptr, char *offset) {
-	short			endianess = 0, rev;
+	short			endianess = 0;
 	char			*strtable;
 	Elf64_Ehdr		*eh;
 	Elf64_Shdr		*sh;
@@ -131,13 +133,13 @@ int			elf64(char *ptr, char *offset) {
 	strtable = ptr + REV(sh[REV(eh->e_shstrndx, rev)].sh_offset, rev);
 	if (!(sections = get_elfsection(strtable, sh, REV(eh->e_shnum, rev))))
 		return (ft_perror("Malloc sections fail\n", 0));
-	for (int i = 0; i < eh->e_shnum; i++) {
-		if (sh[i].sh_type == SHT_SYMTAB) {
-			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
+	for (int i = 0; i < REV(eh->e_shnum, rev); i++) {
+		if (REV(sh[i].sh_type, rev) == SHT_SYMTAB) {
+			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
 				return (EXIT_FAILURE);
 		}
-		else if (sh[i].sh_type == SHT_DYNSYM) {
-			if (print_symelf((Elf64_Sym *)((char *)eh + sh[i].sh_offset), sh, eh, i, sections))
+		else if (REV(sh[i].sh_type, rev) == SHT_DYNSYM) {
+			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
 				return (EXIT_FAILURE);
 		}
 	}
