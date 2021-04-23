@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 19:40:01 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:52:31 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@
 	# define BIG 2
 	# define REV(x, y) reverse64(x, sizeof(x), y)
 
+	typedef struct	s_elf_section
+	{
+		char			*name;
+	}				t_elf_section;
+
+	typedef struct	s_elf_symbol
+	{
+		char			*name;
+		uint8_t			type;
+		uint8_t			bind;
+		uint8_t			shndx;
+		uint64_t		value;
+	}				t_elf_symbol;
+
 /* ******************** ELF files ******************** */
 int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
@@ -58,19 +72,6 @@ short					should_reverse(short file, short machine);
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
 
-typedef struct	s_elf_section
-{
-	char			*name;
-}				t_elf_section;
-
-typedef struct	s_elf_symbol
-{
-	char			*name;
-	uint8_t			type;
-	uint8_t			bind;
-	uint8_t			shndx;
-	uint64_t		value;
-}				t_elf_symbol;
 
 typedef struct	s_symbol
 {
