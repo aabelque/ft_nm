@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:39:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:39:46 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			main(int ac, char **av) {
 
 	i = 0;
 	if (ac < 2)
-		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n 
+		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n \
 					Option:\n  -D,          Display dynamic symbols instead of normal symbols\n", 0));
 	while (++i < ac) {
 		if (ac > 2 && i == 1)
