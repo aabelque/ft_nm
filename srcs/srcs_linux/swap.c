@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:21:01 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:24:41 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ uint32_t			ppc32(uint32_t x)
 	return (x);
 }
 
-uint64_t			ppc64(uint64_t x)
-{
-	uint8_t			ppc;
+/* uint64_t			ppc64(uint64_t x) */
+/* { */
+/* 	uint8_t			ppc; */
 
-	ppc = *get_ppc();
-	if (ppc)
-		return (swap64(x));
-	return (x);
-}
+/* 	ppc = *get_ppc(); */
+/* 	if (ppc) */
+/* 		return (swap64(x)); */
+/* 	return (x); */
+/* } */
 
 uint32_t			swap32(uint32_t x)
 {
