@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:00:39 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:02:05 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ uint32_t			swap32(uint32_t x)
 /*     return (x << 32) | (x >> 32); */
 /* } */
 
-uint64_t			reverse64(uint64_t x, size_t size, bool reverse) {
+uint64_t			reverse64(uint64_t x, size_t size, short reverse) {
 	int				i = 0;
 	uint64_t		y = 0;
 	unsigned char	*ptr_x, *ptr_y;

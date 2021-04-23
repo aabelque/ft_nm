@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:01:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:02:05 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
 void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
 void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
-uint64_t				reverse64(uint64_t x, size_t size, bool reverse);
+uint64_t				reverse64(uint64_t x, size_t size, short reverse);
 int						get_endianess(void);
 short					should_reverse(short file, short machine);
 
