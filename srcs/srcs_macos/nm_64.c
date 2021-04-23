@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 08:14:43 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/31 15:39:39 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:32:21 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ int				handle_64(void *ptr, void *offset)
 	{
 		if (check_offset(lc, offset))
 			return (ft_perror("Corrupted\n", 0));
-		if (ppc64(lc->cmd) == SEGMENT64)
+		if (ppc64(lc->cmd) == LC_SEGMENT_64)
 			get_section64(ptr, (struct segment_command_64 *)lc);
-		if (ppc64(lc->cmd) == SYMTAB)
+		if (ppc64(lc->cmd) == LC_SYMTAB)
 		{
 			if (print_nm64((struct symtab_command *)lc, ptr, offset))
 				return (EXIT_FAILURE);

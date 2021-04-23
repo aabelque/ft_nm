@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:19:51 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/31 15:38:43 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:33:11 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int				handle_32(void *ptr, void *offset)
 	{
 		if (check_offset(lc, offset))
 			return (ft_perror("Corrupted\n", 0));
-		if (ppc32(lc->cmd) == SEGMENT32)
+		if (ppc32(lc->cmd) == LC_SEGMENT)
 			get_section32(ptr, (struct segment_command *)lc, offset);
-		if (ppc32(lc->cmd) == SYMTAB)
+		if (ppc32(lc->cmd) == LC_SYMTAB)
 		{
 			if (print_nm32((struct symtab_command *)lc, ptr, offset))
 				return (EXIT_FAILURE);

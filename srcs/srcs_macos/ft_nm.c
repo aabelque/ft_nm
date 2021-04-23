@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:25 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/31 20:28:09 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:35:19 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ int			nm(void *ptr, void  *offset, char *bin)
 	magic_nb = *(int *)ptr;
 	switch (magic_nb)
 	{
-		case CIGAM_32:
-		case MAGIC_32:
+		case MH_CIGAM:
+		case MH_MAGIC:
 			if (handle_32(ptr, offset))
 					return (EXIT_FAILURE);
 			break;
-		case CIGAM_64:
-		case MAGIC_64:
+		case MH_CIGAM_64:
+		case MH_MAGIC_64:
 			if (handle_64(ptr, offset))
 				return (EXIT_FAILURE);
 			break;
-		case TAF64:
-		case FAT64:
+		case FAT_CIGAM_64:
+		case FAT_MAGIC_64:
 			if (fat64(ptr, offset, bin))
 				return (EXIT_FAILURE);
 			break;
-		case TAF:
-		case FAT:
+		case FAT_CIGAM:
+		case FAT_MAGIC:
 			if (fat32(ptr, offset, bin))
 				return (EXIT_FAILURE);
 			break;
