@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:34:03 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:00:39 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ uint32_t			swap32(uint32_t x)
 /*     return (x << 32) | (x >> 32); */
 /* } */
 
-uint64_t			reverse64(uint64_t x, size_t size) {
+uint64_t			reverse64(uint64_t x, size_t size, bool reverse) {
 	int				i = 0;
 	uint64_t		y = 0;
 	unsigned char	*ptr_x, *ptr_y;
 
+	if (!reverse)
+		return (x);
 	ptr_x = (unsigned char *)&x;
 	ptr_y = (unsigned char *)&y;
 	while (--size)
@@ -72,5 +74,17 @@ uint64_t			reverse64(uint64_t x, size_t size) {
 
 int					get_endianess(void) {
 	int		value = 1;
-	return ((int) (((char *)&value)[0]));
+	return ((int)(((char *)&value)[0]));
+}
+
+short				should_reverse(short file, short machine) {
+
+	if (file == BIG && !machine)
+		return (0);
+	else if (file == BIG && machine)
+		return (1);
+	else if (file == LITTLE && machine)
+		return (0);
+	else if (file == LITTLE && !machine)
+		return (1);
 }

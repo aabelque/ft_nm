@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:34:12 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:01:11 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@
 	#include </usr/include/elf.h>
 	#include </usr/include/bsd/nlist.h>
 	# define MAX_SECTIONS 34
+	# define LITTLE 1
+	# define BIG 2
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
@@ -92,8 +94,9 @@ char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
 void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
 void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *));
-uint64_t				reverse64(uint64_t x, size_t size);
+uint64_t				reverse64(uint64_t x, size_t size, bool reverse);
 int						get_endianess(void);
+short					should_reverse(short file, short machine);
 
 
 /* ******************** Mach-o file ******************** */

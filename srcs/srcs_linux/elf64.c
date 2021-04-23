@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:30:00 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:01:32 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,22 +118,19 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 }
 
 int			elf64(char *ptr, char *offset) {
-	short			endianess = 0;
+	short			endianess = 0, rev;
 	char			*strtable;
 	Elf64_Ehdr		*eh;
 	Elf64_Shdr		*sh;
 	t_elf_section	*sections = NULL;
 
 	eh = (Elf64_Ehdr *)ptr;
-	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? 1 : 2;
+	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
-	ft_putnbr(endianess);
+	rev = should_reverse(endianess, get_endianess());
+	ft_putnbr(reverse64(eh->e_shoff, sizeof(eh->e_shoff), rev));
 	write(1, "\n", 1);
-	ft_putnbr(get_endianess());
-	write(1, "\n", 1);
-	ft_putnbr(reverse64(eh->e_shoff, sizeof(eh->e_shoff)));
-	write(1, "\n", 1);
-	ft_putnbr(reverse64(eh->e_ehsize, sizeof(eh->e_ehsize)));
+	ft_putnbr(reverse64(eh->e_ehsize, sizeof(eh->e_ehsize), rev));
 	write(1, "\n", 1);
 	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
 	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
