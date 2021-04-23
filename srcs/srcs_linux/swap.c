@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:30:45 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:31:24 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ uint64_t			reverse64(uint64_t x, size_t size) {
 	return (y);
 }
 
-int					get_endianess(void) {
+char				get_endianess(void) {
 	int		value = 1;
 	char	*ptr;
 
 	ptr = (char *)&value;
-	return ((int)(*ptr + 48));
+	return (*ptr + 48);
 }
