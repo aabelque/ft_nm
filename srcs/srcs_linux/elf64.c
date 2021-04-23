@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/22 23:55:44 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 10:48:21 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,10 @@ int			elf64(char *ptr, char *offset) {
 	eh = (Elf64_Ehdr *)ptr;
 	if (eh->e_ident[EI_DATA] == ELFDATA2MSB)
 		lendian = 1;
-	unsigned int x = 1;
-	printf ("%d", (int) (((char *)&x)[0]));
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
 	ft_putnbr(lendian);
 	write(1, "\n", 1);
-	ft_putnbr(eh->e_shnum);
+	ft_putnbr(swap64_little_to_big(eh->e_shnum));
 	write(1, "\n", 1);
 	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
 	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
