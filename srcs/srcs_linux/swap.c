@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:57:05 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:21:01 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,23 @@ uint32_t			swap32(uint32_t x)
     return (x << 16) | (x >> 16);
 }
 
-uint64_t			swap64(uint64_t x)
-{
-    x = ((x << 8) & 0xFF00FF00FF00FF00ULL ) | ((x >> 8) & 0x00FF00FF00FF00FFULL );
-    x = ((x << 16) & 0xFFFF0000FFFF0000ULL ) | ((x >> 16) & 0x0000FFFF0000FFFFULL );
-    return (x << 32) | (x >> 32);
-}
+/* uint64_t			swap64(uint64_t x) */
+/* { */
+/*     x = ((x << 8) & 0xFF00FF00FF00FF00ULL ) | ((x >> 8) & 0x00FF00FF00FF00FFULL ); */
+/*     x = ((x << 16) & 0xFFFF0000FFFF0000ULL ) | ((x >> 16) & 0x0000FFFF0000FFFFULL ); */
+/*     return (x << 32) | (x >> 32); */
+/* } */
 
-uint64_t			swap_bytes(uint64_t x, size_t size)
+uint64_t			reverse64(uint64_t x, size_t size)
 {
 	int				i = 0;
-	uint64_t		y;
+	uint64_t		y = 0;
 	unsigned char	*ptr_x, *ptr_y;
 
-	y = 0;
 	ptr_x = (unsigned char *)&x;
 	ptr_y = (unsigned char *)&y;
 	while (--size)
 		ptr_y[i++] = ptr_x[size];
 	ptr_y[i++] = ptr_x[size];
 	return (y);
-	/* x = (x << 32) | (x >> 32); */
-    /* x = ((x << 16) & 0xFFFF0000FFFF0000ULL ) | ((x >> 16) & 0x0000FFFF0000FFFFULL ); */
-    /* return (((x << 8) & 0xFF00FF00FF00FF00ULL ) | ((x >> 8) & 0x00FF00FF00FF00FFULL )); */
-    /* return (x << 32) | (x >> 32); */
 }

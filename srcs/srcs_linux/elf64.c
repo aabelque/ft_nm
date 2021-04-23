@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:58:29 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:22:36 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,21 +118,20 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 }
 
 int			elf64(char *ptr, char *offset) {
-	short			lendian = 0;
+	short			endianess = 0;
 	char			*strtable;
 	Elf64_Ehdr		*eh;
 	Elf64_Shdr		*sh;
 	t_elf_section	*sections = NULL;
 
 	eh = (Elf64_Ehdr *)ptr;
-	if (eh->e_ident[EI_DATA] == ELFDATA2MSB)
-		lendian = 1;
+	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? 1 : 2;
 	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
-	ft_putnbr(lendian);
+	ft_putnbr(endianess);
 	write(1, "\n", 1);
-	ft_putnbr(swap_bytes(eh->e_shoff, sizeof(eh->e_shoff)));
+	ft_putnbr(reverse64(eh->e_shoff, sizeof(eh->e_shoff)));
 	write(1, "\n", 1);
-	ft_putnbr(swap_bytes(eh->e_ehsize, sizeof(eh->e_ehsize)));
+	ft_putnbr(reverse64(eh->e_ehsize, sizeof(eh->e_ehsize)));
 	write(1, "\n", 1);
 	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
 	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
