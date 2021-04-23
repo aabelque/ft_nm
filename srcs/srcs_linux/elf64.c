@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 16:01:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:47:09 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,17 @@ int			elf64(char *ptr, char *offset, int opt) {
 	if (!(sections = get_elfsection(strtable, sh, REV(eh->e_shnum, rev))))
 		return (ft_perror("Malloc sections fail\n", 0));
 	for (int i = 0; i < REV(eh->e_shnum, rev); i++) {
-		if (REV(sh[i].sh_type, rev) == SHT_SYMTAB) {
-			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
-				return (EXIT_FAILURE);
-			no_sym = 0;
-		}
-		else if (opt) {
+		if (opt) {
 			if (REV(sh[i].sh_type, rev) == SHT_DYNSYM) {
 				if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
 					return (EXIT_FAILURE);
 				no_sym = 0;
 			}
+		}
+		else if (REV(sh[i].sh_type, rev) == SHT_SYMTAB) {
+			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
+				return (EXIT_FAILURE);
+			no_sym = 0;
 		}
 	}
 	if (no_sym)
