@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:36:36 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 12:37:31 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ uint64_t			swap64(uint64_t x)
     return (x << 32) | (x >> 32);
 }
 
-short unsigned int			swap_bytes(short unsigned int x)
+unsigned int			swap_bytes(unsigned int x)
 {
-	short unsigned int	y;
+	unsigned int	y;
 	char		*ptr_x, *ptr_y;
 
 	ptr_x = (char *)&x;
 	ptr_y = (char *)&y;
-	for (int i = 0; i < sizeof(short unsigned int); i++) {
-		ptr_y[i] = ptr_x[sizeof(short unsigned int) - 1 - i];
+	for (int i = 0; i < sizeof(unsigned int); i++) {
+		ptr_y[i] = ptr_x[sizeof(unsigned int) - 1 - i];
 	}
 	return (y);
 	/* x = (x << 32) | (x >> 32); */
