@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:20:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 12:23:11 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,17 @@ uint64_t			swap64(uint64_t x)
     return (x << 32) | (x >> 32);
 }
 
-uint64_t			swap_bytes(uint64_t *x)
+uint64_t			swap_bytes(uint64_t x)
 {
-	char		tmp;
-	char		*ptr;
+	uint64_t	y;
+	char		*ptr_x, *ptr_y;
 
-	ptr = (char *)x;
-	for (int i = 0; i < sizeof(uint64_t) / 2; i++) {
-		tmp = ptr[i];
-		ptr[i] = ptr[sizeof(uint64_t) - 1 - i];
-		ptr[sizeof(uint64_t) - 1 - i] = tmp;
+	ptr_x = (char *)x;
+	ptr_y = (char *)y;
+	for (int i = 0; i < sizeof(uint64_t); i++) {
+		ptr_y[i] = ptr_x[sizeof(uint64_t) - 1 - i];
 	}
-	
+	return (y);
 	/* x = (x << 32) | (x >> 32); */
     /* x = ((x << 16) & 0xFFFF0000FFFF0000ULL ) | ((x >> 16) & 0x0000FFFF0000FFFFULL ); */
     /* return (((x << 8) & 0xFF00FF00FF00FF00ULL ) | ((x >> 8) & 0x00FF00FF00FF00FFULL )); */
