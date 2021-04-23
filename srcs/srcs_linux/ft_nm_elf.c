@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:48:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:53:48 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int			main(int ac, char **av) {
 	char		*ptr;
 	struct stat	buff;
 
-	i = 0;
 	if (ac < 2)
 		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n Option:\n  -D,          Display dynamic symbols instead of normal symbols\n", 0));
 	if (!strcmp(av[1], "-D"))
 		opt = 1;
+	i = opt ? 1 : 0;
 	while (++i < ac) {
 		if (ac > 2 && i == 1)
 			write(1, "\n", 1);
@@ -46,9 +46,9 @@ int			main(int ac, char **av) {
 			prints(av[i]);
 			write(1, ":\n", 2);
 		}
-		if (open_binary_elf(av[1], &fd, &ptr, &buff))
+		if (open_binary_elf(av[i], &fd, &ptr, &buff))
 			return (EXIT_FAILURE);
-		nm_elf(ptr, ptr + buff.st_size, av[1], opt);
+		nm_elf(ptr, ptr + buff.st_size, av[i], opt);
 		if (close_binary_elf(&ptr, &fd, &buff))
 			return (EXIT_FAILURE);
 		if (ac > 2 && (i + 1) != ac)
