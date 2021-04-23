@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:56:19 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:57:52 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ int			elf64(char *ptr, char *offset, int opt) {
 					return (EXIT_FAILURE);
 			}
 		}
-		else
-			return (ft_perror("No symbols\n", 0));
+		/* else */
+		/* 	return (ft_perror("No symbols\n", 0)); */
 	}
 	return (EXIT_SUCCESS);
 }
