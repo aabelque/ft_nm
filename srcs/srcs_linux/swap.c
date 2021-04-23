@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:51:31 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 12:53:14 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ uint64_t			swap64(uint64_t x)
 uint64_t			swap_bytes(uint64_t x)
 {
 	uint64_t	y;
-	char		*ptr_x, *ptr_y;
+	unsigned char		*ptr_x, *ptr_y;
 
-	ptr_x = (char *)&x;
-	ptr_y = (char *)&y;
+	ptr_x = (unsigned char *)&x;
+	ptr_y = (unsigned char *)&y;
 	for (int i = 0; i < sizeof(x); i++) {
 		ptr_y[i] = ptr_x[sizeof(x) - 1 - i];
 	}
