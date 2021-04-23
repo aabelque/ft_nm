@@ -6,13 +6,13 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:40:06 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:48:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int			nm_elf(char *ptr, char *offset, char *bin) {
+int			nm_elf(char *ptr, char *offset, char *bin, int opt) {
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
@@ -20,7 +20,7 @@ int			nm_elf(char *ptr, char *offset, char *bin) {
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
 			(unsigned char)ptr[EI_MAG3] == 'F') {
 		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS64)
-			if (elf64(ptr, offset))
+			if (elf64(ptr, offset, opt))
 				return (EXIT_FAILURE);
 	}
 	else
@@ -30,14 +30,15 @@ int			nm_elf(char *ptr, char *offset, char *bin) {
 }
 
 int			main(int ac, char **av) {
-	int			i, fd;
+	int			i, fd, opt = 0;
 	char		*ptr;
 	struct stat	buff;
 
 	i = 0;
 	if (ac < 2)
-		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n \
-	Option:\n  -D,          Display dynamic symbols instead of normal symbols\n", 0));
+		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n Option:\n  -D,          Display dynamic symbols instead of normal symbols\n", 0));
+	if (!strcmp(av[1], "-D"))
+		opt = 1;
 	while (++i < ac) {
 		if (ac > 2 && i == 1)
 			write(1, "\n", 1);
@@ -47,7 +48,7 @@ int			main(int ac, char **av) {
 		}
 		if (open_binary_elf(av[1], &fd, &ptr, &buff))
 			return (EXIT_FAILURE);
-		nm_elf(ptr, ptr + buff.st_size, av[1]);
+		nm_elf(ptr, ptr + buff.st_size, av[1], opt);
 		if (close_binary_elf(&ptr, &fd, &buff))
 			return (EXIT_FAILURE);
 		if (ac > 2 && (i + 1) != ac)

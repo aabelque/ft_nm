@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:34:48 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:50:00 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 	return (sections);
 }
 
-int			elf64(char *ptr, char *offset) {
+int			elf64(char *ptr, char *offset, int opt) {
 	short			endianess = 0;
 	char			*strtable;
 	Elf64_Ehdr		*eh;
@@ -140,10 +140,14 @@ int			elf64(char *ptr, char *offset) {
 			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
 				return (EXIT_FAILURE);
 		}
-		else if (REV(sh[i].sh_type, rev) == SHT_DYNSYM) {
-			if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
-				return (EXIT_FAILURE);
+		else if (opt) {
+			if (REV(sh[i].sh_type, rev) == SHT_DYNSYM) {
+				if (print_symelf((Elf64_Sym *)((char *)eh + REV(sh[i].sh_offset, rev)), sh, eh, i, sections))
+					return (EXIT_FAILURE);
+			}
 		}
+		else
+			return (ft_perror("No symbols\n", 0));
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:13:07 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:48:06 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ typedef struct	s_section
 /* ******************** ELF files ******************** */
 int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
-int						nm_elf(char *ptr, char *offset, char *bin);
+int						nm_elf(char *ptr, char *offset, char *bin, int opt);
 int						check_offset_elf(char *ptr, char *offset);
-int						elf64(char *ptr, char *offset);
+int						elf64(char *ptr, char *offset, int opt);
 Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
 char					*get_strtable(Elf64_Ehdr *eh);
 char					*get_strname(Elf64_Ehdr *eh, int offset);
