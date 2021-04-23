@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:01:32 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:13:11 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,10 @@ int			elf64(char *ptr, char *offset) {
 
 	eh = (Elf64_Ehdr *)ptr;
 	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
-	sh = (Elf64_Shdr *)(ptr + eh->e_shoff);
 	rev = should_reverse(endianess, get_endianess());
-	ft_putnbr(reverse64(eh->e_shoff, sizeof(eh->e_shoff), rev));
-	write(1, "\n", 1);
-	ft_putnbr(reverse64(eh->e_ehsize, sizeof(eh->e_ehsize), rev));
-	write(1, "\n", 1);
-	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
-	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
+	sh = (Elf64_Shdr *)(ptr + REV(eh->e_shoff, rev);
+	strtable = ptr + REV(sh[REV(eh->e_shstrndx, rev)].sh_offset, rev);
+	if (!(sections = get_elfsection(strtable, sh, REV(eh->e_shnum, rev))))
 		return (ft_perror("Malloc sections fail\n", 0));
 	for (int i = 0; i < eh->e_shnum; i++) {
 		if (sh[i].sh_type == SHT_SYMTAB) {

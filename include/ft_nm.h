@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:02:05 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:13:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 	# define MAX_SECTIONS 34
 	# define LITTLE 1
 	# define BIG 2
+	# define REV(x, y) reverse64(x, sizeof(x), y)
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")
 # endif
