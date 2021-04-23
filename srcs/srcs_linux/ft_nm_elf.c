@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 17:55:00 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:56:28 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			main(int ac, char **av) {
 		/* else if (ac > 2 && opt && i == 3) */
 		/* 	write(1, "\n", 1); */
 		if (ac > 2) {
-			if (opt && ac != 3) {
+			if (!opt && ac != 3) {
 				prints(av[i]);
 				write(1, ":\n", 2);
 			}
