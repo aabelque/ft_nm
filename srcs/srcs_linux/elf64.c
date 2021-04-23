@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 12:57:41 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 12:58:19 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			elf64(char *ptr, char *offset) {
 	write(1, "\n", 1);
 	ft_putnbr(swap_bytes(eh->e_shoff, sizeof(eh->shoff)));
 	write(1, "\n", 1);
-	ft_putnbr(swap_bytes(eh->e_ehsize, sizeof(eh->e_ehsize));
+	ft_putnbr(swap_bytes(eh->e_ehsize, sizeof(eh->e_ehsize)));
 	write(1, "\n", 1);
 	strtable = ptr + sh[eh->e_shstrndx].sh_offset;
 	if (!(sections = get_elfsection(strtable, sh, eh->e_shnum)))
