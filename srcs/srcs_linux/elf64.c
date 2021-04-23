@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 15:13:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:13:44 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int			elf64(char *ptr, char *offset) {
 	eh = (Elf64_Ehdr *)ptr;
 	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
 	rev = should_reverse(endianess, get_endianess());
-	sh = (Elf64_Shdr *)(ptr + REV(eh->e_shoff, rev);
+	sh = (Elf64_Shdr *)(ptr + REV(eh->e_shoff, rev));
 	strtable = ptr + REV(sh[REV(eh->e_shstrndx, rev)].sh_offset, rev);
 	if (!(sections = get_elfsection(strtable, sh, REV(eh->e_shnum, rev))))
 		return (ft_perror("Malloc sections fail\n", 0));
