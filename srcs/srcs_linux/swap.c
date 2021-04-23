@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 13:30:21 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:30:45 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ int					get_endianess(void) {
 	char	*ptr;
 
 	ptr = (char *)&value;
-	return (*ptr + 48);
+	return ((int)(*ptr + 48));
 }
