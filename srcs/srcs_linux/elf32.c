@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 16:57:12 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 16:58:54 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	return (EXIT_SUCCESS);
 }
 
-static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) {
+static t_elf_section	*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) {
 	int				i;
 	t_elf_section	*sections = NULL;
 
