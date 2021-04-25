@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 17:42:21 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:45:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 		hexdump(symbols.value, 16, 8);
 	write(1, " ", 1);
 	write(1, &c, 1);
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols[i].bind); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols[i].shndx); */
+	write(1, " ", 1);
+	ft_putnbr(symbols[i].bind);
+	write(1, " ", 1);
+	ft_putnbr(symbols[i].shndx);
 	write(1, " ", 1);
 	prints(symbols.name);
 	write(1, "\n", 1);
