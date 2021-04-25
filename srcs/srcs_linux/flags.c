@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 17:44:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:47:15 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			rodata_flags(t_elf_symbol sym, t_elf_section *sections) {
 			|| !ft_strcmp(sections[sym.shndx].name, ".rodata_cond")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame_hdr")
+			|| !ft_strcmp(sections[sym.shndx].name, ".note.hpux_options")
 			);}
 
 char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
