@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 17:27:55 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:38:54 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, cha
 static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections) {
 	char			c;
 
+	if (!ft_strcmp(sections[symbols.shndx].name, ".IA_64.unwind_hdr"))
+		return ;
 	c = get_flags(symbols, sections);
 	if (symbols.shndx == SHN_UNDEF)
 		write(1, "        ", 8);

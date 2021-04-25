@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 17:34:14 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:36:13 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int			text_flags(t_elf_symbol sym, t_elf_section *sections) {
 	return (!ft_strcmp(sections[sym.shndx].name, ".text")
+			|| !ft_strcmp(sections[sym.shndx].name, ".bortext")
 			|| !ft_strcmp(sections[sym.shndx].name, ".fini_array")
 			|| !ft_strcmp(sections[sym.shndx].name, ".fini")
 			|| !ft_strcmp(sections[sym.shndx].name, ".init")
@@ -34,10 +35,10 @@ int			data_flags(t_elf_symbol sym, t_elf_section *sections) {
 int			rodata_flags(t_elf_symbol sym, t_elf_section *sections) {
 	return (!ft_strcmp(sections[sym.shndx].name, ".rodata")
 			|| !ft_strcmp(sections[sym.shndx].name, ".rodata_cond")
+			|| !ft_strcmp(sections[sym.shndx].name, ".IA_64.unwind_hdr")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame_hdr")
-			);
-}
+			);}
 
 char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 
