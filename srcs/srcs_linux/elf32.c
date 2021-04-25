@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 16:58:54 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:27:55 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			elf32(char *ptr, char *offset, int opt) {
 	sh = (Elf32_Shdr *)(ptr + REV32(eh->e_shoff, rev));
 	strtable = ptr + REV32(sh[REV32(eh->e_shstrndx, rev)].sh_offset, rev);
 	if (!(sections = get_elfsection(strtable, sh, REV32(eh->e_shnum, rev))))
-		return (ft_perror("Malloc sections fail\n", 0));
+		return (ft_perror("Malloc ections fail\n", 0));
 	for (int i = 0; i < REV32(eh->e_shnum, rev); i++) {
 		if (opt) {
 			if (REV32(sh[i].sh_type, rev) == SHT_DYNSYM) {
