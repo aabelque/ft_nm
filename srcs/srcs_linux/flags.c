@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 18:19:04 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 18:20:45 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 		return (sym.bind == STB_LOCAL ? 'd' : 'D');
 	}
 	else if (rodata_flags(sym, sections))
+		if (sym.bind == STB_WEAK)
+			return (sym.bind == STB_LOCAL ? 'd' : 'D');
 		return (sym.bind == STB_LOCAL ? 'r' : 'R');
 	else if (!ft_strcmp(sections[sym.shndx].name, ".bss")) {
 		if (sym.bind == STB_WEAK && sym.type == STT_OBJECT)
