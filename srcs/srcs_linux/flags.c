@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 15:26:14 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:03:07 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int			rodata_flags(t_elf_symbol sym, t_elf_section *sections) {
 
 char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 
-	/* prints(sections[sym.shndx].name); */
-	/* prints(" -->  "); */
+	prints(sections[sym.shndx].name);
+	prints(" -->  ");
 	if (sym.shndx > MAX_SECTIONS)
 		return ('A');
 	if (sections[sym.shndx].name == NULL) {
