@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 14:17:52 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:21:30 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,29 @@ static inline t_elf_symbol	init_symbols(Elf64_Sym sym, t_elf_symbol symbols, cha
 	symbols.name = symstr + REV(sym.st_name, rev);
 	symbols.shndx = REV(sym.st_shndx, rev);
 	symbols.value = REV(sym.st_value, rev);
-
 	return (symbols);
 }
 
-static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
+static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections) {
 	char			c;
+
+	c = get_flags(symbols, sections);
+	if (symbols.shndx == SHN_UNDEF)
+		write(1, "                ", 16);
+	else
+		hexdump(symbols.value, 16, 16);
+	write(1, " ", 1);
+	write(1, &c, 1);
+	/* write(1, " ", 1); */
+	/* ft_putnbr(symbols[i].bind); */
+	/* write(1, " ", 1); */
+	/* ft_putnbr(symbols[i].shndx); */
+	write(1, " ", 1);
+	prints(symbols.name);
+	write(1, "\n", 1);
+}
+
+static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
 	char			*symstr_table;
 	int				symcnt, i, j = 0;
 	t_elf_symbol	*symbols = NULL;
@@ -96,20 +113,7 @@ static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh,
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		c = get_flags(symbols[i], sections);
-		if (symbols[i].shndx == SHN_UNDEF)
-			write(1, "                ", 16);
-		else
-			hexdump(symbols[i].value, 16, 16);
-		write(1, " ", 1);
-		write(1, &c, 1);
-		/* write(1, " ", 1); */
-		/* ft_putnbr(symbols[i].bind); */
-		/* write(1, " ", 1); */
-		/* ft_putnbr(symbols[i].shndx); */
-		write(1, " ", 1);
-		prints(symbols[i].name);
-		write(1, "\n", 1);
+		print_symbols(symbols[i], sections);
 	}
 	free(symbols);
 	free(sections);
