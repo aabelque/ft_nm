@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 15:26:12 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 16:55:50 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@
 	# define LITTLE 1
 	# define BIG 2
 	# define REV(x, y) reverse64(x, sizeof(x), y)
+	# define REV32(x, y) reverse32(x, sizeof(x), y)
 
 	typedef struct	s_elf_section
 	{
@@ -100,6 +101,7 @@
 	/* int						nm_elf(char *ptr, char *offset, char *bin, int opt); */
 	int						check_offset_elf(char *ptr, char *offset);
 	int						elf64(char *ptr, char *offset, int opt);
+	int						elf32(char *ptr, char *offset, int opt);
 	int						get_endianess(void);
 	int						text_flags(t_elf_symbol sym, t_elf_section *sections);
 	int						data_flags(t_elf_symbol sym, t_elf_section *sections);
@@ -109,6 +111,7 @@
 			int (*comp)(const char *, const char *));
 	char					*get_strtable(Elf64_Ehdr *eh);
 	char					*get_strname(Elf64_Ehdr *eh, int offset);
+	uint32_t				reverse32(uint32_t x, size_t size, short reverse);
 	uint64_t				reverse64(uint64_t x, size_t size, short reverse);
 	Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
 

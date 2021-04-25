@@ -6,16 +6,25 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 19:29:53 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 16:54:43 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-uint32_t			swap32(uint32_t x)
-{
-	x = ((x << 8) & 0xFF00FF00 ) | ((x >> 8) & 0xFF00FF ); 
-    return (x << 16) | (x >> 16);
+uint32_t			reverse32(uint32_t x, size_t size, short reverse) {
+	int				i = 0;
+	uint32_t		y = 0;
+	unsigned char	*ptr_x, *ptr_y;
+
+	if (!reverse)
+		return (x);
+	ptr_x = (unsigned char *)&x;
+	ptr_y = (unsigned char *)&y;
+	while (--size)
+		ptr_y[i++] = ptr_x[size];
+	ptr_y[i++] = ptr_x[size];
+	return (y);
 }
 
 uint64_t			reverse64(uint64_t x, size_t size, short reverse) {
