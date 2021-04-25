@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 14:10:01 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:17:52 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static inline t_elf_symbol	init_symbols(Elf64_Sym sym, t_elf_symbol symbols, cha
 	symbols.name = symstr + REV(sym.st_name, rev);
 	symbols.shndx = REV(sym.st_shndx, rev);
 	symbols.value = REV(sym.st_value, rev);
+
+	return (symbols);
 }
 
 static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
@@ -88,7 +90,7 @@ static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh,
 		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
 		if (sym[i].st_name != 0 && ELF64_ST_TYPE(REV(sym[i].st_info, rev)) != STT_FILE) {
-			init_symbols(sym[i], symbols[j], symstr_table);
+			symbols[j] = init_symbols(sym[i], symbols[j], symstr_table);
 			j++;
 		}
 	}
