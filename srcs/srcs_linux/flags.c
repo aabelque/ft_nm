@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 17:36:13 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:41:55 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int			data_flags(t_elf_symbol sym, t_elf_section *sections) {
 int			rodata_flags(t_elf_symbol sym, t_elf_section *sections) {
 	return (!ft_strcmp(sections[sym.shndx].name, ".rodata")
 			|| !ft_strcmp(sections[sym.shndx].name, ".rodata_cond")
-			|| !ft_strcmp(sections[sym.shndx].name, ".IA_64.unwind_hdr")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame")
 			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame_hdr")
 			);}
@@ -76,5 +75,7 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 		return (sym.bind == STB_LOCAL ? 's' : 'S');
 	else if (!ft_strcmp(sections[sym.shndx].name, ".sdata"))
 		return (sym.bind == STB_LOCAL ? 'g' : 'G');
+	else if (!ft_strcmp(sections[symbols.shndx].name, ".IA_64.unwind_hdr"))
+		return (0);
 	return ('?');
 }
