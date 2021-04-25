@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 14:11:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:26:12 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@
 	}				t_elf_symbol;
 
 	/* ******************** ELF files ******************** */
+
+	char					get_flags(t_elf_symbol sym, t_elf_section *sections);
 	short					should_reverse(short file, short machine);
 	int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 	int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
@@ -99,6 +101,9 @@
 	int						check_offset_elf(char *ptr, char *offset);
 	int						elf64(char *ptr, char *offset, int opt);
 	int						get_endianess(void);
+	int						text_flags(t_elf_symbol sym, t_elf_section *sections);
+	int						data_flags(t_elf_symbol sym, t_elf_section *sections);
+	int						rodata_flags(t_elf_symbol sym, t_elf_section *sections);
 	void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
 	void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right,
 			int (*comp)(const char *, const char *));

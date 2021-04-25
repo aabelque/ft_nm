@@ -29,6 +29,7 @@ SRC_LINUX += nm_utils.c
 SRC_LINUX += libc.c
 SRC_LINUX += swap.c
 SRC_LINUX += elf64.c
+SRC_LINUX += flags.c
 
 SRC_MAC = ft_nm.c
 SRC_MAC += nm_utils.c

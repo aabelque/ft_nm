@@ -6,66 +6,13 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 14:51:11 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:26:18 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
 static short rev = 0;
-
-static inline char	get_flags(t_elf_symbol sym, t_elf_section *sections) {
-
-	/* prints(sections[sym.shndx].name); */
-	/* prints(" -->  "); */
-	if (sym.shndx > MAX_SECTIONS)
-		return ('A');
-	if (sections[sym.shndx].name == NULL) {
-		if (sym.bind == STB_WEAK) {
-			if (sym.type == STT_OBJECT)
-				return ('v');
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		}
-		if (sym.shndx == SHN_UNDEF)
-			return (sym.bind == STB_WEAK ? 'w' : 'U');
-	}
-	else if (!ft_strcmp(sections[sym.shndx].name, ".dynamic")
-			|| !ft_strcmp(sections[sym.shndx].name, ".got")
-			|| !ft_strcmp(sections[sym.shndx].name, ".got.plt")
-			|| !ft_strcmp(sections[sym.shndx].name, ".ctors")
-			|| !ft_strcmp(sections[sym.shndx].name, ".data")
-			|| !ft_strcmp(sections[sym.shndx].name, ".data.rel.ro")
-			) {
-		if (sym.bind == STB_WEAK)
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		return (sym.bind == STB_LOCAL ? 'd' : 'D');
-	}
-	else if (!ft_strcmp(sections[sym.shndx].name, ".rodata")
-			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame")
-			|| !ft_strcmp(sections[sym.shndx].name, ".eh_frame_hdr")
-			)
-		return (sym.bind == STB_LOCAL ? 'r' : 'R');
-	else if (!ft_strcmp(sections[sym.shndx].name, ".bss")) {
-		if (sym.bind == STB_WEAK && sym.type == STT_OBJECT)
-			return ('V');
-		return (sym.bind == STB_LOCAL ? 'b' : 'B');
-	}
-	else if (!ft_strcmp(sections[sym.shndx].name, ".text")
-			|| !ft_strcmp(sections[sym.shndx].name, ".fini_array")
-			|| !ft_strcmp(sections[sym.shndx].name, ".fini")
-			|| !ft_strcmp(sections[sym.shndx].name, ".init")
-			|| !ft_strcmp(sections[sym.shndx].name, ".init_array")
-			) {
-		if (sym.bind == STB_WEAK)
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
-	}
-	else if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
-		return (sym.bind == STB_LOCAL ? 's' : 'S');
-	else if (!ft_strcmp(sections[sym.shndx].name, ".sdata"))
-		return (sym.bind == STB_LOCAL ? 'g' : 'G');
-	return ('?');
-}
 
 static inline t_elf_symbol	init_symbols(Elf64_Sym sym, t_elf_symbol symbols, char *symstr) {
 	symbols.type = ELF64_ST_TYPE(REV(sym.st_info, rev));
@@ -95,7 +42,7 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 	write(1, "\n", 1);
 }
 
-static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
+static int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
 	char			*symstr_table;
 	int				symcnt, i, j = 0;
 	t_elf_symbol	*symbols = NULL;
@@ -162,6 +109,6 @@ int			elf64(char *ptr, char *offset, int opt) {
 	}
 	if (no_sym)
 		return (ft_perror("No symbols\n", 0));
-	/* free(sections); */
+	free(sections);
 	return (EXIT_SUCCESS);
 }
