@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/23 16:47:09 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:10:01 by aabelque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,15 @@ static inline char	get_flags(t_elf_symbol sym, t_elf_section *sections) {
 	return ('?');
 }
 
-static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
+static inline t_elf_symbol	init_symbols(Elf64_Sym sym, t_elf_symbol symbols, char *symstr) {
+	symbols.type = ELF64_ST_TYPE(REV(sym.st_info, rev));
+	symbols.bind = ELF64_ST_BIND(REV(sym.st_info, rev));
+	symbols.name = symstr + REV(sym.st_name, rev);
+	symbols.shndx = REV(sym.st_shndx, rev);
+	symbols.value = REV(sym.st_value, rev);
+}
+
+static inline int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int idx, t_elf_section *sections) {
 	char			c;
 	char			*symstr_table;
 	int				symcnt, i, j = 0;
@@ -80,11 +88,7 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
 		if (sym[i].st_name != 0 && ELF64_ST_TYPE(REV(sym[i].st_info, rev)) != STT_FILE) {
-			symbols[j].type = ELF64_ST_TYPE(REV(sym[i].st_info, rev));
-			symbols[j].bind = ELF64_ST_BIND(REV(sym[i].st_info, rev));
-			symbols[j].name = symstr_table + REV(sym[i].st_name, rev);
-			symbols[j].shndx = REV(sym[i].st_shndx, rev);
-			symbols[j].value = REV(sym[i].st_value, rev);
+			init_symbols(sym[i], symbols[j], symstr_table);
 			j++;
 		}
 	}
@@ -105,6 +109,8 @@ static inline int	print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, i
 		prints(symbols[i].name);
 		write(1, "\n", 1);
 	}
+	free(symbols);
+	free(sections);
 	return (EXIT_SUCCESS);
 }
 
