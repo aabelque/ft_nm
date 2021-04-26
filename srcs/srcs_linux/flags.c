@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 14:02:03 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 14:03:33 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections, Elf32_Shdr *sh) {
 		/* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	}
-	/* else if (data_flags(sym, sections)) { */
-	/* 	if (sym.bind == STB_WEAK) */
-			/* return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-		/* return (sym.bind == STB_LOCAL ? 'd' : 'D'); */
-	/* } */
+	else if (data_flags(sym, sections)) {
+		if (sym.bind == STB_WEAK)
+			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+		return (sym.bind == STB_LOCAL ? 'd' : 'D');
+	}
 	else if (rodata_flags(sym, sections)) {
 		if (sym.bind == STB_WEAK)
 			return (sym.bind == STB_LOCAL ? 'd' : 'D');
