@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 17:53:07 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 17:58:01 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline t_elf_symbol	init_symbols(Elf64_Sym sym, t_elf_symbol symbols, cha
 	symbols.bind = ELF64_ST_BIND(REV(sym.st_info, rev));
 	symbols.name = symstr + REV(sym.st_name, rev);
 	symbols.shndx = REV(sym.st_shndx, rev);
-	symbols.value = sym.st_value, rev;
+	symbols.value = REV(sym.st_value, rev);
 	return (symbols);
 }
 
@@ -79,6 +79,10 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 		sections[i].name = strtable + REV(sh[i].sh_name, rev);
 		sections[i].type = REV(sh[i].sh_type, rev);
 		sections[i].flag = REV(sh[i].sh_flags, rev);
+		prints(sections[i].name);
+		prints(" --> ");
+		hexdump(REV(sh[i].sh_addr, rev), 16, 16);
+		write(1, "\n", 1);
 	}
 	return (sections);
 }
