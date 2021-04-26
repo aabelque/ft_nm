@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 17:48:05 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 17:48:45 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
 	else if (sections[sym.shndx].type == SHT_PROGBITS) {
-		prints("flag: ");
-		ft_putnbr(sections[sym.shndx].flag);
-		prints(" ");
-		ft_putnbr(sections[sym.shndx].flag | (SHF_ALLOC | SHF_WRITE));
-		prints(" ");
-		if (sections[sym.shndx].flag == sections[sym.shndx].flag | (SHF_ALLOC | SHF_WRITE) & SHF_MASKPROC)
-			return (sym.bind == STB_LOCAL ? 'g' : 'G');
+		/* prints("flag: "); */
+		/* ft_putnbr(sections[sym.shndx].flag); */
+		/* prints(" "); */
+		/* ft_putnbr(sections[sym.shndx].flag | (SHF_ALLOC | SHF_WRITE)); */
+		/* prints(" "); */
 		if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR))
 			return (sym.bind == STB_LOCAL ? 't' : 'T');
 		else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
@@ -73,6 +71,8 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 		}
 		else if (sections[sym.shndx].flag == SHF_ALLOC)
 			return (sym.bind == STB_LOCAL ? 'r' : 'R');
+		else if (sections[sym.shndx].flag == sections[sym.shndx].flag | (SHF_ALLOC | SHF_WRITE))
+			return (sym.bind == STB_LOCAL ? 'g' : 'G');
 	}
 	else if (sections[sym.shndx].type == SHT_DYNAMIC) {
 		if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE))
