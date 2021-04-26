@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 15:02:42 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 15:04:52 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 		hexdump(symbols.value, 16, 8);
 	write(1, " ", 1);
 	write(1, &c, 1);
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.bind); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.type); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.shndx); */
+	write(1, " ", 1);
+	ft_putnbr(symbols.bind);
+	write(1, " ", 1);
+	ft_putnbr(symbols.type);
+	write(1, " ", 1);
+	ft_putnbr(symbols.shndx);
 	write(1, " ", 1);
 	prints(symbols.name);
 	write(1, "\n", 1);
@@ -79,8 +79,8 @@ static t_elf_section	*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) 
 		return (NULL);
 	for (i = 1; i < shnum; i++) {
 		sections[i].name = strtable + REV32(sh[i].sh_name, rev);
-		/* sections[i].type = REV32(sh[i].sh_type, rev); */
-		/* sections[i].flag = REV32(sh[i].sh_flags, rev); */
+		sections[i].type = REV32(sh[i].sh_type, rev);
+		sections[i].flag = REV32(sh[i].sh_flags, rev);
 	}
 	return (sections);
 }
