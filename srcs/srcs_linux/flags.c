@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 15:06:55 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 15:09:22 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
-	else if (sections[sym.shndx].type == SHT_PROGBITS
-			&& sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
+	else if (sections[sym.shndx].type == SHT_PROGBITS) {
+			if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR))
+				return (sym.bind == STB_LOCAL ? 't' : 'T');
+			if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE))
+				return (sym.bind == STB_LOCAL ? 'd' : 'D');
 		/* if (sym.bind == STB_WEAK) */
 		/* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	}
 	else if (data_flags(sym, sections)) {
 		if (sym.bind == STB_WEAK)
