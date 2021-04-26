@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 13:45:14 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 13:45:57 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, cha
 static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections, Elf32_Shdr *sh) {
 	char			c;
 
-	c = get_flags(symbols, sections, sh);
+	c = get_flags(symbols, sections);
 	if (!c)
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
