@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 17:58:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 18:01:18 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 		sections[i].flag = REV(sh[i].sh_flags, rev);
 		prints(sections[i].name);
 		prints(" --> ");
-		hexdump(REV(sh[i].sh_addr, rev), 16, 16);
+		hexdump(REV(sh[i].sh_addr, rev), 16, 8);
 		write(1, "\n", 1);
 	}
 	return (sections);
