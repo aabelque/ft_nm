@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 15:33:35 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 15:38:02 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 	else if (sections[sym.shndx].type == SHT_PROGBITS) {
 			if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR))
 				return (sym.bind == STB_LOCAL ? 't' : 'T');
-			else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE))
+			else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
+				if (sym.bind == STB_WEAK)
+					return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 				return (sym.bind == STB_LOCAL ? 'd' : 'D');
+			}
 			else if (sections[sym.shndx].flag == SHF_ALLOC)
 				return (sym.bind == STB_LOCAL ? 'r' : 'R');
-			else if (sym.bind == STB_WEAK)
-				return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 	}
 	else if (sections[sym.shndx].type == SHT_DYNAMIC) {
 		if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE))
