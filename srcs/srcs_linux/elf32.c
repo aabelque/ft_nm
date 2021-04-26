@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 19:00:59 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/26 13:09:36 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 	write(1, &c, 1);
 	write(1, " ", 1);
 	ft_putnbr(symbols.bind);
+	write(1, " ", 1);
+	ft_putnbr(symbols.type);
 	write(1, " ", 1);
 	ft_putnbr(symbols.shndx);
 	write(1, " ", 1);
