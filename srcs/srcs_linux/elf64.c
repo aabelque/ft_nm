@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 18:01:18 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 18:01:59 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 	if (symbols.shndx == SHN_UNDEF)
 		write(1, "                ", 16);
 	else
-		hexdump(symbols.value, 16, 16);
+		hexdump(symbols.value, 16, 8);
 	write(1, " ", 1);
 	write(1, &c, 1);
 	/* write(1, " ", 1); */
@@ -79,10 +79,6 @@ static t_elf_section	*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum) 
 		sections[i].name = strtable + REV(sh[i].sh_name, rev);
 		sections[i].type = REV(sh[i].sh_type, rev);
 		sections[i].flag = REV(sh[i].sh_flags, rev);
-		prints(sections[i].name);
-		prints(" --> ");
-		hexdump(REV(sh[i].sh_addr, rev), 16, 8);
-		write(1, "\n", 1);
 	}
 	return (sections);
 }
