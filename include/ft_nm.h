@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 14:07:33 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 17:26:17 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@
 	{
 		char			*name;
 		uint32_t		type;
-		uint32_t		flag;
+		uint64_t		flag;
 	}				t_elf_section;
 
 	typedef struct	s_elf_symbol
