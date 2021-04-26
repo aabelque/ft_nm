@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 14:05:02 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 14:07:29 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			rodata_flags(t_elf_symbol sym, t_elf_section *sections) {
 			|| !ft_strcmp(sections[sym.shndx].name, ".note.hpux_options")
 			);}
 
-char			get_flags(t_elf_symbol sym, t_elf_section *sections, Elf32_Shdr *sh) {
+char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 
 	if (sym.shndx == SHN_ABS)
 		return (sym.bind == STB_LOCAL ? 'a' : 'A');
