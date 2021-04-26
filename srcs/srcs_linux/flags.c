@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 14:03:33 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 14:05:02 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections, Elf32_Shdr *sh) {
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
-	else if (sections[sym.shndx].type == SHT_PROGBITS
-			&& sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
-		/* if (sym.bind == STB_WEAK) */
-		/* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
-	}
+	/* else if (sections[sym.shndx].type == SHT_PROGBITS */
+	/* 		&& sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) { */
+	/* 	/1* if (sym.bind == STB_WEAK) *1/ */
+	/* 	/1* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); *1/ */
+	/* 	return (sym.bind == STB_LOCAL ? 't' : 'T'); */
+	/* } */
 	else if (data_flags(sym, sections)) {
 		if (sym.bind == STB_WEAK)
 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
