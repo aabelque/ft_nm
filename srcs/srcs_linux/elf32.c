@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 13:48:54 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 13:54:29 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static short rev = 0;
 
 static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, char *symstr) {
-	printc(REV32(sym.st_info, rev));
-	write(1, "\n", 1);
 	symbols.type = ELF32_ST_TYPE(REV32(sym.st_info, rev));
 	symbols.bind = ELF32_ST_BIND(REV32(sym.st_info, rev));
 	symbols.name = symstr + REV32(sym.st_name, rev);
