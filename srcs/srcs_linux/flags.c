@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 13:51:59 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 13:53:23 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections, Elf32_Shdr *sh) {
 	/* 	return (sym.bind == STB_LOCAL ? 'a' : 'A'); */
 	/* prints(sections[sym.shndx].name); */
 	/* prints(" -->  "); */
-	else if (sections[sym.shndx].type == SHT_PROGBITS
-			&& sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
-		/* if (sym.bind == STB_WEAK) */
-		/* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
-	}
 	if (sections[sym.shndx].name == NULL) {
 		if (sym.bind == STB_WEAK) {
 			if (sym.type == STT_OBJECT)
@@ -63,6 +57,12 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections, Elf32_Shdr *sh) {
 		}
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
+	}
+	else if (sections[sym.shndx].type == SHT_PROGBITS
+			&& sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
+		/* if (sym.bind == STB_WEAK) */
+		/* 	return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
+		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	}
 	else if (data_flags(sym, sections)) {
 		if (sym.bind == STB_WEAK)
