@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 13:05:44 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 13:45:23 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 	/* 	return (sym.bind == STB_LOCAL ? 'a' : 'A'); */
 	/* prints(sections[sym.shndx].name); */
 	/* prints(" -->  "); */
+	else if (text_flags(sym, sections)) {
+		if (sym.bind == STB_WEAK)
+			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+		return (sym.bind == STB_LOCAL ? 't' : 'T');
+	}
 	if (sections[sym.shndx].name == NULL) {
 		if (sym.bind == STB_WEAK) {
 			if (sym.type == STT_OBJECT)
@@ -72,11 +77,6 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 		if (sym.bind == STB_WEAK && sym.type == STT_OBJECT)
 			return ('V');
 		return (sym.bind == STB_LOCAL ? 'b' : 'B');
-	}
-	else if (text_flags(sym, sections)) {
-		if (sym.bind == STB_WEAK)
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	}
 	else if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
 		return (sym.bind == STB_LOCAL ? 's' : 'S');

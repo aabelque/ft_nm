@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 16:55:50 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/26 13:44:32 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@
 	typedef struct	s_elf_section
 	{
 		char			*name;
+		uint32_t		type;
+		uint32_t		flag;
 	}				t_elf_section;
 
 	typedef struct	s_elf_symbol

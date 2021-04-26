@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 13:09:36 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/26 13:45:14 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, cha
 	return (symbols);
 }
 
-static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections) {
+static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections, Elf32_Shdr *sh) {
 	char			c;
 
-	c = get_flags(symbols, sections);
+	c = get_flags(symbols, sections, sh);
 	if (!c)
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
@@ -66,7 +66,7 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		print_symbols(symbols[i], sections);
+		print_symbols(symbols[i], sections, sh);
 	}
 	free(symbols);
 	return (EXIT_SUCCESS);
@@ -80,6 +80,7 @@ static t_elf_section	*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) 
 	if (!sections)
 		return (NULL);
 	for (i = 1; i < shnum; i++) {
+		printc(REV32(sh[i].sh_info, rev));
 		sections[i].name = strtable + REV32(sh[i].sh_name, rev);
 	}
 	return (sections);
