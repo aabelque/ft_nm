@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 18:26:36 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/27 12:48:00 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int			print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int id
 	if (!symbols)
 		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
-		if (sym[i].st_name != 0 && ELF64_ST_TYPE(REV(sym[i].st_info, rev)) != STT_FILE) {
+		if (sym[i].st_name != 0 && ELF64_ST_TYPE(REV(sym[i].st_info, rev)) != STT_FILE
+				&& ELF64_ST_TYPE(REV32(sym[i].st_info, rev)) != STT_SECTION) {
 			symbols[j] = init_symbols(sym[i], symbols[j], symstr_table);
 			j++;
 		}
