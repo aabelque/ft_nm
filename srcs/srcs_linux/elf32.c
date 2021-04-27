@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/27 12:45:12 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/27 12:46:52 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	t_elf_symbol	*symbols = NULL;
 
 	symcnt = REV32(sh[idx].sh_size, rev) / REV32(sh[idx].sh_entsize, rev);
+	symstr_table = (char *)((char *)eh + REV32(sh[REV32(sh[idx].sh_link, rev)].sh_offset, rev));
+	symbols = malloc(sizeof(t_elf_symbol) * symcnt);
 	if (!symbols)
 		return (ft_perror("Malloc symbols fail\n", 0));
 	for (i = 0; i < symcnt; i++) {
