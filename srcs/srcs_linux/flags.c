@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/27 15:55:25 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/27 15:58:41 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 				return ('v');
 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 		}
+		else if (sym.bind == STB_LOCAL && sym.type == STT_NOTYPE)
+			return (NULL);
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
