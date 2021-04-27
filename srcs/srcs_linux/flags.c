@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/27 16:04:00 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/27 16:08:19 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,13 @@ char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 			}
 			return (sym.bind == STB_LOCAL ? 'd' : 'D');
 		}
-		else if (sections[sym.shndx].flag == SHF_ALLOC) 
+		else if (sections[sym.shndx].flag == SHF_ALLOC) {
+			if (sym.bind == STB_WEAK) {
+				if (sym.type == STT_OBJECT)
+					return (sym.shndx == SHN_UNDEF ? 'v' : 'V');
+			}
 			return (sym.bind == STB_LOCAL ? 'r' : 'R');
+		}
 		else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKOS) | SHF_ALLOC))
 			return (sym.bind == STB_LOCAL ? 'r' : 'R');
 		else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKPROC) | (SHF_ALLOC | SHF_WRITE)))
