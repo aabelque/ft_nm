@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/27 15:49:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/27 15:59:08 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 	char			c;
 
 	c = get_flags(symbols, sections);
-	if (!c)
+	if (c == '0')
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
 		write(1, "        ", 8);
