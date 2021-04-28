@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 12:26:50 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 12:28:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 		uint16_t ppc) {
 	char			c;
 
-	c = (ppc != EM_PPC) ? get_flags(symbols, sections) : get_flags_ppc(syymbols, sections);
+	c = (ppc != EM_PPC) ? get_flags(symbols, sections) : get_flags_ppc(symbols, sections);
 	if (c == '0')
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
