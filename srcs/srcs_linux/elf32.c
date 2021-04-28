@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 12:05:11 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 12:21:54 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			elf32(char *ptr, char *offset, int opt) {
 	eh = (Elf32_Ehdr *)ptr;
 	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
 	rev = should_reverse(endianess, get_endianess());
+	ft_putnbr(REV(eh->e_machine, rev));
+	return (0);
 	sh = (Elf32_Shdr *)(ptr + REV32(eh->e_shoff, rev));
 	strtable = ptr + REV32(sh[REV32(eh->e_shstrndx, rev)].sh_offset, rev);
 	if (!(sections = get_elfsection(strtable, sh, REV32(eh->e_shnum, rev))))
