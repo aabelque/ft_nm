@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 13:41:05 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 13:43:50 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 				return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
 			return (sym.bind == STB_LOCAL ? 't' : 'T');
 		}
-	/* 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) { */
-	/* 		if (sym.bind == STB_WEAK) { */
-	/* 			if (sym.type == STT_OBJECT) */
-	/* 				return (sym.shndx == SHN_UNDEF ? 'v' : 'V'); */
-	/* 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-	/* 		} */
-	/* 		else if (sym.bind == STB_GLOBAL) { */
-	/* 			if (sym.type == STT_OBJECT) */
-	/* 				return ('D'); */
-	/* 		} */
+		else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
+			if (sym.bind == STB_WEAK) {
+				if (sym.type == STT_OBJECT)
+					return (sym.shndx == SHN_UNDEF ? 'v' : 'V');
+				return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+			}
+			else if (sym.bind == STB_GLOBAL) {
+				if (sym.type == STT_OBJECT)
+					if (!ft_strcmp(sections[sym.shndx].name, ".sdata"))
+						return ('G');
+					return ('D');
+			}
 	/* 		return (sym.bind == STB_LOCAL ? 'd' : 'D'); */
 	/* 	} */
 	/* 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE | SHF_EXECINSTR)) */
