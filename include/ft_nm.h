@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/26 17:51:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 12:27:49 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@
 	/* ******************** ELF files ******************** */
 
 	char					get_flags(t_elf_symbol sym, t_elf_section *sections);
+	char					get_flags_ppc(t_elf_symbol sym, t_elf_section *sections);
 	short					should_reverse(short file, short machine);
 	int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 	int						close_binary_elf(char **ptr, int *fd, struct stat *buff);

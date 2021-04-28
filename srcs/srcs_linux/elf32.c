@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 12:21:54 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 12:26:50 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, cha
 	return (symbols);
 }
 
-static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections, Elf32_Shdr *sh) {
+static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections, Elf32_Shdr *sh,
+		uint16_t ppc) {
 	char			c;
 
-	c = get_flags(symbols, sections);
+	c = (ppc != EM_PPC) ? get_flags(symbols, sections) : get_flags_ppc(syymbols, sections);
 	if (c == '0')
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
@@ -65,7 +66,7 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		print_symbols(symbols[i], sections, sh);
+		print_symbols(symbols[i], sections, sh, REV(eh->e_machine, rev));
 	}
 	free(symbols);
 	return (EXIT_SUCCESS);
@@ -96,8 +97,6 @@ int			elf32(char *ptr, char *offset, int opt) {
 	eh = (Elf32_Ehdr *)ptr;
 	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
 	rev = should_reverse(endianess, get_endianess());
-	ft_putnbr(REV(eh->e_machine, rev));
-	return (0);
 	sh = (Elf32_Shdr *)(ptr + REV32(eh->e_shoff, rev));
 	strtable = ptr + REV32(sh[REV32(eh->e_shstrndx, rev)].sh_offset, rev);
 	if (!(sections = get_elfsection(strtable, sh, REV32(eh->e_shnum, rev))))
