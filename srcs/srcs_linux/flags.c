@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 13:34:38 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 13:38:18 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 		if (sym.shndx == SHN_UNDEF)
 			return (sym.bind == STB_WEAK ? 'w' : 'U');
 	}
-	/* else if (sections[sym.shndx].type == SHT_PROGBITS) { */
-	/* 	if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) { */
-	/* 		if (sym.bind == STB_WEAK) */
-	/* 			return (sym.shndx == SHN_UNDEF ? 'w' : 'W'); */
-	/* 		return (sym.bind == STB_LOCAL ? 't' : 'T'); */
-	/* 	} */
+	else if (sections[sym.shndx].type == SHT_PROGBITS) {
+		if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
+			if (sym.bind == STB_WEAK)
+				return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+			return (sym.bind == STB_LOCAL ? 't' : 'T');
+		}
 	/* 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) { */
 	/* 		if (sym.bind == STB_WEAK) { */
 	/* 			if (sym.type == STT_OBJECT) */
@@ -70,7 +70,7 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 	/* 		return (sym.bind == STB_LOCAL ? 'r' : 'R'); */
 	/* 	else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKPROC) | (SHF_ALLOC | SHF_WRITE))) */
 	/* 		return (sym.bind == STB_LOCAL ? 'g' : 'G'); */
-	/* } */
+	}
 	/* else if (sections[sym.shndx].type == SHT_DYNAMIC) { */
 	/* 	if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) */
 	/* 		return (sym.bind == STB_LOCAL ? 'd' : 'D'); */
