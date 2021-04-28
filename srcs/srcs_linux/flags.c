@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 13:44:35 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/28 13:46:48 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 	/* 		return (sym.bind == STB_LOCAL ? 't' : 'T'); */
 	/* 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_MERGE)) */
 	/* 		return (sym.bind == STB_LOCAL ? 'r' : 'R'); */
-	/* 	else if (sections[sym.shndx].flag == SHF_ALLOC) { */
-	/* 		if (sym.bind == STB_WEAK) { */
-	/* 			if (sym.type == STT_OBJECT) */
-	/* 				return (sym.shndx == SHN_UNDEF ? 'v' : 'V'); */
-	/* 		} */
-	/* 		return (sym.bind == STB_LOCAL ? 'r' : 'R'); */
-	/* 	} */
+		else if (sections[sym.shndx].flag == SHF_ALLOC) {
+			if (sym.bind == STB_WEAK) {
+				if (sym.type == STT_OBJECT)
+					return (sym.shndx == SHN_UNDEF ? 'v' : 'V');
+			}
+			return (sym.bind == STB_LOCAL ? 'r' : 'R');
+		}
 	/* 	else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKOS) | SHF_ALLOC)) */
 	/* 		return (sym.bind == STB_LOCAL ? 'r' : 'R'); */
 	/* 	else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKPROC) | (SHF_ALLOC | SHF_WRITE))) */
