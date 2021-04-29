@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 11:37:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 11:37:45 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	printc(ptr[0]);
+	printc(ptr[1]);
+	printc(ptr[2]);
+	printc(ptr[3]);
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
 			(unsigned char)ptr[EI_MAG1] == 'E' &&
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
