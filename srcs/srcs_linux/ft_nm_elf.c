@@ -6,13 +6,13 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:40:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 14:43:54 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
+int				nm_elf(char *ptr, char *offset, char *bin, int opt) {
 	struct ar_hdr	*ar;
 
 	if (check_offset_elf(ptr, offset))

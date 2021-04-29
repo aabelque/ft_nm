@@ -6,7 +6,7 @@
 #    By: aabelque <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:38:41 by aabelque          #+#    #+#              #
-#    Updated: 2021/04/25 16:57:37 by azziz            ###   ########.fr        #
+#    Updated: 2021/04/29 14:49:04 by azziz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_LINUX += swap.c
 SRC_LINUX += elf64.c
 SRC_LINUX += elf32.c
 SRC_LINUX += flags.c
+SRC_LINUX += ar_elf.c
 
 SRC_MAC = ft_nm.c
 SRC_MAC += nm_utils.c
