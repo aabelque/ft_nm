@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 19:33:59 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 19:34:23 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	char s[16];
 	while (ptr < offset)
 	{
+		ar = (struct ar_hdr *)ptr;
 		while (ar->ar_name[i] != '/') {
 			s[i] = ar->ar_name[i];
 			i++;
 		}
-		ar = (struct ar_hdr *)ptr;
 		prints(s);
 		if (ar->ar_size <= 0)
 			return (EXIT_FAILURE);
