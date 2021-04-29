@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:47:02 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 14:50:39 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@
 	int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
 	int						close_binary_elf(char **ptr, int *fd, struct stat *buff);
 	int						nm_elf(char *ptr, char *offset, char *bin, int opt);
-	int						ar_elf(char *ptr, char *offset, char *bin);
+	int						ar_elf(char *ptr, char *offset, char *bin, int opt);
 	int						check_offset_elf(char *ptr, char *offset);
 	int						elf64(char *ptr, char *offset, int opt);
 	int						elf32(char *ptr, char *offset, int opt);
