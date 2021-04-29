@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/25 16:49:28 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/29 11:34:09 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
 			(unsigned char)ptr[EI_MAG1] == 'E' &&
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
 			(unsigned char)ptr[EI_MAG3] == 'F') {
+		write(1, "X", 1);
 		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS64)
 			if (elf64(ptr, offset, opt))
 				return (EXIT_FAILURE);
