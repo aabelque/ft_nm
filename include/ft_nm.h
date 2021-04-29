@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/28 12:27:49 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 13:41:04 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@
 
 # elif __linux__
 	#include </usr/include/elf.h>
+	#include </usr/include/ar.h>
 	#include </usr/include/bsd/nlist.h>
 	# define MAX_SECTIONS 34
 	# define LITTLE 1
