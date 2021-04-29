@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/01 11:40:23 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:49:39 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ int				ft_atoi(const char *str)
 		nbr = (nbr * 10) + (str[i++] - '0');
 	}
 	return (nbr * sign);
+}
+
+int				ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (*s1 == *s2 && n)
+	{
+		if (*s1 == '\0')
+			return (0);
+		++s1;
+		++s2;
+		n--;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 int				ft_strcmp(const char *s1, const char *s2)

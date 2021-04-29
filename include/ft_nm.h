@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 13:41:04 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 13:50:30 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void					set_ppc(uint8_t ppc);
 /* ******************** LIB C ******************** */
 
 int						ft_strcmp(const char *s1, const char *s2);
+int						ft_strncmp(const char *s1, const char *s2, size_t n);
 int						ft_atoi(const char *str);
 size_t					ft_strlen(const char *s);
 void					prints(char const *s);
