@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 16:53:27 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 16:53:55 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 			return (EXIT_FAILURE);
 		str = ptr + sizeof(struct ar_hdr);
 		len = ft_strlen(ar->ar_name);
+		prints(ar->ar_name);
 		while (!str[len++])
 			;
 		print_archive(str, bin);
