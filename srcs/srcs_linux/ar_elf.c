@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 15:24:32 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 15:42:53 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	ptr += SARMAG;
 	ar = (struct ar_hdr *)ptr;
 	prints(ar->ar_size);
+	ft_putnbr(ft_atoi(ar->ar_size));
 	ptr += ft_atoi(ar->ar_size) + sizeof(*ar);
 	prints(ar->ar_size);
 	if (check_offset_elf(ptr, offset))
