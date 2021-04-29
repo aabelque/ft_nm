@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 15:47:33 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 15:52:06 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	hexdump((uintmax_t)&ptr, 16, 16);
 	printc('\n');
 	ptr += ft_atoi(ar->ar_size) + sizeof(*ar);
-	ptr = &ptr[ft_atoi(ar->ar_size) + sizeof(*ar)];
 	hexdump((uintmax_t)&ptr, 16, 16);
 	printc('\n');
 	if (check_offset_elf(ptr, offset))
@@ -42,7 +41,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		ar = (struct ar_hdr *)ptr;
 		if (ar->ar_size <= 0)
 			return (EXIT_FAILURE);
-		str = ptr + sizeof(struct ar_hdr);
+		str = ptr + sizeof(struct ar_hdr *);
 		len = ft_strlen(str);
 		while (!str[len++])
 			;
