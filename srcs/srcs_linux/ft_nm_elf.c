@@ -6,16 +6,16 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 13:45:43 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 13:46:05 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
 static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
-	ar_hdr	*ar;
+	struct ar_hdr	*ar;
 
-	ar = (ar_hdr *)ptr;
+	ar = (struct ar_hdr *)ptr;
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	if (!ft_strcmp(ar->ar_name, ARMAG))
