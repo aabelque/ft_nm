@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 15:59:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 15:59:24 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		hexdump((uintmax_t)&ptr, 16, 16);
 		printc('\n');
 		/* str = ptr + sizeof(struct ar_hdr); */
-		str = ptr + ft_atoi(ar->ar_size) + sizeof(ar);
+		str = ptr + sizeof(ar);
 		hexdump((uintmax_t)&str, 16, 16);
 		printc('\n');
 		len = ft_strlen(str);
