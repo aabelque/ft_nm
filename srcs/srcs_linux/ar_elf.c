@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/04/29 14:50:48 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 14:51:58 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void		print_archive(char *obj, char *bin)
 {
 	write(1, "\n", 1);
-	/* prints(bin); */
-	/* write(1, "(", 1); */
+	prints(bin);
+	write(1, "(", 1);
 	prints(obj);
 	write(1, ":\n", 3);
 }
