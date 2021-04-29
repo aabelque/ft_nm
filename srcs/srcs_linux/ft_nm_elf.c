@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:19:14 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 14:39:43 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
 	struct ar_hdr	*ar;
 
-	ar = (struct ar_hdr *)ptr;
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
-	if (!ft_strncmp(ptr, ARMAG, SARMAG))
-		prints("It's an archive file\n");
-	prints(ar->ar_name);
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
 			(unsigned char)ptr[EI_MAG1] == 'E' &&
 			(unsigned char)ptr[EI_MAG2] == 'L' &&
@@ -32,6 +28,15 @@ static int		nm_elf(char *ptr, char *offset, char *bin, int opt) {
 		if ((unsigned char)ptr[EI_CLASS] == ELFCLASS32)
 			if (elf32(ptr, offset, opt))
 				return (EXIT_FAILURE);
+	}
+	else if (!ft_strncmp(ptr, ARMAG, SARMAG)) {
+		struct ar_hdr *ar = (struct ar_hdr *)ptr;
+		prints(ar->ar_name);
+		prints(ar->ar_date);
+		prints(ar->ar_uid);
+		prints(ar->ar_gid);
+		prints(ar->ar_mode);
+		prints(ar->ar_size);
 	}
 	else
 		return (ft_perror("Invalid ELF file\n", 0));
