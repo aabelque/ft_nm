@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:17:58 by azziz            ###   ########.fr       */
+/*   Updated: 2021/04/29 14:18:34 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int				ft_atoi(const char *str)
 
 int				ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	while (*s1 == *s2 && n--)
+	size_t i = 0;
+	while (*s1 == *s2 && i++ < n)
 	{
 		if (*s1 == '\0')
 			return (0);
