@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:51:31 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 13:44:24 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int				nm_elf(char *ptr, char *offset, char *bin, int opt) {
 			if (elf32(ptr, offset, opt))
 				return (EXIT_FAILURE);
 	}
-	else if (!ft_strncmp(ptr, ARMAG, SARMAG))
-		ar_elf(ptr, offset, bin, opt);
+	else if (!ft_strncmp(ptr, ARMAG, SARMAG)) {
+		if (ar_elf(ptr, offset, bin, opt))
+			return (EXIT_FAILURE);
+	}
 	else
 		return (ft_perror("Invalid ELF file\n", 0));
 	return (EXIT_SUCCESS);
