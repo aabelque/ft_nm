@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 15:16:53 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 18:26:33 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,21 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	int				i = 16;
 
 	ptr += SARMAG;
-	coff = SARMAG + sizeof(struct ar_hdr);
 	ar = (struct ar_hdr *)ptr;
-	ptr += coff;
-	prints(&ptr[ft_atoi(ar->ar_size)]);
+	prints(ar->ar_name);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
-	while (--i >= 0 && ar->ar_name[i] == ' ');
-	if (i == 1 && ar->ar_name[0] == '/' && ar->ar_name[1] == '/')
-		prints(ar->ar_name);
-	else if (i > 0 && ar->ar_name[0] == '/')
-		prints(ar->ar_name);
-	else if (i != 0 || ar->ar_name[0] != '/') {
-		if (ar->ar_name[i] == '/')
-			i--;
-		prints(ar->ar_name);
-	}
-	prints(ar->ar_name);
+	/* while (--i >= 0 && ar->ar_name[i] == ' '); */
+	/* if (i == 1 && ar->ar_name[0] == '/' && ar->ar_name[1] == '/') */
+	/* 	prints(ar->ar_name); */
+	/* else if (i > 0 && ar->ar_name[0] == '/') */
+	/* 	prints(ar->ar_name); */
+	/* else if (i != 0 || ar->ar_name[0] != '/') { */
+	/* 	if (ar->ar_name[i] == '/') */
+	/* 		i--; */
+	/* 	prints(ar->ar_name); */
+	/* } */
+	/* prints(ar->ar_name); */
 	/* while (ptr < offset) */
 	/* { */
 	/* 	ar = (struct ar_hdr *)ptr; */
