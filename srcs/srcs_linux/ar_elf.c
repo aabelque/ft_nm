@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 13:47:48 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 13:48:17 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	char			*str;
 	int				i = 0;
 
+	prints(ptr);
 	ptr += SARMAG;
 	ar = (struct ar_hdr *)ptr;
 	prints(ptr);
