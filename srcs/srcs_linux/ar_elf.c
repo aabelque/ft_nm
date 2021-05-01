@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 18:31:43 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 18:32:08 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	ar = (struct ar_hdr *)ptr;
 	prints(ar->ar_name);
 	ar = (struct ar_hdr *)((char*)ptr + sizeof(*ar));
-	prints(ptr + 1);
+	prints(ptr + 20);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	/* while (--i >= 0 && ar->ar_name[i] == ' '); */
