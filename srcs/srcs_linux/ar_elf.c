@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 15:12:35 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 15:13:03 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	coff = SARMAG + sizeof(struct ar_hdr);
 	ar = (struct ar_hdr *)ptr;
 	ptr += coff;
-	prints(ar->ar_name);
+	prints(ar[1]->ar_name);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	while (--i >= 0 && ar->ar_name[i] == ' ');
