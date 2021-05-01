@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 15:06:24 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 15:06:44 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	while (--i >= 0 && ar->ar_name[i] == ' ');
-	if (i == 1 && ar->ar_name[0] == '/' && ar->ar-name[1] == '/')
+	if (i == 1 && ar->ar_name[0] == '/' && ar->ar_name[1] == '/')
 		prints(ar->ar_name);
 	/* while (ptr < offset) */
 	/* { */
