@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/01 15:11:39 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/01 15:12:07 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 			i--;
 		prints(ar->ar_name);
 	}
+	prints(ar->ar_name);
 	/* while (ptr < offset) */
 	/* { */
 	/* 	ar = (struct ar_hdr *)ptr; */
