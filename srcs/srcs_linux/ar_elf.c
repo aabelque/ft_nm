@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 16:05:41 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 16:07:06 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	while (str < offset)
 	{
 		ar = (struct ar_hdr *)str;
-		str += sizeof(struct ar_hdr);
+		str += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 		prints(str);
 		if (nm_elf(str, offset, bin, opt))
 			return (ft_perror("Corrupted\n", 0));
