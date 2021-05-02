@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 18:47:39 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 18:48:25 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		print_archive(char *bin)
 int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
 	struct ar_hdr	*ar;
-	int				i = 16;
+	int				i;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
 	ptr += SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
@@ -59,8 +59,8 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		prints(ar->ar_name);
 		printc('\n');
 		print_archive(ar->ar_name);
-		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
-			return (ft_perror("Corrupted\n", 0));
+		/* if (nm_elf(ptr + sizeof(*ar), offset, bin, opt)) */
+		/* 	return (ft_perror("Corrupted\n", 0)); */
 		ptr += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 	}
 	return (EXIT_SUCCESS);
