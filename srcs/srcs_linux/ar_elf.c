@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 18:46:19 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 18:46:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		ar = (struct ar_hdr *)ptr;
 		ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
 	}
-	else if (i > 0 && header->ar_name[0] == '/')
+	else if (i > 0 && ptr[0] == '/')
 		prints("XXX\n");
-    else if (i != 0 || header->ar_name[0] != '/')
+    else if (i != 0 || ptr[0] != '/')
     {
 		prints("YYY\n");
     	/* if (header->ar_name[i] == '/') */
