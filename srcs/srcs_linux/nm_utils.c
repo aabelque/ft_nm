@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/02 18:12:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 18:16:42 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,10 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const 
 	for (i = left + 1; i <= right; i++)
 	{
 		r = comp(sym[i].name, sym[left].name);
-		if (r == 0)
-		{
-			prints(sym[i].name);
-			prints(" - sym[i]: ");
-			hexdump(sym[i].value, 16, 16);
-			printc('\n');
-			prints(sym[left].name);
-			prints(" - sym[left]: ");
-			hexdump(sym[left].value, 16, 16);
-			printc('\n');
-		}
 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
-		{
-			prints(sym[i].name);
-			hexdump(sym[i].value, 16, 16);
-			printc('\n');
 			ft_swap_symelf(sym, ++last, i);
-			prints(sym[i].name);
-			hexdump(sym[i].value, 16, 16);
-			printc('\n');
-		}
+		ft_putnbr(i);
+		printc('\n');
 	}
 	ft_swap_symelf(sym, left, last);
 	ft_qsort_symelf(sym, left, last - 1, comp);
