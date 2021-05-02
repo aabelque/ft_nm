@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/02 18:00:11 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 18:01:14 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const 
 	for (i = left + 1; i <= right; i++)
 	{
 		r = comp(sym[i].name, sym[left].name);
+		printc('X');
 		if (r == 0)
 		{
 			prints("sym[i]: ");
