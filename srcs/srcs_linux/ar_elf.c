@@ -6,19 +6,18 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 17:33:39 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 17:35:41 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static void		print_archive(char *obj, char *bin)
+static void		print_archive(char *bin)
 {
 	write(1, "\n", 1);
-	prints(bin);
-	write(1, "(", 1);
-	prints(obj);
-	write(1, "):\n", 3);
+	while (*bin != '/')
+		printc(*bin);
+	write(1, ":\n", 3);
 }
 
 int		ar_elf(char *ptr, char *offset, char *bin, int opt)
@@ -43,7 +42,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		/* strtab = ptr; */
 		ar = (struct ar_hdr *)ptr;
 		ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
-		prints(ptr);
+		/* prints(ptr); */
 	}
 	/* else if (i > 0 && ptr[0] == '/') */
 	/* 	prints(ptr); */
@@ -56,10 +55,10 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	{
 		ar = (struct ar_hdr *)ptr;
 		/* ptr = ptr + sizeof(struct ar_hdr); */
-		prints(ar->ar_name);
+		print_archive(ar->ar_name);
 		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
 			return (ft_perror("Corrupted\n", 0));
-		prints("\n");
+		/* prints("\n"); */
 		ptr += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 		/* ptr += ft_atoi(ar->ar_size) + sizeof(struct ar_hdr); */
 		/* prints(str); */
