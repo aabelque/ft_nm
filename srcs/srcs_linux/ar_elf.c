@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 17:11:11 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 17:13:10 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		return (ft_perror("Corrupted file\n", 0));
 	while (--i >= 0 && ptr[i] == ' ');
 	if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
-		prints(ptr);
+		char *strtab = ptr;
 	else if (i > 0 && ptr[0] == '/')
 		prints(ptr);
 	else if (i != 0 || ptr[0] != '/') {
