@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 17:15:16 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 17:16:16 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	{
 		/* strtab = ptr; */
 		ar = (struct ar_hdr *)ptr;
-		prints(ar->ar_size);
+		ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
+		prints(ptr);
 	}
 	else if (i > 0 && ptr[0] == '/')
 		prints(ptr);
