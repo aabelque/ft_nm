@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 17:20:24 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 17:33:39 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	/* 	prints(ptr); */
 	/* else if (i != 0 || ptr[0] != '/') { */
 	/* 	if (ptr[i] == '/') */
-			i--;
+			/* i--; */
 		/* prints(ptr); */
 	/* } */
 	while (ptr < offset)
