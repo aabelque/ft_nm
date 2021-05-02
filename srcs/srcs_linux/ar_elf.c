@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 16:07:06 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 16:08:53 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	/* prints(ar->ar_name); */
 	/* ar = (struct ar_hdr *)((char*)ptr + sizeof(*ar)); */
 	/* prints(&ptr[100]); */
-	str = ptr + SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
+	ptr = ptr + SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 	/* prints(str); */
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
-	while (str < offset)
+	while (ptr < offset)
 	{
-		ar = (struct ar_hdr *)str;
-		str += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
+		/* ar = (struct ar_hdr *)str; */
+		str = ptr + sizeof(struct ar_hdr);
 		prints(str);
 		if (nm_elf(str, offset, bin, opt))
 			return (ft_perror("Corrupted\n", 0));
+		ptr += ft_atoi(ar->ar_size) + sizeof(struct ar_hdr);
 		/* prints(str); */
 	}
 	/* while (--i >= 0 && ar->ar_name[i] == ' '); */
