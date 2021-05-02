@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/02 18:17:35 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/02 18:18:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const 
 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
 			ft_swap_symelf(sym, ++last, i);
 	}
-	ft_swap_symelf(sym, left, last);
+	/* ft_swap_symelf(sym, left, last); */
 	ft_qsort_symelf(sym, left, last - 1, comp);
 	ft_qsort_symelf(sym, last + 1, right, comp);
 }
@@ -42,8 +42,6 @@ void		ft_swap_symelf(t_elf_symbol *sym, int i, int j)
 {
 	t_elf_symbol	tmp;
 
-	ft_putnbr(i);
-	printc('\n');
 	tmp = sym[i];
 	sym[i] = sym[j];
 	sym[j] = tmp;
