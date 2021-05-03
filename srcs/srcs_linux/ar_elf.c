@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 12:56:34 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 12:57:11 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		*get_name(char **strtab, int str_idx, int size) {
 	name = NULL;
 	while (!('a' <= **strtab && **strtab <= 'z'))
 		(*strtab)++;
-	while (*strtab[idx])
+	while (*strtab)
 	{
 		if (*strtab[idx] == '/')
 			break ;
