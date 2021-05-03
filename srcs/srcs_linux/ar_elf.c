@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:22:20 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:23:07 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,8 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 		/* } */
 		ar = (struct ar_hdr *)ptr;
 		/* printc('\n'); */
-		print_archive(name);
-		/* if (name) */
-		/* 	print_archive(name); */
+		if (name)
+			print_archive(name);
 		/* else */
 		/* 	print_archive(ar->ar_name); */
 		/* if (nm_elf(ptr + sizeof(*ar), offset, bin, opt)) */
