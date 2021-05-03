@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/02 18:48:53 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:20:17 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		print_archive(char *bin)
 int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
 	struct ar_hdr	*ar;
-	int				i;
+	int				i, j = 0;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
 	ptr += SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
@@ -42,10 +42,18 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 			ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
 		}
 		else if (i > 0 && ptr[0] == '/')
-			prints("XXX\n");
+		{
+			while (ar->ar_name[j] != '/')
+				j++;
+			ft_putnbr(j);
+			printc('\n');
+		}
 		else if (i != 0 || ptr[0] != '/')
 		{
-			prints("YYY\n");
+			while (ar->ar_name[j] != '/')
+				j++;
+			ft_putnbr(j);
+			printc('\n');
 			/* if (header->ar_name[i] == '/') */
 			/* 	i--; */
 			/* if ((entry->filename = strndup(header->ar_name, i + 1)) == NULL) */
