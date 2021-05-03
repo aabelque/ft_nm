@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:20:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:21:28 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		print_archive(char *bin)
 int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
 	struct ar_hdr	*ar;
-	int				i, j = 0;
+	int				i, j;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
 	ptr += SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
@@ -35,6 +35,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 	while (ptr < offset)
 	{
 		i = 16;
+		j = 0;
 		while (--i >= 0 && ptr[i] == ' ');
 		if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
 		{
