@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 13:13:51 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:14:31 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_strndup(const char *s, size_t n)
 	if (!ret)
 		return (NULL);
 	tmp = ret;
-	while ((*ret++ = *s++) && n--);
+	while ((*ret++ = *s++) && --n);
 	*ret = '\0';
 	return (tmp);
 }
