@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 11:07:35 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:03:49 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strndup(const char *s, size_t n)
 {
 	char *ptr;
 
-	ptr = (char*)malloc(sizeof(*ptr) * n);
+	ptr = (char*)malloc(sizeof(*ptr) * n + 1);
 	if (ptr == NULL)
 		return (NULL);
 	while ((*ptr++ = *s++) && n)
