@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 11:07:37 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:08:02 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 			{
 				str_idx = ft_atoi(ar->ar_name + 1);
 				name = get_name(strtab, str_idx, size);
+				prints(name);
 			}
 		}
 		/* { */
@@ -85,10 +86,10 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 			/* 	return (-1); */
 			/* } */
 		/* } */
-		ar = (struct ar_hdr *)ptr;
-		printc('\n');
-		prints(ar->ar_name);
-		printc('\n');
+		/* ar = (struct ar_hdr *)ptr; */
+		/* printc('\n'); */
+		/* prints(ar->ar_name); */
+		/* printc('\n'); */
 		/* print_archive(ar->ar_name); */
 		/* if (nm_elf(ptr + sizeof(*ar), offset, bin, opt)) */
 		/* 	return (ft_perror("Corrupted\n", 0)); */
