@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:47:37 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:50:58 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,26 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 	ptr += SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
+	i = 16;
+	while (--i >= 0 && ptr[i] == ' ');
+	if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
+	{
+		strtab = ptr;
+		ar = (struct ar_hdr *)ptr;
+		size = ft_atoi(ar->ar_size);
+		ptr += sizeof(*ar) + size;
+	}
 	while (ptr < offset)
 	{
-		i = 16;
 		j = 0;
 		name = NULL;
-		prints(ptr);
-		while (--i >= 0 && ptr[i] == ' ');
-		if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
-		{
-			strtab = ptr;
-			ar = (struct ar_hdr *)ptr;
-			size = ft_atoi(ar->ar_size);
-			ptr += sizeof(*ar) + size;
-		}
-		else if ((i > 0 && ptr[0] == '/') || (i != 0 || ptr[0] != '/'))
-		{
-			while (ar->ar_name[j] != '/')
+		while (ar->ar_name[j] != '/')
 				j++;
-			if (!j)
-			{
-				prints("YYYY\n");
-				str_idx = ft_atoi(ar->ar_name + 1);
-				name = get_name(&strtab, str_idx, size);
-			}
+		if (!j)
+		{
+			prints("YYYY\n");
+			str_idx = ft_atoi(ar->ar_name + 1);
+			name = get_name(&strtab, str_idx, size);
 		}
 		/* { */
 			/* while (ar->ar_name[j] != '/') */
