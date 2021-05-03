@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:16:36 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:18:05 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char		*get_name(char **strtab, int str_idx, int size) {
 int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
 	int				i, j, str_idx, size;
-	char			*strtab, *name = NULL;
+	char			*strtab, *name;
 	struct ar_hdr	*ar;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
@@ -61,6 +61,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 	{
 		i = 16;
 		j = 0;
+		name = NULL;
 		while (--i >= 0 && ptr[i] == ' ');
 		if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
 		{
