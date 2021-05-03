@@ -6,29 +6,26 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/02 18:27:06 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 20:13:43 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int			check_offset_elf(char *ptr, char  *offset)
-{
+int			check_offset_elf(char *ptr, char  *offset) {
 	if (ptr > offset)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *))
-{
+void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
 	int			last, i, r;
 
 	if (left >= right)
 		return ;
 	ft_swap_symelf(sym, left, (left + right) / 2);
 	last = left;
-	for (i = left + 1; i <= right; i++)
-	{
+	for (i = left + 1; i <= right; i++) {
 		r = comp(sym[i].name, sym[left].name);
 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
 			ft_swap_symelf(sym, ++last, i);
@@ -38,8 +35,7 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const 
 	ft_qsort_symelf(sym, last + 1, right, comp);
 }
 
-void		ft_swap_symelf(t_elf_symbol *sym, int i, int j)
-{
+void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
 	t_elf_symbol	tmp;
 
 	tmp = sym[i];
@@ -47,18 +43,15 @@ void		ft_swap_symelf(t_elf_symbol *sym, int i, int j)
 	sym[j] = tmp;
 }
 
-int			close_binary_elf(char **ptr, int *fd, struct stat *buff)
-{
+int			close_binary_elf(char **ptr, int *fd, struct stat *buff) {
 	if (munmap(*ptr, buff->st_size))
 		return (ft_perror("Can't munmap ptr\n", *fd));
 	close(*fd);
 	return (EXIT_SUCCESS);
 }
 
-int			open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff)
-{
-	if ((*fd = open(bin, O_RDONLY)) < 0)
-	{
+int			open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff) {
+	if ((*fd = open(bin, O_RDONLY)) < 0) {
 		if (*fd == -1 && errno == EACCES)
 			return (ft_perror("Permission denied.\n", *fd));
 		else if (*fd == -1)
@@ -73,8 +66,7 @@ int			open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_perror(char *s, int fd)
-{
+int			ft_perror(char *s, int fd) {
 	write(2, s, ft_strlen(s));
 	if (fd)
 		close(fd);
