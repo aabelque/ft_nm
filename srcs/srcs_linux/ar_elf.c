@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:21:44 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:22:20 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		print_archive(char *bin)
 	write(1, "\n", 1);
 	while (*bin != '/')
 	{
+		printc('x');
 		printc(*bin);
 		bin++;
 	}
