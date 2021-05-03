@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:44:30 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:55:32 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,22 @@ static void		print_archive(char *bin)
 	write(1, ":\n", 3);
 }
 
-int		ar_elf(char *ptr, char *offset, char *bin, int opt)
+static char		*get_name(char *strtab, int str_idx, int size) {
+
+	int			idx;
+	char		*name;
+
+	idx = 0;
+	name = NULL;
+	ft_putnbr(size);
+	return name;
+	/* while (str_idx + idx < */ 
+}
+
+int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
 	int				i, j, str_idx;
-	char			*strtab;
+	char			*strtab, *name = NULL;
 	struct ar_hdr	*ar;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
@@ -48,14 +60,10 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		{
 			while (ar->ar_name[j] != '/')
 				j++;
-			ft_putnbr(j);
-			printc('\n');
 			if (!j)
 			{
 				str_idx = ft_atoi(ar->ar_name + 1);
-				ft_putnbr(str_idx);
-				printc('\n');
-				prints(&strtab[str_idx]);
+				name = get_name(strtab, str_idx, ft_atoi(ar->ar_size));
 			}
 		}
 		/* { */
