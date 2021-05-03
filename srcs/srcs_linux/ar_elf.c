@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:21:28 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:22:45 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		}
 		else if (i != 0 || ptr[0] != '/')
 		{
-			while (ar->ar_name[j] != '/')
-				j++;
-			ft_putnbr(j);
-			printc('\n');
+			/* while (ar->ar_name[j] != '/') */
+			/* 	j++; */
+			/* ft_putnbr(j); */
+			/* printc('\n'); */
 			/* if (header->ar_name[i] == '/') */
 			/* 	i--; */
 			/* if ((entry->filename = strndup(header->ar_name, i + 1)) == NULL) */
