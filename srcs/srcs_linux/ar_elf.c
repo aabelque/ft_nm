@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 11:40:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:40:38 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		*get_name(char *strtab, int str_idx, int size) {
 	name = NULL;
 	prints(strtab);
 	while (str_idx + idx < size - 2
-			&& ft_strncmp(&strtab[str_idx + idx], "/\n", 2))
+			&& ft_strncmp(&strtab[str_idx + idx], "//\n", 2))
 		idx++;
 	if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2))
 		prints("Error\n");
