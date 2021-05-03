@@ -6,25 +6,22 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 20:03:56 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 20:08:38 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static void		print_archive(char *bin)
-{
+static void		print_archive(char *bin) {
 	write(1, "\n", 1);
-	while (*bin != '/')
-	{
+	while (*bin != '/') {
 		printc(*bin);
 		bin++;
 	}
 	write(1, ":\n", 2);
 }
 
-static char		*get_name(char **strtab, int str_idx, int size)
-{
+static char		*get_name(char **strtab, int str_idx, int size) {
 
 	int			idx;
 	char		*name, *tmp;
@@ -42,9 +39,8 @@ static char		*get_name(char **strtab, int str_idx, int size)
 	return (name);
 }
 
-int				ar_elf(char *ptr, char *offset, char *bin, int opt)
-{
-	int				i, j, str_idx, size;
+int				ar_elf(char *ptr, char *offset, char *bin, int opt) {
+	int				i, len, str_idx, size;
 	char			*strtab, *name;
 	struct ar_hdr	*ar;
 
@@ -54,22 +50,19 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 		return (ft_perror("Corrupted file\n", 0));
 	i = 16;
 	while (--i >= 0 && ptr[i] == ' ');
-	if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
-	{
+	if (i == 1 && ptr[0] == '/' && ptr[1] == '/') {
 		strtab = ptr;
 		ar = (struct ar_hdr *)ptr;
 		size = ft_atoi(ar->ar_size);
 		ptr += sizeof(*ar) + size;
 	}
-	while (ptr < offset)
-	{
-		j = 0;
+	while (ptr < offset) {
+		len = 0;
 		name = NULL;
 		ar = (struct ar_hdr *)ptr;
-		while (ar->ar_name[j] != '/')
-				j++;
-		if (!j)
-		{
+		while (ar->ar_name[len] != '/')
+				len++;
+		if (!len) {
 			str_idx = ft_atoi(ar->ar_name + 1);
 			name = get_name(&strtab, str_idx, size);
 		}

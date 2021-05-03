@@ -6,22 +6,20 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 19:20:34 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 20:10:18 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-static int		ft_isspace(char c)
-{
+static int		ft_isspace(char c) {
 	if (c == ' ' || c == '\t' || c == '\f' || c == '\r' || c == '\n'
 			|| c == '\v')
 		return (1);
 	return (0);
 }
 
-int				ft_atoi(const char *str)
-{
+int				ft_atoi(const char *str) {
 	int			i, sign;
 	long		nbr;
 
@@ -32,20 +30,17 @@ int				ft_atoi(const char *str)
 		return (0);
 	while (ft_isspace(str[i]))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
+	if (str[i] == '-' || str[i] == '+') {
 		if (str[i++] == '-')
 			sign = -1;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
+	while (str[i] >= '0' && str[i] <= '9') {
 		nbr = (nbr * 10) + (str[i++] - '0');
 	}
 	return (nbr * sign);
 }
 
-char	*ft_strndup(const char *s, size_t n)
-{
+char	*ft_strndup(const char *s, size_t n) {
 	char *ret, *tmp;
 
 	ret = malloc(sizeof(char *) * n + 1);
@@ -57,10 +52,8 @@ char	*ft_strndup(const char *s, size_t n)
 	return (tmp);
 }
 
-int				ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while ((*s1 || *s2) && n--)
-	{
+int				ft_strncmp(const char *s1, const char *s2, size_t n) {
+	while ((*s1 || *s2) && n--) {
 		if (*s1 != *s2)
 			return (*(unsigned char *)s1 - *(unsigned char *)s2);
 		++s1;
@@ -69,10 +62,8 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int				ft_strcmp(const char *s1, const char *s2)
-{
-	while (*s1 == *s2)
-	{
+int				ft_strcmp(const char *s1, const char *s2) {
+	while (*s1 == *s2) {
 		if (*s1 == '\0')
 			return (0);
 		++s1;
@@ -81,8 +72,7 @@ int				ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-void			hexdump(uintmax_t addr, size_t base, size_t len)
-{
+void			hexdump(uintmax_t addr, size_t base, size_t len) {
 	char		value;
 	char		hex[16] = "0123456789abcdef";
 
@@ -93,34 +83,28 @@ void			hexdump(uintmax_t addr, size_t base, size_t len)
 	write(1, &value, 1);
 }
 
-void			printc(char c)
-{
+void			printc(char c) {
 	write(1, &c, 1);
 }
 
-void			ft_putnbr(int nb)
-{
+void			ft_putnbr(int nb) {
 	if (nb < -2147483647)
 		prints("-2147483648");
-	else
-	{
-		if (nb < 0)
-		{
+	else {
+		if (nb < 0) {
 			printc('-');
 			nb = -nb;
 		}
 		if (nb < 10)
 			printc(nb + '0');
-		else
-		{
+		else {
 			ft_putnbr(nb / 10);
 			ft_putnbr(nb % 10);
 		}
 	}
 }
 
-size_t			ft_strlen(const char *s)
-{
+size_t			ft_strlen(const char *s) {
 	const char	*i;
 
 	i = s;
@@ -129,8 +113,7 @@ size_t			ft_strlen(const char *s)
 	return (i - s);
 }
 
-void			prints(char const *s)
-{
+void			prints(char const *s) {
 	if (!s)
 		return ;
 	write(1, s, ft_strlen(s));
