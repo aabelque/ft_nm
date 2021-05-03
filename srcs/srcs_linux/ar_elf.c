@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:42:59 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:43:52 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 				j++;
 			if (!j)
 			{
+				prints("YYYY\n");
 				str_idx = ft_atoi(ar->ar_name + 1);
 				name = get_name(&strtab, str_idx, size);
 			}
@@ -93,8 +94,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 			/* 	return (-1); */
 			/* } */
 		/* } */
-		prints("XXXXXXXXXXXXXXXXXXXX");
-		printc('\n');
+		prints("XXXXXXXXXXXXXXXXXXXX\n");
 		ar = (struct ar_hdr *)ptr;
 		(name) ? print_archive(name) : print_archive(ar->ar_name);
 		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
