@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/01 13:44:24 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 19:22:46 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				main(int ac, char **av) {
 		return (ft_perror("USAGE: ./ft_nm [option] <input files>\n Option:\n  -D,          Display dynamic symbols instead of normal symbols\n", 0));
 	i = get_option(ac, av[1], &opt);
 	while (++i < ac) {
-		output_formatted(ac, i, opt, av[i]);
+		/* output_formatted(ac, i, opt, av[i]); */
 		if (open_binary_elf(av[i], &fd, &ptr, &buff))
 			return (EXIT_FAILURE);
 		nm_elf(ptr, ptr + buff.st_size, av[i], opt);
