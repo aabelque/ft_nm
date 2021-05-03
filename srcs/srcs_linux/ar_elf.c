@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 12:58:46 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:02:10 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,22 @@ static void		print_archive(char *bin)
 static char		*get_name(char **strtab, int str_idx, int size) {
 
 	int			idx;
-	char		*name;
+	char		*name, *tmp;
 
 	idx = 0;
 	name = NULL;
 	while (!('a' <= **strtab && **strtab <= 'z'))
 		(*strtab)++;
-	while (**strtab != '/')
+	tmp = *strtab;
+	while (*tmp != '/')
 	{
-		printc(**strtab);
-		(*strtab)++;
+		tmp++;
 	}
-	name = ft_strndup(*strtab, idx);
-	*strtab += idx;
-	prints(name);
+	idx = tmp - *strtab;
+	ft_putnbr(idx);
+	/* name = ft_strndup(*strtab, idx); */
+	/* *strtab += idx; */
+	/* prints(name); */
 	return NULL;
 	/* if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2)) */
 	/* 	prints("Error\n"); */
