@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 13:11:39 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:12:38 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,19 @@ int				ft_atoi(const char *str)
 
 char	*ft_strndup(const char *s, size_t n)
 {
-	char *ret;
+	char *ret, *tmp;
 
 	ret = malloc(sizeof(char *) * n + 1);
 	if (!ret)
 		return (NULL);
+	tmp = ret;
 	while (*s && n--)
 	{
 		printc('X');
 		*ret++ = *s++;
 	}
 	*ret = '\0';
-	return (ret);
+	return (tmp);
 }
 
 int				ft_strncmp(const char *s1, const char *s2, size_t n)
