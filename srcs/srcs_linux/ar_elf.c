@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 19:33:38 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 19:34:03 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void		print_archive(char *bin)
 {
-	/* write(1, "\n", 1); */
+	write(1, "\n", 1);
 	while (*bin != '/')
 	{
 		printc(*bin);
 		bin++;
 	}
-	write(1, ":\n", 3);
+	write(1, ":\n", 2);
 }
 
 static char		*get_name(char **strtab, int str_idx, int size) {
@@ -91,11 +91,9 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 			/* 	return (-1); */
 			/* } */
 		/* } */
-		if (name)
-			print_archive(name);
-		/* (name) ? print_archive(name) : print_archive(ar->ar_name); */
-		/* if (nm_elf(ptr + sizeof(*ar), offset, bin, opt)) */
-		/* 	return (ft_perror("Corrupted\n", 0)); */
+		(name) ? print_archive(name) : print_archive(ar->ar_name);
+		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
+			return (ft_perror("Corrupted\n", 0));
 		ptr += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
 		free(name);
 	}
