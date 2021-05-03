@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 13:04:51 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 13:16:09 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static char		*get_name(char **strtab, int str_idx, int size) {
 	idx = tmp - *strtab;
 	name = ft_strndup(*strtab, idx);
 	*strtab += idx;
-	prints(name);
-	return NULL;
 	/* if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2)) */
 	/* 	prints("Error\n"); */
 	/* else if ((name = ft_strndup(&strtab[str_idx], idx)) == NULL) */
@@ -77,11 +75,8 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 				j++;
 			if (!j)
 			{
-				/* ar = (struct ar_hdr *)ptr; */
-				/* prints(ar->ar_name); */
 				str_idx = ft_atoi(ar->ar_name + 1);
 				name = get_name(&strtab, str_idx, size);
-				prints(name);
 			}
 		}
 		/* { */
@@ -101,10 +96,13 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 		/* printc('\n'); */
 		/* prints(ar->ar_name); */
 		/* printc('\n'); */
-		/* print_archive(ar->ar_name); */
-		/* if (nm_elf(ptr + sizeof(*ar), offset, bin, opt)) */
-		/* 	return (ft_perror("Corrupted\n", 0)); */
+		if (name)
+			print_archive(name);
+		print_archive(ar->ar_name);
+		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
+			return (ft_perror("Corrupted\n", 0));
 		ptr += sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
+		free(name);
 	}
 	return (EXIT_SUCCESS);
 }
