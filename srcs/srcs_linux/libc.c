@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:40:00 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:22:22 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:07:35 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ int				ft_atoi(const char *str)
 		nbr = (nbr * 10) + (str[i++] - '0');
 	}
 	return (nbr * sign);
+}
+
+char	*ft_strndup(const char *s, size_t n)
+{
+	char *ptr;
+
+	ptr = (char*)malloc(sizeof(*ptr) * n);
+	if (ptr == NULL)
+		return (NULL);
+	while ((*ptr++ = *s++) && n)
+		n--;
+	return (ptr);
 }
 
 int				ft_strncmp(const char *s1, const char *s2, size_t n)

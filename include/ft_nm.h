@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/04/29 14:50:39 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:07:22 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,4 @@ void					prints(char const *s);
 void					printc(char c);
 void					ft_putnbr(int nb);
 void					hexdump(uintmax_t addr, size_t base, size_t len);
-char					*ft_strdup(const char *s);
+char					*ft_strndup(const char *s, size_t n);

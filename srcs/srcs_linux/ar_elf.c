@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:55:32 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:07:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ static char		*get_name(char *strtab, int str_idx, int size) {
 
 	idx = 0;
 	name = NULL;
-	ft_putnbr(size);
-	return name;
-	/* while (str_idx + idx < */ 
+	while (str_idx + idx < size - 2
+			&& ft_strncmp(&strtab[str_idx + idx], "/\n", 2))
+		idx++;
+	if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2))
+		prints("Error\n");
+	else if ((name = ft_strndup(&strtab[str_idx], idx)) == NULL)
+		prints("Error Malloc\n");
+	return (name);
 }
 
 int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
-	int				i, j, str_idx;
+	int				i, j, str_idx, size;
 	char			*strtab, *name = NULL;
 	struct ar_hdr	*ar;
 
@@ -54,7 +59,8 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 		{
 			strtab = ptr;
 			ar = (struct ar_hdr *)ptr;
-			ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
+			size = ft_atoi(ar->ar_size);
+			ptr += sizeof(*ar) + size;
 		}
 		else if ((i > 0 && ptr[0] == '/') || (i != 0 || ptr[0] != '/'))
 		{
@@ -63,7 +69,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 			if (!j)
 			{
 				str_idx = ft_atoi(ar->ar_name + 1);
-				name = get_name(strtab, str_idx, ft_atoi(ar->ar_size));
+				name = get_name(strtab, str_idx, size);
 			}
 		}
 		/* { */
