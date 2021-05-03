@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:22:45 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:26:16 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static void		print_archive(char *bin)
 
 int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 {
+	int				i, j, str_idx;
+	char			*strtab;
 	struct ar_hdr	*ar;
-	int				i, j;
 
 	ar = (struct ar_hdr *)(ptr + SARMAG);
 	ptr += SARMAG + sizeof(struct ar_hdr) + ft_atoi(ar->ar_size);
@@ -39,6 +40,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 		while (--i >= 0 && ptr[i] == ' ');
 		if (i == 1 && ptr[0] == '/' && ptr[1] == '/')
 		{
+			strtab = ptr;
 			ar = (struct ar_hdr *)ptr;
 			ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
 		}
@@ -48,6 +50,9 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 				j++;
 			ft_putnbr(j);
 			printc('\n');
+			if (!j)
+				str_idx = ft_atoi(ar->ar_name + 1);
+			prints(&strtab[str_idx]);
 		}
 		else if (i != 0 || ptr[0] != '/')
 		{
