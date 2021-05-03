@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 11:55:10 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 12:42:24 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,21 @@ static void		print_archive(char *bin)
 	write(1, ":\n", 3);
 }
 
-static char		*get_name(char *strtab, int str_idx, int size) {
+static char		*get_name(char **strtab, int str_idx, int size) {
 
 	int			idx;
 	char		*name;
 
 	idx = 0;
 	name = NULL;
-	prints(&strtab[str_idx]);
+	while (!('a' <= **strtab && **strtab <= 'z'))
+		(*strtab)++;
+	prints(*strtab);
 	return NULL;
-	while (str_idx + idx < size - 2
-			&& ft_strncmp(&strtab[str_idx + idx], "//\n", 3))
-		idx++;
-	if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2))
-		prints("Error\n");
-	else if ((name = ft_strndup(&strtab[str_idx], idx)) == NULL)
-		prints("Error Malloc\n");
+	/* if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2)) */
+	/* 	prints("Error\n"); */
+	/* else if ((name = ft_strndup(&strtab[str_idx], idx)) == NULL) */
+	/* 	prints("Error Malloc\n"); */
 	return (name);
 }
 
@@ -73,7 +72,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 				/* ar = (struct ar_hdr *)ptr; */
 				/* prints(ar->ar_name); */
 				str_idx = ft_atoi(ar->ar_name + 1);
-				name = get_name(strtab, str_idx, size);
+				name = get_name(&strtab, str_idx, size);
 				prints(name);
 			}
 		}
