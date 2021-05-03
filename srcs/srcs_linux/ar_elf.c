@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 19:34:03 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 20:03:23 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void		print_archive(char *bin)
 	write(1, ":\n", 2);
 }
 
-static char		*get_name(char **strtab, int str_idx, int size) {
+static char		*get_name(char **strtab, int str_idx, int size)
+{
 
 	int			idx;
 	char		*name, *tmp;
@@ -34,16 +35,10 @@ static char		*get_name(char **strtab, int str_idx, int size) {
 		(*strtab)++;
 	tmp = *strtab;
 	while (*tmp != '/')
-	{
 		tmp++;
-	}
 	idx = tmp - *strtab;
 	name = ft_strndup(*strtab, idx);
 	*strtab += idx;
-	/* if (ft_strncmp(&strtab[str_idx + idx], "/\n", 2)) */
-	/* 	prints("Error\n"); */
-	/* else if ((name = ft_strndup(&strtab[str_idx], idx)) == NULL) */
-	/* 	prints("Error Malloc\n"); */
 	return (name);
 }
 
@@ -71,26 +66,13 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 		j = 0;
 		name = NULL;
 		ar = (struct ar_hdr *)ptr;
-		while (ar->ar_name[j] != '/')
-				j++;
+		while (ar->ar_name[j++] != '/')
+				;
 		if (!j)
 		{
 			str_idx = ft_atoi(ar->ar_name + 1);
 			name = get_name(&strtab, str_idx, size);
 		}
-		/* { */
-			/* while (ar->ar_name[j] != '/') */
-			/* 	j++; */
-			/* ft_putnbr(j); */
-			/* printc('\n'); */
-			/* if (header->ar_name[i] == '/') */
-			/* 	i--; */
-			/* if ((entry->filename = strndup(header->ar_name, i + 1)) == NULL) */
-			/* { */
-			/* 	fprintf(stderr, "malloc has returned NULL\n"); */
-			/* 	return (-1); */
-			/* } */
-		/* } */
 		(name) ? print_archive(name) : print_archive(ar->ar_name);
 		if (nm_elf(ptr + sizeof(*ar), offset, bin, opt))
 			return (ft_perror("Corrupted\n", 0));
