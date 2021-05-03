@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 11:47:57 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 11:52:52 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				ar_elf(char *ptr, char *offset, char *bin, int opt)
 				prints(ar->ar_name);
 				str_idx = ft_atoi(ar->ar_name + 1);
 				ft_putnbr(str_idx);
-				name = get_name(strtab, str_idx, size);
+				/* name = get_name(strtab, str_idx, size); */
 				/* prints(name); */
 			}
 		}
