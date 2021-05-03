@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 10:42:47 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/03 10:43:48 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 			ar = (struct ar_hdr *)ptr;
 			ptr += sizeof(*ar) + ft_atoi(ar->ar_size);
 		}
-		else if (i > 0 && ptr[0] == '/')
+		else if ((i > 0 && ptr[0] == '/') || (i != 0 || ptr[0] != '/'))
 		{
 			while (ar->ar_name[j] != '/')
 				j++;
@@ -58,8 +58,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 				prints(strtab + str_idx);
 			}
 		}
-		else if (i != 0 || ptr[0] != '/')
-		{
+		/* { */
 			/* while (ar->ar_name[j] != '/') */
 			/* 	j++; */
 			/* ft_putnbr(j); */
@@ -71,7 +70,7 @@ int		ar_elf(char *ptr, char *offset, char *bin, int opt)
 			/* 	fprintf(stderr, "malloc has returned NULL\n"); */
 			/* 	return (-1); */
 			/* } */
-		}
+		/* } */
 		ar = (struct ar_hdr *)ptr;
 		printc('\n');
 		prints(ar->ar_name);
