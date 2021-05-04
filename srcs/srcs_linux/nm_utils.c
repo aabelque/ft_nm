@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:48:49 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:59:45 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,24 @@ int			check_offset_elf(char *ptr, char  *offset) {
 /* 	ft_qsort_symelf(sym, last + 1, right, comp); */
 /* } */
 
-void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char *, const char *)) {
-	int				i, j;
-	t_elf_symbol	current;
+void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)) {
+	int				wall, idx;
+	t_elf_symbol	pivot, tmp;
 
-	if (nb_element < 2)
+	if (size < 2)
 		return ;
-	for (i = 0; i < nb_element; i++) {
-		current = sym[i];
-		for (j = i; j > 0 && ((comp(sym[j - 1].name, current.name) > 0)
-					|| ((comp(sym[j - 1].name, current.name) == 0
-							&& sym[j - 1].value > current.value))); j--) {
-			sym[j] = sym[j - 1];
+	pivot = sym[size - 1];
+	wall = idx = 0;
+	while (idx < size) {
+		if (comp(sym[idx].name, pivot.name) < 0) {
+			if (wall != idx) {
+				tmp = sym[idx];
+				sym[idx] = sym[wall];
+				sym[wall] = tmp;
+			}
+			wall++;
 		}
-		sym[j] = current;
+		idx++;
 	}
 }
 
