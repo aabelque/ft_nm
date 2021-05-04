@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:24:50 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:35:59 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char 
 
 static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(const char *, const char *)) {
 	int i, j, k;
-	int sizel = mid - left;
+	int sizel = mid - left + 1;
 	int	sizer = right - mid;
 	t_elf_symbol tabl[sizel], tabr[sizer];
 
 	for (int i = 0; i < sizel; i++)
 		tabl[i] = sym[left + i];
 	for (int j = 0; j < sizer; j++)
-		tabr[j] = sym[mid + 1 + j];
+		tabr[j] = sym[mid + j];
 
 	i = 0;
 	j = 0;
@@ -72,7 +72,7 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 		printc('\n');
 		prints(tabr[j].name);
 		printc('\n');
-		if (comp(tabl[i].name, tabr[j].name) <= 0) {
+		if (comp(tabl[i].name, tabr[j].name) < 0) {
 			sym[k] = tabl[i];
 			i++;
 		}
