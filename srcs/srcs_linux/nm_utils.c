@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 13:03:29 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 13:12:44 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,21 @@ int			check_offset_elf(char *ptr, char  *offset) {
 /* 	ft_qsort_symelf(sym, last + 1, right, comp); */
 /* } */
 
-void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)) {
-	int				idx, wall, r;
-	t_elf_symbol	pivot;
+void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char *, const char *)) {
+	int				i, j, r;
+	t_elf_symbol	current;
 
-	if (size < 2)
+	if (nb_element < 2)
 		return ;
-	idx = wall = r = 0;
-	pivot = sym[size -1];
-	while (idx < size) {
-		r = comp(sym[idx].name, pivot.name);
-		if (r < 0 || (r == 0 && sym[idx].value < pivot.value)) {
-			if (wall != idx)
-				ft_swap_symelf(sym, idx, wall);
-			wall++;
+	r = 0;
+	for (i = 0; i < nb_element; i++) {
+		current = sym[i];
+		for (j = i; j > 0
+				&& (comp(sym[j - 1].name, current.name) > 0); j--) {
+			sym[j] = sym[j - 1];
 		}
-		idx++;
+		sym[j] = current;
 	}
-	ft_qsort_symelf(sym, wall - 1, comp);
-	ft_qsort_symelf(sym + (wall - 1), size - (wall + 1), comp);
 }
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
