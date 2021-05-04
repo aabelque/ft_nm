@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 15:05:11 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 15:43:40 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@
 	int						data_flags(t_elf_symbol sym, t_elf_section *sections);
 	int						rodata_flags(t_elf_symbol sym, t_elf_section *sections);
 	void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
+	void		merge_sort(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *));
 	/* void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, */
 	/* 		int (*comp)(const char *, const char *)); */
 void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *));

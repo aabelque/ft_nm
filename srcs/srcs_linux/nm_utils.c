@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 15:04:29 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 15:43:14 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,29 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char 
 		}
 		sym[j] = current;
 	}
+}
+
+static void	merge(t_elf_symbol *sym, int size, int mid, int (*comp)(const char *, const char *)) {
+	int i, j, k;
+	t_elf_symbol *tmp;
+
+	tmp = malloc(sizeof(*tmp) * size);
+	if (!tmp)
+		return ;
+	for (i = 0, j = mid, k =0; k < size; k++) {
+		tmp[k] = (j == size) ? sym[i++] : (i == mid) ? sym[j++] : comp(sym[j].name, sym[i].name) < 0 ? sym[j++] : sym[i++];
+	}
+}
+
+void		merge_sort(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)) {
+	int		mid;
+
+	if (size < 2)
+		return ;
+	mid = size / 2;
+	merge_sort(sym, mid, comp);
+	merge_sort(sym, size - mid, comp);
+	merge(sym, size, mid, comp);
 }
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
