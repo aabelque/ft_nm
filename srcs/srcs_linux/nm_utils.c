@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:38:41 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:41:05 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,105 +18,39 @@ int			check_offset_elf(char *ptr, char  *offset) {
 	return (EXIT_SUCCESS);
 }
 
-/* void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) { */
-/* 	int			last, i, r; */
+void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
+	int			last, i, r;
 
-/* 	if (left >= right) */
-/* 		return ; */
-/* 	ft_swap_symelf(sym, left, (left + right) / 2); */
-/* 	last = left; */
-/* 	for (i = left + 1; i <= right; i++) { */
-/* 		r = comp(sym[i].name, sym[left].name); */
-/* 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value)) */
-/* 			ft_swap_symelf(sym, ++last, i); */
-/* 	} */
-/* 	ft_swap_symelf(sym, left, last); */
-/* 	ft_qsort_symelf(sym, left, last - 1, comp); */
-/* 	ft_qsort_symelf(sym, last + 1, right, comp); */
-/* } */
-
-void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char *, const char *)) {
-	int				i, j;
-	t_elf_symbol	current;
-
-	if (nb_element < 2)
+	if (left >= right)
 		return ;
-	for (i = 0; i < nb_element; i++) {
-		current = sym[i];
-		for (j = i; j > 0 && ((comp(sym[j - 1].name, current.name) > 0)
-					|| ((comp(sym[j - 1].name, current.name) == 0
-							&& sym[j - 1].value > current.value))); j--) {
-			sym[j] = sym[j - 1];
-		}
-		sym[j] = current;
+	ft_swap_symelf(sym, left, (left + right) / 2);
+	last = left;
+	for (i = left + 1; i <= right; i++) {
+		r = comp(sym[i].name, sym[left].name);
+		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
+			ft_swap_symelf(sym, ++last, i);
 	}
+	ft_swap_symelf(sym, left, last);
+	ft_qsort_symelf(sym, left, last - 1, comp);
+	ft_qsort_symelf(sym, last + 1, right, comp);
 }
 
-static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(const char *, const char *)) {
-	int i, j, k;
-	int sizel = mid - left + 1;
-	int	sizer = right - mid;
-	t_elf_symbol tabl[sizel], tabr[sizer];
+/* void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char *, const char *)) { */
+/* 	int				i, j; */
+/* 	t_elf_symbol	current; */
 
-	for (int i = 0; i < sizel; i++)
-	{
-		tabl[i] = sym[left + i];
-		prints(tabl[i].name);
-		printc('\n');
-	}
-	for (int j = 0; j < sizer; j++)
-	{
-		tabr[j] = sym[mid + j];
-		prints(tabr[j].name);
-		printc('\n');
-	}
-
-	i = 0;
-	j = 0;
-	k = left;
-
-	while (i < sizel && j < sizer) {
-		prints(tabl[i].name);
-		printc('\n');
-		prints(tabr[j].name);
-		printc('\n');
-		if (comp(tabl[i].name, tabr[j].name) <= 0) {
-			sym[k] = tabl[i];
-			i++;
-		}
-		/* else if ((comp(tabl[i].name, tabr[j].name) == 0) */ 
-		/* 		&& (tabl[i].value < tabr[j].value)) { */
-		/* 	sym[k] = tabl[i]; */
-		/* 	i++; */
-		/* } */
-		else {
-			sym[k] = tabr[j];
-			j++;
-		}
-		k++;
-	}
-	while (i < sizel) {
-		sym[k] = tabl[i];
-		i++;
-		k++;
-	}
-	while (j < sizer) {
-		sym[k] = tabr[j];
-		j++;
-		k++;
-	}
-}
-
-void		merge_sort(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
-	int		mid;
-
-	if (left < right) {
-		mid = left + (right - left) / 2;
-		merge_sort(sym, left, mid, comp);
-		merge_sort(sym, mid + 1, right, comp);
-		merge(sym, left, mid, right, comp);
-	}
-}
+/* 	if (nb_element < 2) */
+/* 		return ; */
+/* 	for (i = 0; i < nb_element; i++) { */
+/* 		current = sym[i]; */
+/* 		for (j = i; j > 0 && ((comp(sym[j - 1].name, current.name) > 0) */
+/* 					|| ((comp(sym[j - 1].name, current.name) == 0 */
+/* 							&& sym[j - 1].value > current.value))); j--) { */
+/* 			sym[j] = sym[j - 1]; */
+/* 		} */
+/* 		sym[j] = current; */
+/* 	} */
+/* } */
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
 	t_elf_symbol	tmp;
