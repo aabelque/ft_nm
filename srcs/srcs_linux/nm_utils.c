@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:23:57 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:24:50 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char 
 
 static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(const char *, const char *)) {
 	int i, j, k;
-	int sizel = mid - left + 1;
+	int sizel = mid - left;
 	int	sizer = right - mid;
 	t_elf_symbol tabl[sizel], tabr[sizer];
 
