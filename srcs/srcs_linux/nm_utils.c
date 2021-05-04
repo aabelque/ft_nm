@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 19:00:47 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 19:03:16 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ int			check_offset_elf(char *ptr, char  *offset) {
 /* } */
 
 static int	partition(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *)) {
-	int				idx;
+	int				idx, r;
 	t_elf_symbol	pivot;
 
 	pivot = sym[high];
 	idx = low - 1;
 	for (int j = low; j <= high; j++) {
-		if (comp(sym[j].name, pivot.name) < 0) {
+		r = comp(sym[j].name, pivot.name);
+		if (r < 0) {
+			idx++;
+			ft_swap_symelf(sym, idx, j);
+		}
+		else if (r == 0 && sym[j].value < pivot.name) {
 			idx++;
 			ft_swap_symelf(sym, idx, j);
 		}
