@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:06:20 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:07:17 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,9 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 	int	sizer = right - mid;
 	t_elf_symbol tabl[sizel], tabr[sizer];
 
-	ft_putnbr(left);
-	printc('\n');
-	ft_putnbr(mid);
-	printc('\n');
-	ft_putnbr(right);
-	printc('\n');
 	for (int i = 0; i < sizel; i++)
 		tabl[i] = sym[left + i];
+	prints("X\n");
 	for (int j = 0; j < sizer; j++)
 		tabl[j] = sym[mid + 1 + j];
 
@@ -104,10 +99,6 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 void		merge_sort(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
 	int		mid;
 
-	ft_putnbr(left);
-	printc('\n');
-	ft_putnbr(right);
-	printc('\n');
 	if (left < right) {
 		mid = left + (right - left) / 2;
 		merge_sort(sym, left, mid, comp);
