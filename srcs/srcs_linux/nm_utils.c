@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:02:23 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:03:43 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void		merge_sort(t_elf_symbol *sym, int left, int right, int (*comp)(const char 
 		merge_sort(sym, left, mid, comp);
 		merge_sort(sym, mid + 1, right, comp);
 		merge(sym, left, mid, right, comp);
+	}
 }
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
