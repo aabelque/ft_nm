@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:48:49 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 18:59:56 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@
 	void					ft_swap_symelf(t_elf_symbol *sym, int i, int j);
 	/* void					ft_qsort_symelf(t_elf_symbol *sym, int left, int right, */
 	/* 		int (*comp)(const char *, const char *)); */
-void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *));
+void		ft_qsort_symelf(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *));
+/* void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)); */
 	char					*get_strtable(Elf64_Ehdr *eh);
 	char					*get_strname(Elf64_Ehdr *eh, int offset);
 	uint32_t				reverse32(uint32_t x, size_t size, short reverse);
