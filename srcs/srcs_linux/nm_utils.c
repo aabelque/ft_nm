@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:07:32 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:07:59 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 
 	for (int i = 0; i < sizel; i++)
 		tabl[i] = sym[left + i];
-	prints("X\n");
 	for (int j = 0; j < sizer; j++)
 		tabl[j] = sym[mid + 1 + j];
-	prints("X\n");
 
 	i = 0;
 	j = 0;
@@ -85,11 +83,13 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 		}
 		k++;
 	}
+	prints("X\n");
 	while (i < sizel) {
 		sym[k] = tabl[i];
 		i++;
 		k++;
 	}
+	prints("X\n");
 	while (j < sizer) {
 		sym[k] = tabr[j];
 		j++;
