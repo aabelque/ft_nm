@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 13:12:44 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 13:18:19 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,15 @@ int			check_offset_elf(char *ptr, char  *offset) {
 /* } */
 
 void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char *, const char *)) {
-	int				i, j, r;
+	int				i, j;
 	t_elf_symbol	current;
 
 	if (nb_element < 2)
 		return ;
-	r = 0;
 	for (i = 0; i < nb_element; i++) {
 		current = sym[i];
-		for (j = i; j > 0
-				&& (comp(sym[j - 1].name, current.name) > 0); j--) {
+		for (j = i; (j > 0 && (comp(sym[j - 1].name, current.name) > 0))
+				|| (j == 0 && sym[j - 1].value < current.value); j--) {
 			sym[j] = sym[j - 1];
 		}
 		sym[j] = current;
