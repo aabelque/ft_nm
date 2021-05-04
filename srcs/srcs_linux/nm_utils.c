@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 17:05:43 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:06:20 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(c
 void		merge_sort(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
 	int		mid;
 
+	ft_putnbr(left);
+	printc('\n');
+	ft_putnbr(right);
+	printc('\n');
 	if (left < right) {
 		mid = left + (right - left) / 2;
 		merge_sort(sym, left, mid, comp);
