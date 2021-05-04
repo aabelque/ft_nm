@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 20:13:43 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 12:55:31 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,47 @@ int			check_offset_elf(char *ptr, char  *offset) {
 	return (EXIT_SUCCESS);
 }
 
-void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
-	int			last, i, r;
+/* void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) { */
+/* 	int			last, i, r; */
 
-	if (left >= right)
+/* 	if (left >= right) */
+/* 		return ; */
+/* 	ft_swap_symelf(sym, left, (left + right) / 2); */
+/* 	last = left; */
+/* 	for (i = left + 1; i <= right; i++) { */
+/* 		r = comp(sym[i].name, sym[left].name); */
+/* 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value)) */
+/* 			ft_swap_symelf(sym, ++last, i); */
+/* 	} */
+/* 	ft_swap_symelf(sym, left, last); */
+/* 	ft_qsort_symelf(sym, left, last - 1, comp); */
+/* 	ft_qsort_symelf(sym, last + 1, right, comp); */
+/* } */
+
+void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)) {
+	int				idx, wall, r;
+	t_elf_symbol	pivot;
+
+	if (size < 2)
 		return ;
-	ft_swap_symelf(sym, left, (left + right) / 2);
-	last = left;
-	for (i = left + 1; i <= right; i++) {
-		r = comp(sym[i].name, sym[left].name);
-		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
-			ft_swap_symelf(sym, ++last, i);
+	idx = wall = r = 0;
+	pivot = sym[size -1];
+	while (idx < size) {
+		r = comp(sym[idx].name, pivot.name)
+		if (r < 0) {
+			if (wall != idx)
+				ft_swap_symelf(sym, idx, wall);
+			wall++;
+		}
+		else if (r == 0 && sym[idx].value < pivot.value) {
+			if (wall != idx)
+				ft_swap_symelf(sym, idx, wall);
+			wall++;
+		}
+		idx++;
 	}
-	ft_swap_symelf(sym, left, last);
-	ft_qsort_symelf(sym, left, last - 1, comp);
-	ft_qsort_symelf(sym, last + 1, right, comp);
+	ft_qsort_symelf(sym, wall - 1, comp);
+	ft_qsort_symelf(sym + (wall - 1), size - (wall + 1), comp);
 }
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
