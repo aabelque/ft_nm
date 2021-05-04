@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 16:33:27 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:02:23 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,57 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int nb_element, int (*comp)(const char 
 	}
 }
 
-static void	merge(t_elf_symbol *sym, int size, int mid, int (*comp)(const char *, const char *)) {
+static void	merge(t_elf_symbol *sym, int left, int mid, int right, int (*comp)(const char *, const char *)) {
 	int i, j, k;
-	t_elf_symbol *tmp;
+	int sizel = mid - left + 1;
+	int	sizer = right - mid;
+	t_elf_symbol tabl[sizel], tabr[sizer];
 
-	tmp = malloc(sizeof(*tmp) * size);
-	if (!tmp)
-		return ;
-	for (i = 0, j = mid, k = 0; k < size; k++) {
-		tmp[k] = (j == size)						  ? sym[i++]
-			   : (i == mid)							  ? sym[j++]
-			   : (comp(sym[i].name, sym[j].name) < 0) ? sym[j++]
-			   :										sym[i++];
+	for (int i = 0; i < sizel; i++)
+		tabl[i] = sym[left + i];
+	for (int j = 0; j < sizer; j++)
+		tabl[j] = sym[mid + 1 + j];
+
+	i = 0;
+	j = 0;
+	k = left;
+
+	while (i < sizel && j < sizer) {
+		if (comp(tabl[i].name, tabr[j].name) < 0) {
+			sym[k] = tabl[i];
+			i++;
+		}
+		else if ((comp(tabl[i].name, tabr[j].name) == 0) 
+				&& (tabl[i].value < tabr[j].value)) {
+			sym[k] = tabl[i];
+			i++;
+		}
+		else {
+			sym[k] = tabr[j];
+			j++;
+		}
+		k++;
 	}
-	for (i = 0; i < size; i++) {
-		sym[i] = tmp[i];
+	while (i < sizel) {
+		sym[k] = tabl[i];
+		i++;
+		k++;
 	}
-	free(tmp);
+	while (j < sizer) {
+		sym[k] = tabr[j];
+		j++;
+		k++;
+	}
 }
 
-void		merge_sort(t_elf_symbol *sym, int size, int (*comp)(const char *, const char *)) {
+void		merge_sort(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
 	int		mid;
 
-	if (size < 2)
-		return ;
-	mid = size / 2;
-	merge_sort(sym, mid, comp);
-	merge_sort(sym, size - mid, comp);
-	merge(sym, size, mid, comp);
+	if (left < right) {
+		mid = left + (right - left) / 2;
+		merge_sort(sym, left, mid, comp);
+		merge_sort(sym, mid + 1, right, comp);
+		merge(sym, left, mid, right, comp);
 }
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
