@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 15:48:31 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 15:53:55 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ static void	merge(t_elf_symbol *sym, int size, int mid, int (*comp)(const char *
 	tmp = malloc(sizeof(*tmp) * size);
 	if (!tmp)
 		return ;
-	for (i = 0, j = mid, k =0; k < size; k++) {
-		tmp[k] = (j == size) ? sym[i++] : (i == mid) ? sym[j++] : comp(sym[j].name, sym[i].name) > 0 ? sym[j++] : sym[i++];
+	for (i = 0, j = mid, k = 0; k < size; k++) {
+		tmp[k] = (j == size)						  ? sym[i++]
+			   : (i == mid)							  ? sym[j++]
+			   : (comp(sym[j].name, sym[i].name) < 0) ? sym[j++]
+			   :									    sym[i++];
 	}
 }
 
