@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 18:03:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/04 18:06:46 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_qsort_symelf(t_elf_symbol *sym, int size, int (*comp)(const char *, con
 	wall = idx = 0;
 	while (idx < size) {
 		if (comp(sym[idx].name, pivot.name) <= 0) {
-			if (wall != idx) {
+			if (wall != idx || sym[idx].value < pivot.value) {
 				tmp = sym[idx];
 				sym[idx] = sym[wall];
 				sym[wall] = tmp;
