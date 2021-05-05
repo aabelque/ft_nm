@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 16:06:07 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 19:02:53 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static inline t_elf_symbol	init_symbols(Elf32_Sym sym, t_elf_symbol symbols, cha
 }
 
 static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections, Elf32_Shdr *sh,
-		uint16_t ppc) {
+		uint16_t ppc, int shnum) {
 	char			c;
 
-	c = (ppc != EM_PPC) ? get_flags(symbols, sections) : get_flags_ppc(symbols, sections);
+	c = (ppc != EM_PPC) ? get_flags(symbols, sections, shnum) : get_flags_ppc(symbols, sections, shnum);
 	if (c == '0')
 		return ;
 	if (symbols.shndx == SHN_UNDEF)
@@ -60,7 +60,7 @@ static int					print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int 
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		print_symbols(symbols[i], sections, sh, REV(eh->e_machine, rev));
+		print_symbols(symbols[i], sections, sh, REV32(eh->e_machine, rev), REV32(eh->shnum, rev));
 	}
 	free(symbols);
 	return (EXIT_SUCCESS);

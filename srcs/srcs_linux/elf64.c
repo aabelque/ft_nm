@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 18:59:27 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 19:02:22 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 		hexdump(symbols.value, 16, 16);
 	write(1, " ", 1);
 	write(1, &c, 1);
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.bind); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.type); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.shndx); */
 	write(1, " ", 1);
 	prints(symbols.name);
 	write(1, "\n", 1);
@@ -65,7 +59,7 @@ static int					print_symelf(Elf64_Sym *sym, Elf64_Shdr *sh, Elf64_Ehdr *eh, int 
 	}
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
-		print_symbols(symbols[i], sections, eh->e_shnum);
+		print_symbols(symbols[i], sections, REV(eh->e_shnum, rev));
 	}
 	free(symbols);
 	return (EXIT_SUCCESS);
