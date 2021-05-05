@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 16:25:22 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 16:28:06 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,23 @@ static char		progbits_ppc(t_elf_symbol sym, t_elf_section *sections) {
 	}
 }
 
+static char		nobits_ppc(t_elf_symbol sym, t_elf_section *sections) {
+	if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
+		if (sym.type == STT_OBJECT) {
+			if (sym.bind == STB_GLOBAL) {
+				if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
+					return ('S');
+				return ('B');
+			}
+			else if (sym.bind == STB_WEAK)
+				return ('V');
+		}
+		if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
+			return ('S');
+		return (sym.bind == STB_LOCAL ? 'b' : 'B');
+	}
+}
+
 char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 	if (sym.shndx > MAX_SECTIONS || sym.shndx == SHN_ABS)
 		return (sym.bind == STB_LOCAL ? 'a' : 'A');
@@ -69,22 +86,8 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 		return (noname_flag(sym));
 	else if (sections[sym.shndx].type == SHT_PROGBITS)
 		return (progbits_ppc(sym, sections));
-	else if (sections[sym.shndx].type == SHT_NOBITS) {
-		if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
-			if (sym.type == STT_OBJECT) {
-				if (sym.bind == STB_GLOBAL) {
-					if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
-						return ('S');
-					return ('B');
-				}
-				else if (sym.bind == STB_WEAK)
-					return ('V');
-			}
-			if (!ft_strcmp(sections[sym.shndx].name, ".sbss"))
-				return ('S');
-			return (sym.bind == STB_LOCAL ? 'b' : 'B');
-		}
-	}
+	else if (sections[sym.shndx].type == SHT_NOBITS)
+		return (nobits_ppc(sym, sections));
 	return ('?');
 }
 
