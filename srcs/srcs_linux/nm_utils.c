@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:17:59 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:39:02 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			check_endianess(int	e_ident) {
 		case ELFDATA2MSB:
 			return (BIG);
 		default:
-			return (ft_perror("Corrupted file\n", 0));
+			return (0);
 	}
 }
 
