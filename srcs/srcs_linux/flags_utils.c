@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:30:46 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/05 16:15:17 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 16:17:10 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,21 @@ char		progbits_flag(t_elf_symbol sym, t_elf_section *sections) {
 		return (sym.bind == STB_LOCAL ? 'r' : 'R');
 	else if (sections[sym.shndx].flag == ((sections[sym.shndx].flag & SHF_MASKPROC) | (SHF_ALLOC | SHF_WRITE)))
 		return (sym.bind == STB_LOCAL ? 'g' : 'G');
+}
+
+char		nobits_flag(t_elf_symbol sym, t_elf_section *sections) {
+	if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
+		if (sym.bind == STB_LOOS)
+			return ('u');
+		if (sym.type == STT_OBJECT)
+			return (sym.bind == STB_LOCAL ? 'b' : (sym.bind == STB_GLOBAL) ? 'B' : 'V');
+		return (sym.bind == STB_LOCAL ? 'b' : 'B');
+	}
+	else if (sections[sym.shndx].flag == (SHF_WRITE | SHF_ALLOC | SHF_TLS))
+		return (sym.bind == STB_LOCAL ? 'b' : 'B');
+	else if (sections[sym.shndx].flag == (sections[sym.shndx].flag & SHF_MASKPROC) | (SHF_ALLOC | SHF_WRITE)) {
+		if (sym.type == STT_OBJECT)
+			return (sym.bind == STB_LOCAL ? 'B' : 'S');
+		return (sym.bind == STB_LOCAL ? 's' : 'S');
+	}
 }
