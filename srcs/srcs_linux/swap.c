@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:00:44 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 14:48:15 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 14:59:17 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ uint64_t			reverse64(uint64_t x, size_t size, short reverse) {
 	while (--size)
 		ptr_y[i++] = ptr_x[size];
 	ptr_y[i++] = ptr_x[size];
-	ft_putnbr(y);
-	printc('\n');
 	return (y);
 }
 
