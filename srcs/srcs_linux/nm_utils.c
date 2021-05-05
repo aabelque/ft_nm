@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 12:59:58 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 13:16:11 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,57 @@ int			check_offset_elf(char *ptr, char  *offset) {
 	return (EXIT_SUCCESS);
 }
 
-/* void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) { */
-/* 	int			last, i, r; */
+void		ft_qsort_symelf(t_elf_symbol *sym, int left, int right, int (*comp)(const char *, const char *)) {
+	int			last, i, r;
 
-/* 	if (left >= right) */
-/* 		return ; */
-/* 	ft_swap_symelf(sym, left, (left + right) / 2); */
-/* 	last = left; */
-/* 	for (i = left + 1; i <= right; i++) { */
-/* 		r = comp(sym[i].name, sym[left].name); */
-/* 		if (r < 0 || (r == 0 && sym[i].value < sym[left].value)) */
-/* 			ft_swap_symelf(sym, ++last, i); */
+	if (left >= right)
+		return ;
+	ft_swap_symelf(sym, left, (left + right) / 2);
+	last = left;
+	for (i = left + 1; i <= right; i++) {
+		r = comp(sym[i].name, sym[left].name);
+		if (r < 0 || (r == 0 && sym[i].value < sym[left].value))
+			ft_swap_symelf(sym, ++last, i);
+	}
+	ft_swap_symelf(sym, left, last);
+	ft_qsort_symelf(sym, left, last - 1, comp);
+	ft_qsort_symelf(sym, last + 1, right, comp);
+}
+
+/* static int	partition(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *)) { */
+/* 	int				idx, r; */
+/* 	t_elf_symbol	pivot; */
+
+/* 	pivot = sym[high]; */
+/* 	idx = low - 1; */
+/* 	for (int j = low; j <= high; j++) { */
+/* 		r = comp(sym[j].name, pivot.name); */
+/* 		if (r < 0) { */
+/* 			idx++; */
+/* 			ft_swap_symelf(sym, idx, j); */
+/* 		} */
+/* 		else if (r == 0 && sym[j].value < pivot.value) { */
+/* 			prints(sym[j].name); */
+/* 			prints(" - "); */
+/* 			prints(pivot.name); */
+/* 			printc('\n'); */
+/* 			idx++; */
+/* 			ft_swap_symelf(sym, idx, j); */
+/* 		} */
 /* 	} */
-/* 	ft_swap_symelf(sym, left, last); */
-/* 	ft_qsort_symelf(sym, left, last - 1, comp); */
-/* 	ft_qsort_symelf(sym, last + 1, right, comp); */
+/* 	ft_swap_symelf(sym, idx + 1, high); */
+/* 	return (idx + 1); */
 /* } */
 
-static int	partition(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *)) {
-	int				idx, r;
-	t_elf_symbol	pivot;
+/* void		ft_qsort_symelf(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *)) { */
+/* 	int		pidx; */
 
-	pivot = sym[high];
-	idx = low - 1;
-	for (int j = low; j <= high; j++) {
-		r = comp(sym[j].name, pivot.name);
-		if (r < 0) {
-			idx++;
-			ft_swap_symelf(sym, idx, j);
-		}
-		else if (r == 0 && sym[j].value < pivot.value) {
-			prints(sym[j].name);
-			prints(" - ");
-			prints(pivot.name);
-			printc('\n');
-			idx++;
-			ft_swap_symelf(sym, idx, j);
-		}
-	}
-	ft_swap_symelf(sym, idx + 1, high);
-	return (idx + 1);
-}
-
-void		ft_qsort_symelf(t_elf_symbol *sym, int low, int high, int (*comp)(const char *, const char *)) {
-	int		pidx;
-
-	if (low < high) {
-		pidx = partition(sym, low, high, comp);
-		ft_qsort_symelf(sym, low, pidx - 1, comp);
-		ft_qsort_symelf(sym, pidx + 1, high, comp);
-	}
-}
+/* 	if (low < high) { */
+/* 		pidx = partition(sym, low, high, comp); */
+/* 		ft_qsort_symelf(sym, low, pidx - 1, comp); */
+/* 		ft_qsort_symelf(sym, pidx + 1, high, comp); */
+/* 	} */
+/* } */
 
 void		ft_swap_symelf(t_elf_symbol *sym, int i, int j) {
 	t_elf_symbol	tmp;
