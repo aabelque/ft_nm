@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 12:53:00 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 13:19:07 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			elf32(char *ptr, char *offset, int opt) {
 	t_elf_section	*sections = NULL;
 
 	eh = (Elf32_Ehdr *)ptr;
+	if (check_offset_elf(eh->e_shoff, offset))
+		return (ft_perror("Corrupted file\n", 0));
 	endianess = (eh->e_ident[EI_DATA] == ELFDATA2LSB) ? LITTLE : BIG;
 	rev = should_reverse(endianess, get_endianess());
 	sh = (Elf32_Shdr *)(ptr + REV32(eh->e_shoff, rev));
