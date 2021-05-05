@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 18:49:55 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 18:53:42 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static t_elf_section		*get_elfsection(char *strtable, Elf64_Shdr *sh, int shnum)
 	int				i;
 	t_elf_section	*sections = NULL;
 
+	ft_putnbr(shnum);
+	printc('\n');
 	sections = malloc(sizeof(t_elf_section) * shnum);
 	if (!sections)
 		return (NULL);
