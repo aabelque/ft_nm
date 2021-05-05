@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:22:26 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:21:56 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:37:48 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ int							elf64(char *ptr, char *offset, int opt) {
 	if (check_offset_elf(ptr + eh->e_shoff, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	endianess = check_endianess(eh->e_ident[EI_DATA]);
+	printc('X')
 	if (endianess == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	printc('X')
 	rev = should_reverse(endianess, get_endianess());
 	sh = (Elf64_Shdr *)(ptr + REV(eh->e_shoff, rev));
 	strtable = ptr + REV(sh[REV(eh->e_shstrndx, rev)].sh_offset, rev);
