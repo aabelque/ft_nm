@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:11:52 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:22:21 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,12 @@ static inline void			print_symbols(t_elf_symbol symbols, t_elf_section *sections
 		hexdump(symbols.value, 16, 8);
 	write(1, " ", 1);
 	write(1, &c, 1);
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.bind); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.type); */
-	/* write(1, " ", 1); */
-	/* ft_putnbr(symbols.shndx); */
 	write(1, " ", 1);
 	prints(symbols.name);
 	write(1, "\n", 1);
 }
 
-static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int idx, t_elf_section *sections) {
+static int					print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int idx, t_elf_section *sections) {
 	char			*symstr_table;
 	int				symcnt, i, j = 0;
 	t_elf_symbol	*symbols = NULL;
@@ -64,7 +58,6 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 			j++;
 		}
 	}
-	/* ft_qsort_symelf(symbols, j, ft_strcmp); */
 	ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp);
 	for (i = 0; i < j; i++) {
 		print_symbols(symbols[i], sections, sh, REV(eh->e_machine, rev));
@@ -73,7 +66,7 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	return (EXIT_SUCCESS);
 }
 
-static t_elf_section	*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) {
+static t_elf_section		*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) {
 	int				i;
 	t_elf_section	*sections = NULL;
 
@@ -88,7 +81,7 @@ static t_elf_section	*get_elfsection(char *strtable, Elf32_Shdr *sh, int shnum) 
 	return (sections);
 }
 
-int			elf32(char *ptr, char *offset, int opt) {
+int							elf32(char *ptr, char *offset, int opt) {
 	short			endianess = 0, no_sym = 1;
 	char			*strtable;
 	Elf32_Ehdr		*eh;

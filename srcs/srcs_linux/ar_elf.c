@@ -6,7 +6,7 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:42:59 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/03 20:08:38 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:19:12 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void		print_archive(char *bin) {
 
 static char		*get_name(char **strtab, int str_idx, int size) {
 
-	int			idx;
-	char		*name, *tmp;
+	int				idx;
+	char			*name, *tmp;
 
 	idx = 0;
 	name = NULL;
