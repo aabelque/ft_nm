@@ -6,11 +6,26 @@
 /*   By: azziz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:30:46 by azziz             #+#    #+#             */
-/*   Updated: 2021/05/05 15:33:01 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 16:08:09 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+
+static char	progbits_alloc_write(t_elf_symbol sym) {
+	if (sym.bind == STB_WEAK) {
+		if (sym.type == STT_OBJECT)
+			return (sym.shndx == SHN_UNDEF ? 'v' : 'V');
+		return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+	}
+	else if (sym.bind == STB_GLOBAL) {
+		if (sym.type == STT_OBJECT)
+			return (sym.shndx == SHN_UNDEF ? 'G' : 'D');
+	}
+	else if (sym.bind == STB_LOOS)
+		return ('u');
+	return (sym.bind == STB_LOCAL ? 'd' : 'D');
+}
 
 char		progbits_flag(t_elf_symbol sym, t_elf_section *sections) {
 	if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_EXECINSTR)) {
@@ -19,18 +34,7 @@ char		progbits_flag(t_elf_symbol sym, t_elf_section *sections) {
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
 	}
 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE)) {
-		if (sym.bind == STB_WEAK) {
-			if (sym.type == STT_OBJECT)
-				return (sym.shndx == SHN_UNDEF ? 'v' : 'V');
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		}
-		else if (sym.bind == STB_GLOBAL) {
-			if (sym.type == STT_OBJECT)
-				return (sym.shndx == SHN_UNDEF ? 'G' : 'D');
-		}
-		else if (sym.bind == STB_LOOS)
-			return ('u');
-		return (sym.bind == STB_LOCAL ? 'd' : 'D');
+		return (progbits_alloc_write(sym));
 	}
 	else if (sections[sym.shndx].flag == (SHF_ALLOC | SHF_WRITE | SHF_EXECINSTR))
 		return (sym.bind == STB_LOCAL ? 't' : 'T');
