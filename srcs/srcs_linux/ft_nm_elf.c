@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/03 20:07:56 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 16:32:05 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int				nm_elf(char *ptr, char *offset, char *bin, int opt) {
 	struct ar_hdr	*ar;
 
+	ft_putnbr(ptr[EI_OSABI]);
+	return (0);
 	if (check_offset_elf(ptr, offset))
 		return (ft_perror("Corrupted file\n", 0));
 	if ((unsigned char)ptr[EI_MAG0] == 0x7f &&
