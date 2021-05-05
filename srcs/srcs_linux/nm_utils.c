@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/04 19:07:44 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 12:59:58 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ static int	partition(t_elf_symbol *sym, int low, int high, int (*comp)(const cha
 			ft_swap_symelf(sym, idx, j);
 		}
 		else if (r == 0 && sym[j].value < pivot.value) {
+			prints(sym[j].name);
+			prints(" - ");
+			prints(pivot.name);
+			printc('\n');
 			idx++;
 			ft_swap_symelf(sym, idx, j);
 		}
