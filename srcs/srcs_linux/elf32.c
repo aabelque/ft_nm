@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:58:09 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:58:20 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int							elf32(char *ptr, char *offset, int opt) {
 	eh = (Elf32_Ehdr *)ptr;
 	ft_putnbr((int)&offset);
 	printc('\n');
-	ft_putnbr((int)&(ptr + eh->e_shoff));
+	ft_putnbr((int)&ptr + eh->e_shoff);
 	printc('\n');
 	return (0);
 	/* if (check_offset_elf(ptr + eh->e_shoff, offset)) */
