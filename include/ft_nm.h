@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 16:17:47 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 18:57:56 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@
 
 	char					nobits_flag(t_elf_symbol sym, t_elf_section *sections);
 	char					progbits_flag(t_elf_symbol sym, t_elf_section *sections);
-	char					get_flags(t_elf_symbol sym, t_elf_section *sections);
+	char					get_flags(t_elf_symbol sym, t_elf_section *sections, int max_sections);
 	char					get_flags_ppc(t_elf_symbol sym, t_elf_section *sections);
 	short					should_reverse(short file, short machine);
 	int						open_binary_elf(char *bin, int *fd, char **ptr, struct stat *buff);
