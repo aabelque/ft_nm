@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:08:37 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:10:46 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int			check_endianess(int	e_ident) {
 
 	switch (e_ident) {
 		case ELFDATA2LSB:
-			endianess = LITTLE;
+			return (LITTLE);
 		case ELFDATA2MSB:
-			endianess = BIG;
+			return (BIG);
 		default:
 			return (ft_perror("Corrupted file\n", 0));
 	}
