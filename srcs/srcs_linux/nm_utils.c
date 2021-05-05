@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 15:39:02 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:54:00 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			check_endianess(int	e_ident) {
 }
 
 int			check_offset_elf(char *ptr, char  *offset) {
-	if (ptr > offset)
+	if (&ptr > &offset)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
