@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:49:57 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 12:49:40 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 12:50:56 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int			print_symelf(Elf32_Sym *sym, Elf32_Shdr *sh, Elf32_Ehdr *eh, int id
 	}
 	/* ft_qsort_symelf(symbols, j, ft_strcmp); */
 	/* ft_qsort_symelf(symbols, 0, j - 1, ft_strcmp); */
-	qsort(symbols, sizeof(symbols) / sizeof(*symbols), sizeof(*symbols), ft_strcmp);
+	qsort(symbols, j, sizeof(*symbols), ft_strcmp);
 	for (i = 0; i < j; i++) {
 		print_symbols(symbols[i], sections, sh, REV(eh->e_machine, rev));
 	}
