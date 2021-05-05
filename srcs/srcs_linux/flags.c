@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:24:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 16:17:08 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 16:19:45 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,24 @@ char			get_flags_ppc(t_elf_symbol sym, t_elf_section *sections) {
 	return ('?');
 }
 
+static char		noname_flag(t_elf_symbol sym) {
+	if (sym.bind == STB_WEAK) {
+		if (sym.type == STT_OBJECT)
+			return ('v');
+		return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
+	}
+	else if (sym.bind == STB_LOCAL && sym.type == STT_NOTYPE)
+		return ('0');
+	if (sym.shndx == SHN_UNDEF)
+		return (sym.bind == STB_WEAK ? 'w' : 'U');
+}
+
 char			get_flags(t_elf_symbol sym, t_elf_section *sections) {
 
 	if (sym.shndx > MAX_SECTIONS || sym.shndx == SHN_ABS)
 		return (sym.bind == STB_LOCAL ? 'a' : 'A');
-	if (sections[sym.shndx].name == NULL) {
-		if (sym.bind == STB_WEAK) {
-			if (sym.type == STT_OBJECT)
-				return ('v');
-			return (sym.shndx == SHN_UNDEF ? 'w' : 'W');
-		}
-		else if (sym.bind == STB_LOCAL && sym.type == STT_NOTYPE)
-			return ('0');
-		if (sym.shndx == SHN_UNDEF)
-			return (sym.bind == STB_WEAK ? 'w' : 'U');
-	}
+	if (sections[sym.shndx].name == NULL)
+		return (noname_flag(sym));
 	else if (sections[sym.shndx].type == SHT_PROGBITS)
 		return (progbits_flag(sym, sections));
 	else if (sections[sym.shndx].type == SHT_DYNAMIC) {
