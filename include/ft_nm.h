@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 13:39:05 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 13:16:09 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:10:01 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@
 	uint32_t				reverse32(uint32_t x, size_t size, short reverse);
 	uint64_t				reverse64(uint64_t x, size_t size, short reverse);
 	Elf64_Shdr				*get_shdr(Elf64_Ehdr *eh);
+	int			check_endianess(int	e_ident);
 
 # else
 	ERROR("It only work on MAC OS and LINUX system\n")

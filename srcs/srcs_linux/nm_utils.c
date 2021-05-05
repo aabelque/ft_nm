@@ -6,11 +6,23 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:43:06 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 13:16:11 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/05 15:08:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+
+int			check_endianess(int	e_ident) {
+
+	switch (e_ident) {
+		case ELFDATA2LSB:
+			endianess = LITTLE;
+		case ELFDATA2MSB:
+			endianess = BIG;
+		default:
+			return (ft_perror("Corrupted file\n", 0));
+	}
+}
 
 int			check_offset_elf(char *ptr, char  *offset) {
 	if (ptr > offset)
