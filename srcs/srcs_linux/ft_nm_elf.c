@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 14:33:02 by aabelque          #+#    #+#             */
-/*   Updated: 2021/05/05 18:18:29 by azziz            ###   ########.fr       */
+/*   Updated: 2021/05/06 12:30:13 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				nm_elf(char *ptr, char *offset, char *bin, int opt) {
 }
 
 static int		get_option(int ac, char *arg, int *option) {
-	if (!strcmp(arg, "-D"))
+	if (!ft_strcmp(arg, "-D"))
 		*option = 1;
 	if (*option && ac > 3)
 		write(1, "\n", 1);

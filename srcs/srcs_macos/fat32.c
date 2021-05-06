@@ -6,7 +6,7 @@
 /*   By: aabelque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:49:50 by aabelque          #+#    #+#             */
-/*   Updated: 2021/03/31 13:46:30 by aabelque         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:12:37 by azziz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static void			find_arch(cpu_type_t cputype, cpu_subtype_t cpusubtype, char *bin)
 		prints(bin);
 		write(1, " ", 1);
 		prints("(for architecture ppc):\n");
+	}
+	else
+	{
+		prints(bin);
+		write(1, " ", 1);
+		prints("(for architecture arm64e):\n");
 	}
 }
 
